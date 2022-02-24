@@ -1,9 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { RegisterRoutes } from "./build/routes";
+import { RegisterRoutes } from "./tsoa/routes";
 import swaggerUI from 'swagger-ui-express';
-import swaggerDocument from './build/swagger.json';
-
+import swaggerDocument from './tsoa/swagger.json';
 
 export const app = express();
 

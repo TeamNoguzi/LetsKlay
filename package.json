@@ -26,11 +26,14 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && cd server && tsoa spec-and-routes && tsc",
-    "start:prod": "",
+    "start": "node build/server.js",
+
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
+
+    "build:front": "react-scripts build",
+    "build:back": "cd server && tsoa spec-and-routes && tsc",
+    "build": "concurrently \"yarn:build:*\" ",
 
     "dev:front": "react-scripts start",
     "dev:back": "cd server && nodemon",

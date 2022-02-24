@@ -2,5 +2,5 @@
     "exec": "ts-node server.ts",
     "watch": ["."],
     "ext": "ts",
-    "ignore": ["build"]
+    "ignore": ["tsoa"]
 }
