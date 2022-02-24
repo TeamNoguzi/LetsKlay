@@ -28,8 +28,8 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node build/server.js",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
+    "storybook": "start-storybook -p 6006 -s src",
+    "build-storybook": "build-storybook -s src",
     "build:front": "react-scripts build",
     "build:back": "cd server && tsoa spec-and-routes && tsc",
     "build": "concurrently \"yarn:build:*\" ",
