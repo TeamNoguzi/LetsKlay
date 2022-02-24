@@ -1,5 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from 'cors';
+
 import { RegisterRoutes } from "./tsoa/routes";
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './tsoa/swagger.json';
@@ -13,6 +15,11 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/src'));
+
+// development
+if(process.env.NODE_ENV != 'production')
+  app.use(cors());
 
 RegisterRoutes(app);
 
