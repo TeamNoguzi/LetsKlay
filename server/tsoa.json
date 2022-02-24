@@ -1,7 +1,7 @@
 {
     "entryFile": "index.ts",
     "noImplicitAdditionalProperties": "throw-on-extras",
-    "controllerPathGlobs": ["**/*Controller.ts"],
+    "controllerPathGlobs": ["routes/**/*Controller.ts"],
     "spec": {
       "outputDirectory": "tsoa",
       "specVersion": 3
