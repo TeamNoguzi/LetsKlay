@@ -1,17 +1,18 @@
 import React from 'react';
-
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Reward, {RewardProps} from './Reward';
 
 export default {
+    title: 'Reward',
     component: Reward,
-    title: 'Reward'
-};
+} as ComponentMeta<typeof Reward>;
 
-const Template:React.FC<RewardProps> = args => <Reward {...args}/>;
+const Template:ComponentStory<typeof Reward> = args => <Reward {...args}/>;
 
-const DefaultProps:RewardProps = {
+export const Default = Template.bind({});
+Default.args = {
     title: 'reward',
-    options: [],
+    options: ['hi'],
     delievery: {
         start: new Date(),
         end: new Date()
@@ -19,5 +20,3 @@ const DefaultProps:RewardProps = {
     maxStock: 0,
     stock: 0
 }
-
-export const Default = Template.bind(DefaultProps);
