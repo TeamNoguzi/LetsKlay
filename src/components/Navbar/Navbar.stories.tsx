@@ -9,6 +9,12 @@ export default {
 
 const Template:ComponentStory<typeof Navbar> = args => <Navbar {...args}/>;
 
-export const Default = Template.bind({});
-Default.args = {
+export const Header = Template.bind({});
+Header.args = {
+    type:'header'
+}
+
+export const Footer = Template.bind({});
+Footer.args = {
+    type:'footer'
 }

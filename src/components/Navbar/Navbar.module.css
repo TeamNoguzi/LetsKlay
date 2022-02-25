@@ -1,0 +1,36 @@
+.nav-bar{
+    font-family:avenir;
+}
+
+/* nav container*/
+.nav-container {
+    width:100%;
+}
+.nav-container a{
+    display:block;
+    color: black !important;
+}
+
+.nav-padding{
+    min-width:20px;
+}
+.input-group {
+    width:fit-content;
+}
+.form-control {
+    float:right;
+    border-right:none;
+    flex-grow: 1;
+}
+.search-icon {
+    background-color:white;
+    border-left:none;
+}
+
+.icons {
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width:100px;
+}
