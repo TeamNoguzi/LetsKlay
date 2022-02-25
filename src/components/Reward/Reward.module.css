@@ -1,0 +1,21 @@
+.reward-card {
+    display:relative;
+    width:fit-content;
+}
+
+.reward-mask {
+    position:absolute;
+    left:0;
+    right:0;
+    height:100%;
+    width:100%;
+    color:transparent;
+
+    transition: 0.1s ease-in;
+}
+.reward-mask:hover {
+    color:black;
+    background-color:#DDBEA9AA;
+
+    
+}
