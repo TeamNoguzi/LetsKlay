@@ -23,10 +23,10 @@ const Reward:React.FC<RewardProps> =
 
     const stockColor = () => {
         const ratio = stock/maxStock;
-        if(!ratio || ratio < 0.1)
-            return '#FF0000'
-        else if (ratio < 0.3)
-            return '#FFFF00'
+        if(!ratio || ratio <= 0.1)
+            return '#E83E8C'
+        else if (ratio <= 0.3)
+            return '#F7CE5B'
         else return '#000000'
     }
     const startTime = delievery.start.toISOString().substring(0, 10);
