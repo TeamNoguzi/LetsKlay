@@ -1,6 +1,22 @@
+@font-face {
+  font-family: 'Avenir';
+  src: 'public/fonts/AvenirLTStd-Roman.otf';
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: 'public/fonts/AvenirLTStd-Book.otf';
+  font-weight: lighter;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: 'public/fonts/AvenirLTStd-Black.otf';
+  font-weight: bold;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -49,9 +65,4 @@ code {
   to {
     transform: rotate(360deg);
   }
-}
-
-.text-small {
-  font-size:10.8pt;
-  color:#3C3C3C;
 }
