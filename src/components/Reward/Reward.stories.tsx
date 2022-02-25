@@ -2,8 +2,6 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Reward, {RewardProps} from './Reward';
 
-import styles from './Reward.module.css';
-
 export default {
     title: 'Reward',
     component: Reward,

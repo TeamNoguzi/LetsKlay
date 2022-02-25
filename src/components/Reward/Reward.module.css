@@ -1,6 +1,14 @@
 .reward-card {
-    display:relative;
-    width:fit-content;
+    position: relative;
+    font-family: 'Avenir';
+    height:fit-content;
+}
+.reward-card h4 {
+    font-weight:600;
+}
+
+.reward-title {
+    font-size:18pt;
 }
 
 .reward-mask {
@@ -11,11 +19,19 @@
     width:100%;
     color:transparent;
 
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
     transition: 0.1s ease-in;
 }
 .reward-mask:hover {
     color:black;
     background-color:#DDBEA9AA;
+}
 
-    
+.text-small {
+    font-size:10.8pt;
+    font-weight: lighter;
+    color:#686868;
 }
