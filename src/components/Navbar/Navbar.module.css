@@ -80,3 +80,9 @@
         width: 240px !important;
     }
 }
+
+@media screen and (max-width:768px) {
+    .nav-bar {
+        padding: 5px 0;
+    }
+}
