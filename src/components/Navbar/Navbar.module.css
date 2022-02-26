@@ -1,5 +1,8 @@
 .nav-bar{
     font-family:avenir;
+    background-color:white;
+    border-top : 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 
 /* nav container*/
@@ -14,8 +17,11 @@
 .nav-padding{
     min-width:20px;
 }
-.input-group {
-    width:fit-content;
+
+/* input / form-control */
+/* pc */
+.input-group-pc-show, .input-group-pc-hide {
+    margin-right:10px;
 }
 .form-control {
     float:right;
@@ -27,10 +33,50 @@
     border-left:none;
 }
 
+/* mobile */
+.input-group-mobile-show, .input-group-mobile-hide {
+    width:fit-content !important;
+}
+.input-group-mobile-show > input {
+    transition: 0.2s ease-out;
+    margin:inherit;
+    max-width:240px;
+    border-width:1px;
+}
+.input-group-mobile-hide > input {
+    transition: 0.2s ease-out;
+    margin:0;
+    max-width:0px;
+    border-width:0px;
+}
+.input-group-mobile-show > span {
+    transition: 0.2s ease-out;
+    border-width:1px;
+}
+.input-group-mobile-hide > span {
+    transition: 0.2s ease-out;
+    border-width:0px;
+}
+
+/* icons */
 .icons {
     display:flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+}
 
-    width:100px;
+.icons > * {
+    width:20px;
+    padding:0 10px;
+
+    cursor:pointer;
+}
+
+@keyframes slidein {
+    from {
+        width: fit-content !important;
+    }
+    to {
+        width: 240px !important;
+    }
 }
