@@ -4,7 +4,7 @@ import {
     Container,
     Nav,
     InputGroup,
-    FormControl
+    FormControl,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faPlus, faBars } from '@fortawesome/free-solid-svg-icons';
