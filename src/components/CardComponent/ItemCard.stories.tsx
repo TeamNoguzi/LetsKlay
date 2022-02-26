@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import CardComponent, { CardProps } from "./CardComponent";
+import ItemCard, { CardProps } from "./ItemCard";
 
 export default {
-  title: "CardComponent",
-  component: CardComponent,
-} as ComponentMeta<typeof CardComponent>;
+  title: "ItemCard",
+  component: ItemCard,
+} as ComponentMeta<typeof ItemCard>;
 
-const Template: ComponentStory<typeof CardComponent> = (args) => <CardComponent {...args} />;
+const Template: ComponentStory<typeof ItemCard> = (args) => <ItemCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
