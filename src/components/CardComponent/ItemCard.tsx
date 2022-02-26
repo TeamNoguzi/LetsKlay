@@ -15,7 +15,7 @@ interface CardProps {
   };
 }
 
-const CardComponent: React.FC<CardProps> = ({ _title, _subtitle, _width, _heigth, _cardText, price, progress }) => {
+const ItemCard: React.FC<CardProps> = ({ _title, _subtitle, _width, _heigth, _cardText, price, progress }) => {
   return (
     <Card style={{ width: _width, height: _heigth }}>
       <Card.Img variant="top" src="holder.js/100px180" />
@@ -29,5 +29,5 @@ const CardComponent: React.FC<CardProps> = ({ _title, _subtitle, _width, _heigth
   );
 };
 
-export default CardComponent;
+export default ItemCard;
 export type { CardProps };
