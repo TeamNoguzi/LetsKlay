@@ -1,0 +1,35 @@
+.root-container {
+    padding:0;
+    height:450px ;
+    max-height:450px;
+    font-family: 'Avenir';
+}
+.root-container > div{
+    height:100%;
+}
+.root-container > div > div{
+    height:100%;
+}
+
+.like-btn{
+    width:100%;
+    color: #6B705C;
+    border-color: #6B705C;
+}
+.like-btn:hover{
+    background-color: #6B705C;
+    color:white;
+    border-color:white;
+}
+
+.main-image {
+    height:100%;
+    width:100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width:992px){
+    .root-container {
+        height:300px ;
+    }
+}
