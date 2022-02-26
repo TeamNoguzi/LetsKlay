@@ -1,0 +1,28 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import Header, {HeaderProps} from './Header';
+
+<Meta title="Header" component={Header}/>
+
+export const Template = args => <Header {...args}/>;
+
+## Header
+
+<Canvas>
+<Story
+  name="Default"
+  args={{
+    device:'pc'
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
+
+<Canvas>
+<Story
+  name="Mobile"
+  args={{
+    device:'mobile'
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>

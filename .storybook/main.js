@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   "stories": [
     "../src/**/components/*.stories.mdx",
@@ -15,9 +17,23 @@ module.exports = {
   },
   "addons": [
     "@storybook/addon-links",
+    "@storybook/addon-docs",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app"
+    "@storybook/preset-create-react-app",
+    "@storybook/addon-viewport",
+    {
+      name: '@storybook/addon-storysource',
+      options: {
+        rule: {
+          test: [/\.stories\.(tsx?|mdx)$/],
+          include: [path.resolve(__dirname, '../src')], // You can specify directories
+        },
+        loaderOptions: {
+          prettierConfig: { printWidth: 80, singleQuote: false },
+        },
+      },
+    },
   ],
   "framework": "@storybook/react",
   "core": {
