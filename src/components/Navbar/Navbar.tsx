@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Navbar,
     Container,
@@ -7,35 +7,45 @@ import {
     FormControl
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Navbar.module.css';
 
 interface NavbarProps {
     type:'header'|'footer';
+    device:'pc'|'mobile';
 }
 
-const Header:React.FC<NavbarProps> = ({type}) => {
+const Header:React.FC<NavbarProps> = ({type, device}) => {
+    const [showInput, setShowInput] = useState<boolean>(false);
 
     return (
         <Navbar 
-            bg="light" 
+            bg="white" 
             variant="light"
             className={styles['nav-bar']}
         >
             <Container>
                 <Nav className={styles['nav-container']}>
-                    <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Home</Nav.Link>
-                    <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Features</Nav.Link>
-                    <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Pricing</Nav.Link>
+                    {
+                        device === 'pc' ?
+                        <>
+                            <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Home</Nav.Link>
+                            <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Features</Nav.Link>
+                            <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Pricing</Nav.Link>
+                        </>:
+                        <>
+                            <Nav.Link>
+                                <FontAwesomeIcon icon={faBars}/>
+                            </Nav.Link>
+                        </>
+                    }
 
                     <div className={`${styles['nav-padding']} flex-grow-1`}/>
                     <InputGroup 
-                        className={`styles['input-group']`}
-                        style={{
-                            width:type==='header'?240:320,
-                        }}
+                        className={`${styles[`input-group-${device}-${showInput?'show':'hide'}`]}`}
+                        style={{width:device==='pc' && type==='header'?240:320,}}
                     >
                         <FormControl
                             className={styles['form-control']}
@@ -44,18 +54,23 @@ const Header:React.FC<NavbarProps> = ({type}) => {
                         />
                         <InputGroup.Text
                             className={styles['search-icon']}
+                            onClick={()=>setShowInput(!showInput)}
                         >
                             <FontAwesomeIcon icon={faMagnifyingGlass}/>
                         </InputGroup.Text>
                     </InputGroup>
-                    {
-                        type==='header'?
-                        <div className={styles['icons']}>
-                            <FontAwesomeIcon icon={faUser} />
-                            <FontAwesomeIcon icon={faPlus}/>
-                        </div>:
-                        undefined
-                    }
+
+                    <div className={styles['icons']}>
+                        {
+                            /* header only */
+                            type==='header'?
+                            <>
+                                <FontAwesomeIcon icon={faUser} />
+                                <FontAwesomeIcon icon={faPlus}/>
+                            </>
+                            :undefined
+                        }
+                    </div>
                 </Nav>
             </Container>
         </Navbar>

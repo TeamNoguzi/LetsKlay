@@ -17,14 +17,16 @@ module.exports = {
   },
   "addons": [
     "@storybook/addon-links",
+    "@storybook/addon-docs",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/preset-create-react-app",
+    "@storybook/addon-viewport",
     {
       name: '@storybook/addon-storysource',
       options: {
         rule: {
-          test: [/\.stories\.tsx?$/],
+          test: [/\.stories\.(tsx?|mdx)$/],
           include: [path.resolve(__dirname, '../src')], // You can specify directories
         },
         loaderOptions: {
