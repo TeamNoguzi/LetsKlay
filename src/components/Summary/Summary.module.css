@@ -1,0 +1,43 @@
+.root-container {
+    padding:0;
+    height:460px;
+    font-family: 'Avenir' !important;
+}
+.root-container > div{
+    height:100%;
+}
+.root-container > div > div{
+    height:100%;
+}
+
+.like-btn{
+    width:100%;
+    color: #6B705C;
+    border-color: #6B705C;
+}
+.like-btn:hover{
+    background-color: #6B705C;
+    color:white;
+    border-color:white;
+}
+
+.progress-bar > div{
+    background-color:#DDBEA9;
+}
+
+.icon {
+    width:24px;
+    color: #6B705C;
+}
+
+.main-image {
+    height:100%;
+    width:100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width:992px){
+    .root-container {
+        height:250px ;
+    }
+}

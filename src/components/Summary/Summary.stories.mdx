@@ -1,0 +1,31 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import Summary, {SummaryProps} from './Summary';
+
+<Meta title="Summary" component={Summary}/>
+
+export const Template = args => <Summary {...args}/>;
+
+## Summary
+
+<Canvas>
+<Story
+  name="Default"
+  args={{
+      picURL: 'https://picsum.photos/600/600',
+      title: 'An Awesome Project',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo tellus at metus tempor dignissim. \
+            Aenean erat velit, efficitur eget ligula sit amet, placerat ornare sapien. \
+            Suspendisse fermentum pretium nisl a lacinia. Sed mollis arcu a erat tempor iaculis. \
+            Ut luctus risus lectus, sed imperdiet augue auctor at. Maecenas pulvinar accumsan nulla feugiat tempor. \
+            Curabitur luctus libero at donec.',
+      likes: 3,
+      supporters:2,
+      fund: {
+        now:10,
+        goal:100
+      }
+  }}
+>
+  {Template.bind({})}
+</Story>
+</Canvas>
