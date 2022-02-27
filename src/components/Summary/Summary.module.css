@@ -21,8 +21,13 @@
     border-color:white;
 }
 
+.progress-bar > div{
+    background-color:#DDBEA9;
+}
+
 .icon {
     width:24px;
+    color: #6B705C;
 }
 
 .main-image {

@@ -44,9 +44,9 @@ const Summary:React.FC<SummaryProps> = ({picURL, title, desc, likes, fund, liked
                             <Row className="mb-3">
                                 <Col xs={12}>
                                     <h3>{fund.now} klay</h3>
-                                    <ProgressBar className="p-0" now={fund.now/fund.goal * 100} />
+                                    <ProgressBar className={`${styles['progress-bar']} p-0`} now={fund.now/fund.goal * 100} />
                                     <div>
-                                        <span> {fund.now/fund.goal * 100}% of {fund.goal} klay goal </span>
+                                        <span> {Math.round(fund.now/fund.goal * 100)}% of {fund.goal} klay goal </span>
                                         <span className="float-end"> {supporters} supporters </span>
                                     </div>
                                 </Col>
