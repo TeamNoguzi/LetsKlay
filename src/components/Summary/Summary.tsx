@@ -5,7 +5,8 @@ import {
     Row,
     Col,
     Image,
-    Button
+    Button,
+    ProgressBar
 } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,9 +21,15 @@ interface SummaryProps {
     title:string,
     desc:string,
     likes:number,
+    fund: {
+        goal: number,
+        now: number
+    },
+    supporters:number,
+    liked: boolean
 }
 
-const Summary:React.FC<SummaryProps> = ({picURL, title, desc, likes}) => {
+const Summary:React.FC<SummaryProps> = ({picURL, title, desc, likes, fund, liked, supporters}) => {
     return (
         <Container className={styles['root-container']}>
             <Row>
@@ -30,21 +37,31 @@ const Summary:React.FC<SummaryProps> = ({picURL, title, desc, likes}) => {
                     <Image className={styles['main-image']} src={picURL}/>
                 </Col>
                 <Col lg={4} xs={12}>
-                    <Container className="p-0 mt-4 mt-lg-0 d-flex flex-column h-100">
-                        <h2 className="mb-4">{title}</h2>
+                    <Container className="px-0 py-2 mt-4 mt-lg-0 d-flex flex-column h-100">
+                        <h2 className="mb-4 fw-bold">{title}</h2>
                         <p>{desc}</p>
                         <Container className="p-0 mt-auto">
+                            <Row className="mb-3">
+                                <Col xs={12}>
+                                    <h3>{fund.now} klay</h3>
+                                    <ProgressBar className="p-0" now={fund.now/fund.goal * 100} />
+                                    <div>
+                                        <span> {fund.now/fund.goal * 100}% of {fund.goal} klay goal </span>
+                                        <span className="float-end"> {supporters} supporters </span>
+                                    </div>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col xs={8}>
                                     <Button className={styles['like-btn']} size="lg" variant="outline-primary">
-                                        <FontAwesomeIcon icon={faRegularHeart}/> {likes}
+                                        <FontAwesomeIcon icon={liked?faSolidHeart:faRegularHeart}/> {likes}
                                     </Button>
                                 </Col>
                                 <Col xs={4}>
-                                    <Container className="p-0 w-100 h-100 d-flex flex-row justify-content-evenly align-items-center" >
-                                        <FontAwesomeIcon icon={faInstagram} size="2x"/>
-                                        <FontAwesomeIcon icon={faTwitter} size="2x"/>
-                                        <FontAwesomeIcon icon={faFacebook} size="2x"/>
+                                    <Container className="p-0 w-100 h-100 d-flex flex-row justify-content-around align-items-center" >
+                                        <FontAwesomeIcon className={styles['icon']} icon={faInstagram} size="2x"/>
+                                        <FontAwesomeIcon className={styles['icon']} icon={faTwitter} size="2x"/>
+                                        <FontAwesomeIcon className={styles['icon']} icon={faFacebook} size="2x"/>
                                     </Container>
                                 </Col>
                             </Row>

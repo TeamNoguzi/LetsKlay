@@ -1,8 +1,7 @@
 .root-container {
     padding:0;
-    height:450px ;
-    max-height:450px;
-    font-family: 'Avenir';
+    height:460px;
+    font-family: 'Avenir' !important;
 }
 .root-container > div{
     height:100%;
@@ -22,6 +21,10 @@
     border-color:white;
 }
 
+.icon {
+    width:24px;
+}
+
 .main-image {
     height:100%;
     width:100%;
@@ -30,6 +33,6 @@
 
 @media screen and (max-width:992px){
     .root-container {
-        height:300px ;
+        height:250px ;
     }
 }

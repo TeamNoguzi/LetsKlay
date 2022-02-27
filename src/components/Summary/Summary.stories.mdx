@@ -13,15 +13,19 @@ export const Template = args => <Summary {...args}/>;
   args={{
       picURL: 'https://picsum.photos/600/600',
       title: 'An Awesome Project',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. \
-      Fusce sed placerat urna. Sed cursus, neque at lobortis convallis, \
-      nunc ex consequat lectus, et interdum ante turpis sit amet orci. \
-      Suspendisse massa justo, cursus vitae diam sit amet, mattis luctus turpis. \
-      Morbi auctor vulputate mattis. Suspendisse orci dolor, posuere tincidunt purus eget, \
-      facilisis posuere urna. Phasellus imperdiet mattis ligula sed aliquam. \
-      Integer porttitor vehicula eros, laoreet mollis urna sodales ac.',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo tellus at metus tempor dignissim. \
+            Aenean erat velit, efficitur eget ligula sit amet, placerat ornare sapien. \
+            Suspendisse fermentum pretium nisl a lacinia. Sed mollis arcu a erat tempor iaculis. \
+            Ut luctus risus lectus, sed imperdiet augue auctor at. Maecenas pulvinar accumsan nulla feugiat tempor. \
+            Curabitur luctus libero at donec.',
       likes: 3,
-  }}>
+      supporters:2,
+      fund: {
+        now:10,
+        goal:100
+      }
+  }}
+>
   {Template.bind({})}
 </Story>
 </Canvas>
