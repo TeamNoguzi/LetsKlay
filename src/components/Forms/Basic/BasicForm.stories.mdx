@@ -1,0 +1,15 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import BasicForm, {BasicFormProps} from './BasicForm';
+
+<Meta title="Forms/BasicForm" component={BasicForm}/>
+
+export const Template = args => <BasicForm {...args}/>;
+
+<Canvas>
+<Story
+  name="Default"
+  args={{
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
