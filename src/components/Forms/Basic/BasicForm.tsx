@@ -30,13 +30,13 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
             </Row>
             <Row>
                 <Col lg={8} xs={12}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="basic-form-title">
                         <Form.Label className={styles['label']}>title</Form.Label>
                         <Form.Control type="text" placeholder="Enter title" />
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
-                    <p>
+                    <p className="pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Etiam bibendum erat id arcu suscipit mattis. 
                         Pellentesque dignissim nunc eu tortor molestie luctus. 
@@ -46,13 +46,13 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
             </Row>
             <Row>
                 <Col lg={8} xs={12}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="basic-form-subtitle">
                         <Form.Label className={styles['label']}>subtitle</Form.Label>
                         <Form.Control type="text" placeholder="Enter subtitle" />
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
-                    <p>
+                    <p className="pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Etiam bibendum erat id arcu suscipit mattis. 
                         Pellentesque dignissim nunc eu tortor molestie luctus. 
@@ -76,13 +76,13 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
             </Row>
             <Row>
                 <Col lg={8} xs={12}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="basic-form-summary">
                         <Form.Label className={styles['label']}>Summary</Form.Label>
-                        <Form.Control as="textarea" style={{height:'200px'}} placeholder="Enter title" />
+                        <Form.Control as="textarea" style={{height:'200px'}} placeholder="Enter summary" />
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
-                    <p>
+                    <p className="pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Etiam bibendum erat id arcu suscipit mattis. 
                         Pellentesque dignissim nunc eu tortor molestie luctus. 
@@ -106,13 +106,13 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
             </Row>
             <Row>
                 <Col lg={8} xs={12}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="basic-form-name">
                         <Form.Label className={styles['label']}>Company or Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title" />
+                        <Form.Control type="text" placeholder="Enter name" />
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
-                    <p>
+                    <p className="pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Etiam bibendum erat id arcu suscipit mattis. 
                         Pellentesque dignissim nunc eu tortor molestie luctus. 
@@ -122,13 +122,13 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
             </Row>
             <Row>
                 <Col lg={8} xs={12}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="basic-form-email">
                         <Form.Label className={styles['label']}>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Enter subtitle" />
+                        <Form.Control type="email" placeholder="Enter email" />
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
-                    <p>
+                    <p className="pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Etiam bibendum erat id arcu suscipit mattis. 
                         Pellentesque dignissim nunc eu tortor molestie luctus. 
@@ -138,13 +138,13 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
             </Row>
             <Row>
                 <Col lg={8} xs={12}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="basic-form-phone">
                         <Form.Label className={styles['label']}>Phone</Form.Label>
-                        <Form.Control type="phone" placeholder="Enter subtitle" />
+                        <Form.Control type="phone" placeholder="Enter phone" />
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
-                    <p>
+                    <p className="pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Etiam bibendum erat id arcu suscipit mattis. 
                         Pellentesque dignissim nunc eu tortor molestie luctus. 
