@@ -1,0 +1,13 @@
+.container {
+    font-family: 'Metropolis' !important;
+}
+.container h4{
+    font-weight:600;
+}
+
+.label {
+    font-size:0.8em;
+    color:#6f6f6f;
+    margin-bottom:0;
+    line-height:20px;
+}
