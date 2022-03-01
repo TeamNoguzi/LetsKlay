@@ -99,12 +99,14 @@ const PictureForm:React.FC<PictureFormProps> = ({}) => {
             </Row>
             <Row>
                 <span className={styles['label']}> Preview </span>
-                <div className="px-2.5">
+                <div className={`px-2.5 ${styles['thumbnail-wrap-outer']}`}>
+                    <div className={styles['thumbnail-wrap-inner']}>
                     {
                         thumbnail.url?
-                        <Image src={thumbnail.url} className={styles['image-thumbnail']}></Image>
+                        <Image src={thumbnail.url} className={styles['image-thumbnail']}/>
                         :<Placeholder className={styles['image-thumbnail']}/>
                     }
+                    </div>
                 </div>
             </Row>
 
@@ -156,12 +158,14 @@ const PictureForm:React.FC<PictureFormProps> = ({}) => {
             </Row>
             <Row>
                 <span className={styles['label']}> Preview </span>
-                <div className="px-2.5">
-                    {
-                        mainPic.url?
-                        <Image src={mainPic.url} className={styles['image-mainPic']}></Image>
-                        :<Placeholder className={styles['image-mainPic']}/>
-                    }
+                <div className={`px-2.5 ${styles['mainPic-wrap-outer']}`}>
+                    <div className={styles['mainPic-wrap-inner']}>
+                        {
+                            mainPic.url?
+                            <Image src={mainPic.url} className={styles['image-mainPic']}/>
+                            :<Placeholder className={styles['image-mainPic']}/>
+                        }
+                    </div>
                 </div>
             </Row>
 
