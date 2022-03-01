@@ -43,7 +43,7 @@ const ItemCard: React.FC<CardProps> = ({ mode, _title, _subtitle, _cardText, pri
       <Card.Body className={styles["card-body"]}>
         <Card.Title>{_title}</Card.Title>
         <Card.Subtitle className={styles["sub-title"]}>{_subtitle}</Card.Subtitle>
-        {mode === 'Default' ? <Card.Text className = {styles["card-text"]}>{_cardText}</Card.Text> : <span/>}
+          <Card.Text className = {styles["card-text"]}> {mode==='Default'?_cardText:undefined} </Card.Text> 
         <CardProgress price={price} progress={progress} />
       </Card.Body>
     </Card>
