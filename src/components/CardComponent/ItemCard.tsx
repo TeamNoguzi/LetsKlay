@@ -1,12 +1,12 @@
 import React from "react";
-import { Card,Button} from "react-bootstrap";
-import styles from "./CardComponent.module.css";
+import { Card, ProgressBar } from "react-bootstrap";
+import styles from "./ItemCard.module.css"; //module.css로 가져올때, 클래스이름을 알아서 바꿔준다..!! 오호!
+import doge from "/public/images/doge.jpg";
 
 interface CardProps {
+  mode : string;
   _title: string;
   _subtitle: string;
-  _width: number;
-  _heigth: number;
   _cardText: string;
   price: number;
   progress: {
@@ -14,16 +14,37 @@ interface CardProps {
     totalPrice: number;
   };
 }
-
-const ItemCard: React.FC<CardProps> = ({ _title, _subtitle, _width, _heigth, _cardText, price, progress }) => {
+interface ProgressProps {
+  price: number;
+  progress: {
+    percent: number;
+    totalPrice: number;
+  };
+}
+const CardProgress: React.FC<ProgressProps> = (props: ProgressProps) => {
   return (
-    <Card style={{ width: _width, height: _heigth }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
+    <div className="mt-auto">
+      <div>
+        <span>${props.price}</span>
+        <span className="float-end">
+          {props.progress.percent}% of ${props.progress.totalPrice.toLocaleString("en")}
+        </span>
+      </div>
+      <ProgressBar now={props.progress.percent} />
+    </div>
+  );
+};
+
+const ItemCard: React.FC<CardProps> = ({ mode, _title, _subtitle, _cardText, price, progress }) => {
+  //훅을 그냥.. 컨벤션의 문제다! 넌 다 합치는 편이야?
+  return (
+    <Card className={styles["item-card"]}>
+      <Card.Img className={styles["card-img"]} variant="top" src={doge} />
+      <Card.Body className={styles["card-body"]}>
         <Card.Title>{_title}</Card.Title>
-        <Card.Subtitle>{_subtitle}</Card.Subtitle>
-        <Card.Text>{_cardText}</Card.Text>
-        <Button variant="primary">Gosomewhere</Button>
+        <Card.Subtitle className={styles["sub-title"]}>{_subtitle}</Card.Subtitle>
+        {mode === 'Default' ? <Card.Text className = {styles["card-text"]}>{_cardText}</Card.Text> : <span/>}
+        <CardProgress price={price} progress={progress} />
       </Card.Body>
     </Card>
   );

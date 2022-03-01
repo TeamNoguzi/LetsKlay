@@ -1,5 +1,47 @@
-.reward-card {
-    position: relative;
-    font-family: 'Avenir';
-    height:fit-content;
+.item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 318px;
+
+  height: auto;
+
+  /* Global/09. White */
+
+  background: #ffffff;
+  /* Components/Card border */
+
+  border: 1px solid #dfdfdf;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+.sub-title {
+  color: gray;
+}
+.progressbar-upside {
+  display: flex;
+  flex-direction: row;
+}
+.card-img {
+  /* overflow: hidden; */
+  object-fit: cover;
+  flex: 1;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+}
+.card-text{
+    margin-top: 20px;
 }
