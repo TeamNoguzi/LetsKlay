@@ -1,0 +1,15 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import PictureForm, {PictureFormProps} from './PictureForm';
+
+<Meta title="Forms/PictureForm" component={PictureForm}/>
+
+export const Template = args => <PictureForm {...args}/>;
+
+<Canvas>
+<Story
+  name="Default"
+  args={{
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
