@@ -1,0 +1,15 @@
+.Logo-container-pc, .Logo-container-mobile{
+    width: 100%;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Logo-container-pc {
+    height:70px;
+}
+
+.Logo-container-mobile {
+    height:50px;
+}

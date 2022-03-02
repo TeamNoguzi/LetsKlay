@@ -1,0 +1,28 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import Footer, {FooterProps} from './Footer';
+
+<Meta title="Layout/Footer" component={Footer}/>
+
+export const Template = args => <Footer {...args}/>;
+
+## Footer
+
+<Canvas>
+<Story
+  name="Default"
+  args={{
+    device:'pc'
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
+
+<Canvas>
+<Story
+  name="Mobile"
+  args={{
+    device:'mobile'
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
