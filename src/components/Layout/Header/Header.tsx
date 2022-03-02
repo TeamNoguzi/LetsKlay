@@ -13,7 +13,7 @@ const Header:React.FC<HeaderProps> = ({device}) => {
 
     return (
         <>  
-            <div className={`${styles[`Logo-container-${device}`]}`}>
+            <div className={`${styles[`Logo-container-${device}`]} mb-2`}>
                 <Logo/>
             </div>
             <Navbar type='header' device={device}/>

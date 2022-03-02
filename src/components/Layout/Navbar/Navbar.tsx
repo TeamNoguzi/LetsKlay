@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
+import SideMenu from '../SideMenu/SideMenu';
+
 import styles from './Navbar.module.css';
 
 interface NavbarProps {
@@ -19,8 +21,13 @@ interface NavbarProps {
 
 const Header:React.FC<NavbarProps> = ({type, device}) => {
     const [showInput, setShowInput] = useState<boolean>(false);
+    const [showMenu, setShowMenu] = useState<boolean>(false);
+
+    const hideMenu = () => setShowMenu(false);
+    const toggleMenu = () => setShowMenu(!showMenu);
 
     return (
+        <>
         <Navbar 
             bg="white" 
             variant="light"
@@ -36,7 +43,7 @@ const Header:React.FC<NavbarProps> = ({type, device}) => {
                             <Nav.Link className="mx-lg-4 mx-md-3 mx-sm-2">Pricing</Nav.Link>
                         </>:
                         <>
-                            <Nav.Link>
+                            <Nav.Link onClick={toggleMenu}>
                                 <FontAwesomeIcon icon={faBars}/>
                             </Nav.Link>
                         </>
@@ -74,6 +81,8 @@ const Header:React.FC<NavbarProps> = ({type, device}) => {
                 </Nav>
             </Container>
         </Navbar>
+        <SideMenu show={showMenu} onHide={hideMenu}/>
+        </>
     )
 }
 

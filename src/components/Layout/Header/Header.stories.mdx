@@ -1,12 +1,13 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
-import Footer, {FooterProps} from './Footer';
+import Header, {HeaderProps} from './Header';
 
-<Meta title="Footer" component={Footer}/>
+<Meta title="Layout/Header" component={Header}/>
 
-export const Template = args => <Footer {...args}/>;
+export const Template = args => <Header {...args}/>;
 
-## Footer
+## Header
 
+### PC
 <Canvas>
 <Story
   name="Default"
@@ -17,6 +18,7 @@ export const Template = args => <Footer {...args}/>;
 </Story>
 </Canvas>
 
+### 모바일
 <Canvas>
 <Story
   name="Mobile"
