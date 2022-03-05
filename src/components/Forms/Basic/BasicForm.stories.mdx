@@ -9,6 +9,14 @@ export const Template = args => <BasicForm {...args}/>;
 <Story
   name="Default"
   args={{
+    info: {
+      title: '',
+      subtitle: '',
+      summary: '',
+      name: '',
+      email: '',
+      phone: ''
+    },
   }}>
   {Template.bind({})}
 </Story>

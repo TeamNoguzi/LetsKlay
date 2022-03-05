@@ -9,12 +9,21 @@ import {
 
 import styles from './BasicForm.module.css';
 
-interface BasicFormProps {
+interface BasicInfo {
+    title: string;
+    subtitle: string;
+    summary: string;
+    name: string;
+    email: string;
+    phone: string;
+}
 
+interface BasicFormProps {
+    info: BasicInfo;
+    onChange?: (info:BasicInfo)=>{};
 };
 
-const BasicForm:React.FC<BasicFormProps> = ({}) => {
-
+const BasicForm:React.FC<BasicFormProps> = ({info, onChange}) => {
     return (
         <Container className={styles['container']}>
             <Row>
@@ -32,7 +41,7 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
                 <Col lg={8} xs={12}>
                     <Form.Group className="mb-3" controlId="basic-form-title">
                         <Form.Label className={styles['label']}>title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title" />
+                        <Form.Control type="text" placeholder="Enter title" value={info.title}/>
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
@@ -48,7 +57,7 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
                 <Col lg={8} xs={12}>
                     <Form.Group className="mb-3" controlId="basic-form-subtitle">
                         <Form.Label className={styles['label']}>subtitle</Form.Label>
-                        <Form.Control type="text" placeholder="Enter subtitle" />
+                        <Form.Control type="text" placeholder="Enter subtitle" value={info.subtitle}/>
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
@@ -78,7 +87,7 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
                 <Col lg={8} xs={12}>
                     <Form.Group className="mb-3" controlId="basic-form-summary">
                         <Form.Label className={styles['label']}>Summary</Form.Label>
-                        <Form.Control as="textarea" style={{height:'200px'}} placeholder="Enter summary" />
+                        <Form.Control as="textarea" style={{height:'200px'}} placeholder="Enter summary" value={info.summary}/>
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
@@ -108,7 +117,7 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
                 <Col lg={8} xs={12}>
                     <Form.Group className="mb-3" controlId="basic-form-name">
                         <Form.Label className={styles['label']}>Company or Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" />
+                        <Form.Control type="text" placeholder="Enter name" value={info.name}/>
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
@@ -124,7 +133,7 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
                 <Col lg={8} xs={12}>
                     <Form.Group className="mb-3" controlId="basic-form-email">
                         <Form.Label className={styles['label']}>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control type="email" placeholder="Enter email" value={info.email}/>
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
@@ -140,7 +149,7 @@ const BasicForm:React.FC<BasicFormProps> = ({}) => {
                 <Col lg={8} xs={12}>
                     <Form.Group className="mb-3" controlId="basic-form-phone">
                         <Form.Label className={styles['label']}>Phone</Form.Label>
-                        <Form.Control type="phone" placeholder="Enter phone" />
+                        <Form.Control type="phone" placeholder="Enter phone" value={info.phone}/>
                     </Form.Group>
                 </Col>
                 <Col lg={4} className="d-none d-lg-block">
