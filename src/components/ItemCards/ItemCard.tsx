@@ -5,9 +5,9 @@ import doge from "/public/images/doge.jpg";
 
 interface CardProps {
   mode : string;
-  _title: string;
-  _subtitle: string;
-  _cardText: string;
+  title: string;
+  subtitle: string;
+  cardText: string;
   price: number;
   progress: {
     percent: number;
@@ -35,7 +35,7 @@ const CardProgress: React.FC<ProgressProps> = (props: ProgressProps) => {
   );
 };
 
-const ItemCard: React.FC<CardProps> = ({ mode, _title, _subtitle, _cardText, price, progress }) => {
+const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, price, progress }) => {
   //훅을 그냥.. 컨벤션의 문제다! 넌 다 합치는 편이야?
   return (
     <Card className={styles["item-card"]}>
