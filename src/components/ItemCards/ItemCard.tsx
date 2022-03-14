@@ -41,9 +41,9 @@ const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, price,
     <Card className={styles["item-card"]}>
       <Card.Img className={styles["card-img"]} variant="top" src={doge} />
       <Card.Body className={styles["card-body"]}>
-        <Card.Title>{_title}</Card.Title>
-        <Card.Subtitle className={styles["sub-title"]}>{_subtitle}</Card.Subtitle>
-          <Card.Text className = {styles["card-text"]}> {mode==='Default'?_cardText:undefined} </Card.Text> 
+        <Card.Title>{title}</Card.Title>
+        <Card.Subtitle className={styles["sub-title"]}>{subtitle}</Card.Subtitle>
+          <Card.Text className = {styles["card-text"]}> {mode==='Default'?cardText:undefined} </Card.Text> 
         <CardProgress price={price} progress={progress} />
       </Card.Body>
     </Card>
