@@ -6,8 +6,9 @@ import styles from './Reward.module.css';
 interface RewardProps {
     price:number,
     title:string,
-    options: {
-        option: string,
+    description:string,
+    items: {
+        name: string,
         quantity: number,
     }[],
     delievery: {
@@ -19,7 +20,7 @@ interface RewardProps {
 }
 
 const Reward:React.FC<RewardProps> = 
-({price, title, options, delievery, maxStock, stock}) => {
+({price, description, title, items, delievery, maxStock, stock}) => {
 
     const stockColor = () => {
         const ratio = stock/maxStock;
@@ -41,10 +42,10 @@ const Reward:React.FC<RewardProps> =
                 <Card.Title className={`${styles['reward-title']} mb-3`}>{price} klay</Card.Title>
                 <h4>{title}</h4>
 
-                <h6 className="text-muted mb-4">This option gives you a lot of pleasure</h6>
+                <h6 className="text-muted mb-4">{description}</h6>
                 <p className={`${styles['text-small']} mb-0`}>Includes:</p>
                 <ul>
-                    {options.map(option => <li>{`${option.option} x ${option.quantity}`}</li>)}
+                    {items.map(item => <li>{`${item.name} x ${item.quantity}`}</li>)}
                 </ul>
 
                 <p className={`${styles['text-small']} mb-0`}>Expected delievery:</p>
