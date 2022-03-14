@@ -1,0 +1,27 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import Profile, {ProfileProps} from './Profile';
+
+<Meta title="User/Profile" component={Profile}/>
+
+export const Template = args => <Profile {...args}/>;
+
+## Profile
+<Canvas>
+<Story
+  name="Default"
+  args={{
+    imageURL: 'https://picsum.photos/300/300',
+    name: 'USER',
+    email:'test@test.com',
+    location: 'Suwon, Korea'
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
+
+
+
+
+
+
+
