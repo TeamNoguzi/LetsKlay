@@ -1,0 +1,23 @@
+.wrapper {
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image{
+    width:256px;
+    height:256px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.info{
+    width:256px;
+    max-width:100%;
+}
+.info > span {
+    font-size:10.8pt;
+    color:#3c3c3c;
+
+}
