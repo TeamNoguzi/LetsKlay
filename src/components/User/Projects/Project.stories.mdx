@@ -1,0 +1,53 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import Project, {ProjectProps} from './Project';
+
+<Meta title="User/Project" component={Project}/>
+
+export const Template = args => <Project {...args}/>;
+
+## Projects
+<Canvas>
+<Story
+  name="Default"
+  args={{
+    projects: {
+        preparing: {
+            count: 0,
+            cards: [
+              {
+                mode:'small',
+                title:'test',
+                subtitle:'test',
+                price:30,
+                cardText:'',
+                progress: {
+                  percent:30,
+                  totalPrice:30
+                }
+              }
+            ]
+        },
+        launched: {
+            count: 0,
+            cards: []
+        },
+        supported: {
+            count: 0,
+            cards: []
+        },
+        following: {
+            count: 0,
+            cards: []
+        },
+    }
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>
+
+
+
+
+
+
+
