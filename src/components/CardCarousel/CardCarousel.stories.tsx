@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import CardCarousel, {_CarouselProps} from './CardCarousel';
+import CardCarousel, {CarouselProps} from './CardCarousel';
 
 export default {
     title: 'CardCarousel',
