@@ -11,34 +11,20 @@ export const Template = args => <Project {...args}/>;
   name="Default"
   args={{
     projects: {
-        preparing: {
-            count: 0,
-            cards: [
-              {
-                mode:'small',
-                title:'test',
-                subtitle:'test',
-                price:30,
-                cardText:'',
-                progress: {
-                  percent:30,
-                  totalPrice:30
-                }
-              }
-            ]
-        },
-        launched: {
-            count: 0,
-            cards: []
-        },
-        supported: {
-            count: 0,
-            cards: []
-        },
-        following: {
-            count: 0,
-            cards: []
-        },
+        preparing:[
+          {
+            mode:'small',
+            title:'test',
+            subtitle:'test',
+            price:30,
+            cardText:'',
+            nowPrice:200,
+            totalPrice:1000,
+          }
+        ],
+        launched: [],
+        supported: [],
+        following: [],
     }
   }}>
   {Template.bind({})}

@@ -9,24 +9,13 @@ import ItemCard, {CardProps} from '../../ItemCards/ItemCard';
 
 import styles from './Project.module.css';
 
+// 추후에 props 말고 여기 안에서 ajax로 받아오도록 변경?
 interface ProjectProps {
     projects: {
-        preparing: {
-            count: number,
-            cards: CardProps[]
-        },
-        launched: {
-            count: number,
-            cards: CardProps[]
-        },
-        supported: {
-            count: number,
-            cards: CardProps[]
-        },
-        following: {
-            count: number,
-            cards: CardProps[]
-        },
+        preparing: CardProps[],
+        launched: CardProps[],
+        supported: CardProps[],
+        following: CardProps[]
     }
 }
 
@@ -48,7 +37,7 @@ const Project:React.FC<ProjectProps> = ({projects}) => {
                                         onClick={()=>setSelectedMenu(idx)}
                                     >
                                         <span>{menuNames[idx]}</span>
-                                        <h5>{val.count}</h5>
+                                        <h5>{val.length}</h5>
                                     </Col>
                                 )
                             })
@@ -59,9 +48,9 @@ const Project:React.FC<ProjectProps> = ({projects}) => {
 
             <Container>
                 <Row>
-                    <Col xs={4} sm={3} lg={3}>
+                    <Col xs={12} sm={6} lg={3}>
                         {
-                            Object.values(projects)[selectedMenu].cards.map((val, idx)=> {
+                            Object.values(projects)[selectedMenu].map((val, idx)=> {
                                 return (
                                     <ItemCard {...val}/>
                                 )
