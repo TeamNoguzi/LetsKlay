@@ -4,7 +4,7 @@ import styles from "./ItemCard.module.css"; //module.css로 가져올때, 클래
 import doge from "/public/images/doge.jpg";
 
 interface CardProps {
-  mode : string;
+  mode: string;
   title: string;
   subtitle: string;
   cardText: string;
@@ -14,26 +14,6 @@ interface CardProps {
     totalPrice: number;
   };
 }
-interface ProgressProps {
-  price: number;
-  progress: {
-    percent: number;
-    totalPrice: number;
-  };
-}
-const CardProgress: React.FC<ProgressProps> = (props: ProgressProps) => {
-  return (
-    <div className="mt-auto">
-      <div>
-        <span>${props.price}</span>
-        <span className="float-end">
-          {props.progress.percent}% of ${props.progress.totalPrice.toLocaleString("en")}
-        </span>
-      </div>
-      <ProgressBar now={props.progress.percent} />
-    </div>
-  );
-};
 
 const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, price, progress }) => {
   //훅을 그냥.. 컨벤션의 문제다! 넌 다 합치는 편이야?
@@ -43,8 +23,19 @@ const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, price,
       <Card.Body className={styles["card-body"]}>
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle className={styles["sub-title"]}>{subtitle}</Card.Subtitle>
-          <Card.Text className = {styles["card-text"]}> {mode==='Default'?cardText:undefined} </Card.Text> 
-        <CardProgress price={price} progress={progress} />
+        <Card.Text className={styles["card-text"]}>
+          {" "}
+          {mode === "Default" ? cardText : undefined}{" "}
+        </Card.Text>
+        <div className="mt-auto">
+          <div>
+            <span>${price}</span>
+            <span className="float-end">
+              {progress.percent}% of ${progress.totalPrice.toLocaleString("en")}
+            </span>
+          </div>
+          <ProgressBar now={progress.percent} />
+        </div>
       </Card.Body>
     </Card>
   );
