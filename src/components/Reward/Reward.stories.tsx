@@ -13,17 +13,18 @@ export const Default = Template.bind({});
 Default.args = {
     price: 0,
     title: 'Reward Title',
-    options: [
+    description: 'Reward Description',
+    items: [
         {
-            option: 'Delicious burger',
+            name: 'Delicious burger',
             quantity: 1,
         },
         {
-            option: 'French Fries',
+            name: 'French Fries',
             quantity: 1,
         },
         {
-            option: 'Zero coke',
+            name: 'Zero coke',
             quantity: 1,
         }
     ],

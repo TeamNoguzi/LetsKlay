@@ -1,0 +1,51 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import RewardForm, {RewardFormProps} from './RewardForm';
+
+<Meta title="Forms/RewardForm" component={RewardForm}/>
+
+export const Template = args => <RewardForm {...args}/>;
+
+<Canvas>
+<Story
+  name="Default"
+  args={{
+    rewards:[
+      {
+        price:100,
+        title:'Test reward',
+        description:'',
+        items: [
+          {
+            name: 'string',
+            quantity: 1,
+          }
+        ],
+        delievery: {
+            start:new Date(),
+            end:new Date(),
+        },
+        maxStock: 300,
+        stock: 50
+      },
+      {
+        price:100,
+        title:'Test reward2',
+        description:'',
+        items: [
+          {
+            name: 'string',
+            quantity: 1,
+          }
+        ],
+        delievery: {
+            start:new Date(),
+            end:new Date(),
+        },
+        maxStock: 300,
+        stock: 50
+      }
+    ]
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>

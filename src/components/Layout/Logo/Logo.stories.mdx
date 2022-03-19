@@ -1,0 +1,18 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import Logo, {LogoProps} from './Logo';
+
+<Meta title="Layout/Logo" component={Logo}/>
+
+export const Template = args => <Logo {...args}/>;
+
+## Logo
+
+### PC 로고
+<Canvas>
+<Story
+  name="Default"
+  args={{
+  }}>
+  {Template.bind({})}
+</Story>
+</Canvas>

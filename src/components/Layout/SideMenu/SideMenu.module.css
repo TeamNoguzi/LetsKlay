@@ -1,0 +1,15 @@
+.canvas-container{
+    width:250px;
+    max-width:70%;
+}
+.canvas-body{
+    text-align:end;
+    padding-right:32px;
+}
+.canvas-body > div {
+    margin-bottom: 25px;
+    cursor:pointer;
+}
+.canvas-body h5 {
+    font-weight:600;
+}

@@ -1,6 +1,5 @@
 {
-    "exec": "ts-node server.ts",
+    "exec": "nest start",
     "watch": ["."],
-    "ext": "ts",
-    "ignore": ["tsoa"]
+    "ext": "ts"
 }

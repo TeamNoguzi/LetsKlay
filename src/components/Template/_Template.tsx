@@ -6,12 +6,12 @@ interface _TemplateProps {
     
 }
 
-const Header:React.FC<_TemplateProps> = () => {
+const _Template:React.FC<_TemplateProps> = () => {
     return (
         <>
         </>
     )
 }
 
-export default Header;
+export default _Template;
 export type {_TemplateProps};
