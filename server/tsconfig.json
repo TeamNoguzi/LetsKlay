@@ -1,42 +1,23 @@
 {
-    "compilerOptions": {
-      /* Basic Options */
-      "incremental": true,
-      "target": "es6",
-      "module": "commonjs",
-      "outDir": "../build",
-  
-      /* Strict Type-Checking Options */
-      "strict": true,
-      "noImplicitAny": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "strictBindCallApply": true,
-      "strictPropertyInitialization": true,
-      "noImplicitThis": true,
-      "alwaysStrict": true,
-  
-      /* Additional Checks */
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true,
-  
-      /* Module Resolution Options */
-      "moduleResolution": "node",
-      "baseUrl": ".",
-      "esModuleInterop": true,
-  
-      /* Experimental Options */
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-  
-      /* Advanced Options */
-      "forceConsistentCasingInFileNames": true,
-
-      "resolveJsonModule": true
-    },
-    "include": [
-        "./"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "../build",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+  }
 }
