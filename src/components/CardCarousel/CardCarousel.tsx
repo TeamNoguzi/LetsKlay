@@ -2,24 +2,23 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styles from "./CardCarousel.module.css";
-import ItemCard from "../CardComponent/ItemCard";
+import ItemCard from "../ItemCards/ItemCard";
 
 /* 
  N개가 입력되고, 흠 4개를 보여줄 거임..
 */
-interface _CarouselProps {}
+interface CarouselProps {}
 
-const CardCarousel: React.FC<_CarouselProps> = () => {
+const CardCarousel: React.FC<CarouselProps> = () => {
   const array = ["First", "Second", "Third", "Fourth", "Fifth"];
   const process = array.map(function (iter) {
     return (
-      <div className="px-3  ㅍ">
-          ""ㅏㅏㅣㅣ::ㅣㅣ"""ㅏㅏㅏㅏㅏ""ㅏㅏ":ㅣㅏㅣ:"":ㅣ
+      <div className="px-3">
         <ItemCard
           mode="Default"
-          _title={iter}
-          _subtitle="adsf"
-          _cardText="asdf"
+          title={iter}
+          subtitle="adsf"
+          cardText="asdf"
           price={1000}
           progress={{ percent: 50, totalPrice: 100 }}
         />
@@ -48,13 +47,12 @@ const CardCarousel: React.FC<_CarouselProps> = () => {
     <div>
       Weekly Popular
       <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots={true}
+        swipeable={true}
+        draggable={true}
         responsive={responsive}
         ssr={false} // means to render carousel on server-side.
         infinite={true}
-        autoPlay={true}
+        autoPlay={false}
         autoPlaySpeed={3000} // bigger is slower
         keyBoardControl={true}
         customTransition="all .5"
@@ -73,4 +71,4 @@ const CardCarousel: React.FC<_CarouselProps> = () => {
 };
 
 export default CardCarousel;
-export type { _CarouselProps };
+export type { CarouselProps };
