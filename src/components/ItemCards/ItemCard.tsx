@@ -4,7 +4,7 @@ import styles from "./ItemCard.module.css"; //module.css로 가져올때, 클래
 import doge from "/public/images/doge.jpg";
 
 interface CardProps {
-  mode : 'Default' | 'Mini';
+  mode: "Default" | "Mini";
   title: string;
   subtitle: string;
   cardText: string;
@@ -12,12 +12,16 @@ interface CardProps {
   totalPrice: number;
 }
 
-const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, nowPrice, totalPrice }) => {
+const ItemCard: React.FC<CardProps> = ({
+  mode = "Default",
+  title = "default title",
+  subtitle = "default subtitle",
+  cardText = "No Addtional Text in this Project",
+  nowPrice = 0,
+  totalPrice = 0,
+}) => {
   //훅을 그냥.. 컨벤션의 문제다! 넌 다 합치는 편이야?
-  let progress = nowPrice/totalPrice * 100; 
-
-
-
+  let progress = (nowPrice / totalPrice) * 100;
 
   return (
     <Card className={styles["item-card"]}>

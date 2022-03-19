@@ -19,7 +19,7 @@ export const Template = (args) => <ItemCard {...args} />;
     name="Default"
     args={{
       mode: "Default",
-      title: "Card title",
+      title: "Card title Default",
       subtitle: "Card subtitle",
       cardText: "Some quick example text to build on the card title and make up the bulk of the card's content.",
       nowPrice: 38023,
@@ -37,7 +37,7 @@ export const Template = (args) => <ItemCard {...args} />;
     name="Mini"
     args={{
       mode: "Mini",
-      title: "Card title",
+      title: "Card title Mini",
       subtitle: "Card subtitle",
       cardText: "Some quick example text to build on the card title and make up the bulk of the card's content.",
       nowPrice: 1000,
@@ -48,16 +48,3 @@ export const Template = (args) => <ItemCard {...args} />;
   </Story>
 </Canvas>
 
-/_
-interface CardProps {
-title : string,
-subtitle : string,
-\_width : number,
-\_heigth : number,
-cardText : string,
-price : number,
-progress : {
-percent : number,
-totalPrice : number,
-}
-}_/
