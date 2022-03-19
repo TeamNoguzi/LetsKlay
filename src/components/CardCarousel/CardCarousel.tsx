@@ -2,31 +2,34 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styles from "./CardCarousel.module.css";
-import ItemCard from "../ItemCards/ItemCard";
+import ItemCard, { CardProps } from "../ItemCards/ItemCard";
 
 /* 
  N개가 입력되고, 흠 4개를 보여줄 거임..
+ 지금 해야할 것은? -> interface를 지정해서-> 
 */
-interface CarouselProps {}
+interface CarouselProps {
+toRenderCardProps : Array<CardProps>
+}
 
-const CardCarousel: React.FC<CarouselProps> = () => {
-  const array = ["First", "Second", "Third", "Fourth", "Fifth"];
-  const process = array.map(function (iter) {
+const CardCarousel: React.FC<CarouselProps> = ({toRenderCardProps}) => {
+  const process = toRenderCardProps.map(function (iter) {
+    //px-3 -> give padding 3 along with x-axis(left,right)
     return (
-      <div className="px-3">
+      <div className="px-3"> 
         <ItemCard
-          mode="Default"
-          title={iter}
-          subtitle="adsf"
-          cardText="asdf"
-          nowPrice= {3003}
-          totalPrice= {100000}
+          mode={iter.mode}
+          title={iter.title}
+          subtitle = {iter.subtitle}
+          cardText = {iter.cardText}
+          nowPrice= {iter.nowPrice}
+          totalPrice= {iter.totalPrice}
         />
       </div>
     );
   });
 
-  const responsive = {
+  const responsive = { //
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 4,
