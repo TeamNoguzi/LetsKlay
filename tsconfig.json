@@ -19,10 +19,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-  },
-  "rootDir": ".",
-  "paths": {
-    "public/*" : ["public/*"]
+    
+    "rootDir": ".",
+    "paths": {
+      "public/*" : ["public/*"]
+    },
   },
   "include": [
     "src"
