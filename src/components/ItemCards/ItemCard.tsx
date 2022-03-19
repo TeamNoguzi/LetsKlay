@@ -4,7 +4,7 @@ import styles from "./ItemCard.module.css"; //module.css로 가져올때, 클래
 import doge from "/public/images/doge.jpg";
 
 interface CardProps {
-  mode: string;
+  mode : 'Default' | 'Mini';
   title: string;
   subtitle: string;
   cardText: string;
