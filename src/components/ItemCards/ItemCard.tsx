@@ -4,47 +4,40 @@ import styles from "./ItemCard.module.css"; //module.css로 가져올때, 클래
 import doge from "/public/images/doge.jpg";
 
 interface CardProps {
-  mode : string;
+  mode : 'Default' | 'Mini';
   title: string;
   subtitle: string;
   cardText: string;
-  price: number;
-  progress: {
-    percent: number;
-    totalPrice: number;
-  };
+  nowPrice: number;
+  totalPrice: number;
 }
-interface ProgressProps {
-  price: number;
-  progress: {
-    percent: number;
-    totalPrice: number;
-  };
-}
-const CardProgress: React.FC<ProgressProps> = (props: ProgressProps) => {
-  return (
-    <div className="mt-auto">
-      <div>
-        <span>${props.price}</span>
-        <span className="float-end">
-          {props.progress.percent}% of ${props.progress.totalPrice.toLocaleString("en")}
-        </span>
-      </div>
-      <ProgressBar now={props.progress.percent} />
-    </div>
-  );
-};
 
-const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, price, progress }) => {
+const ItemCard: React.FC<CardProps> = ({ mode, title, subtitle, cardText, nowPrice, totalPrice }) => {
   //훅을 그냥.. 컨벤션의 문제다! 넌 다 합치는 편이야?
+  let progress = nowPrice/totalPrice * 100; 
+
+
+
+
   return (
     <Card className={styles["item-card"]}>
       <Card.Img className={styles["card-img"]} variant="top" src={doge} />
       <Card.Body className={styles["card-body"]}>
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle className={styles["sub-title"]}>{subtitle}</Card.Subtitle>
-          <Card.Text className = {styles["card-text"]}> {mode==='Default'?cardText:undefined} </Card.Text> 
-        <CardProgress price={price} progress={progress} />
+        <Card.Text className={styles["card-text"]}>
+          {" "}
+          {mode === "Default" ? cardText : undefined}{" "}
+        </Card.Text>
+        <div className="mt-auto">
+          <div>
+            <span>${nowPrice.toLocaleString("en")}</span>
+            <span className="float-end">
+              {progress}% of ${totalPrice.toLocaleString("en")}
+            </span>
+          </div>
+          <ProgressBar now={progress} />
+        </div>
       </Card.Body>
     </Card>
   );
