@@ -19,8 +19,8 @@ const CardCarousel: React.FC<CarouselProps> = () => {
           title={iter}
           subtitle="adsf"
           cardText="asdf"
-          price={1000}
-          progress={{ percent: 50, totalPrice: 100 }}
+          nowPrice={1000}
+          totalPrice={2000}
         />
       </div>
     );
