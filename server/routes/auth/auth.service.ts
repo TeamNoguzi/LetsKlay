@@ -12,7 +12,7 @@ export class AuthService {
         private usersService: UsersService,
         private jwtService: JwtService
     ) {}
-    
+    // 로그인 요청 -> 앱컨트롤러 -> 로컬가드 -> 로컬스트래트지 -> 밸리데이트 자동호출 -> 어스서비스의 밸리데이터
     async validateUser(address:string, sign:any) {
         const prefix = Buffer.from("\x19Klaytn Signed Message:\n");
         const hashedMessage = caver.utils.sha3(Buffer.concat([prefix, Buffer.from(String(MESSAGE.length)), Buffer.from(MESSAGE)]));
