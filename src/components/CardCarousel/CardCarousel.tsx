@@ -5,14 +5,14 @@ import styles from "./CardCarousel.module.css";
 import ItemCard, { CardProps } from "../ItemCards/ItemCard";
 
 /* 
- N개가 입력되고, 흠 4개를 보여줄 거임..
- 지금 해야할 것은? -> interface를 지정해서-> 
+ https://www.npmjs.com/package/react-multi-carousel
 */
 interface CarouselProps {
 toRenderCardProps : Array<CardProps>
+carouselTitle : string
 }
 
-const CardCarousel: React.FC<CarouselProps> = ({toRenderCardProps}) => {
+const CardCarousel: React.FC<CarouselProps> = ({toRenderCardProps,carouselTitle = "default carousel title"}) => {
   const process = toRenderCardProps.map(function (iter) {
     //px-3 -> give padding 3 along with x-axis(left,right)
     return (
@@ -48,18 +48,18 @@ const CardCarousel: React.FC<CarouselProps> = ({toRenderCardProps}) => {
   };
   return (
     <div>
-      Weekly Popular
+      {carouselTitle}
       <Carousel
         swipeable={true}
         draggable={true}
         responsive={responsive}
-        ssr={false} // means to render carousel on server-side.
+        //ssr={false} // means to render carousel on server-side.
         infinite={true}
         autoPlay={false}
-        autoPlaySpeed={3000} // bigger is slower
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={1000}
+        // autoPlaySpeed={3000} // bigger is slower
+        // keyBoardControl={true}
+        //customTransition="all .1"
+        //transitionDuration={1000}
         removeArrowOnDeviceType={["tablet", "mobile"]}
         //deviceType={this.props.deviceType}
         // dotListClass="custom-dot-list-style"
