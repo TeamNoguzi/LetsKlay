@@ -17,4 +17,8 @@ export class UsersService {
       }
     });
   }
+
+  async createOne(address:string, email:string): Promise<User> {
+    return await this.usersRepository.save({address, email})
+  }
 }
