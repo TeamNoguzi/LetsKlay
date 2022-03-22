@@ -1,28 +1,5 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional, ApiTags } from "@nestjs/swagger";
 import { ProjectStatus } from "./projects.enum";
-
-export class CreateProjectDto{
-    @ApiPropertyOptional()
-    title?: string;
-
-    @ApiPropertyOptional()
-    subtitle?: string;
-  
-    @ApiPropertyOptional()
-    summary?: string;
-  
-    @ApiPropertyOptional()
-    thumbnailUrl?: string;
-
-    @ApiPropertyOptional()
-    mainPictureUrl?: string;
-  
-    @ApiPropertyOptional()
-    description?: string;
-
-    @ApiPropertyOptional()
-    fundGoal?: number;
-}
 
 export class FindProjectResponseDto{
     @ApiProperty()
@@ -46,7 +23,6 @@ export class FindProjectResponseDto{
     @ApiProperty()
     status: ProjectStatus;
 }
-
 export class FindProjectFullResponseDto extends FindProjectResponseDto{
     @ApiProperty()
     mainPictureUrl: string;
@@ -58,3 +34,29 @@ export class FindProjectFullResponseDto extends FindProjectResponseDto{
     createdAt: Date;
 }
 
+export class CreateProjectDto{
+    @ApiPropertyOptional()
+    title?: string;
+
+    @ApiPropertyOptional()
+    subtitle?: string;
+  
+    @ApiPropertyOptional()
+    summary?: string;
+  
+    @ApiPropertyOptional()
+    thumbnailUrl?: string;
+
+    @ApiPropertyOptional()
+    mainPictureUrl?: string;
+  
+    @ApiPropertyOptional()
+    description?: string;
+
+    @ApiPropertyOptional()
+    fundGoal?: number;
+}
+export class CreateProjectResponseDto extends FindProjectFullResponseDto {}
+
+export class UpdateProjectDto extends CreateProjectDto {}
+export class UpdateProjectResponseDto extends FindProjectFullResponseDto {}
