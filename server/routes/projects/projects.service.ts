@@ -22,6 +22,9 @@ export class ProjectsService {
                 title:true,
                 subtitle:true,
                 thumbnailUrl:true,
+                fundGoal:true,
+                fundNow:true,
+                status:true
             },
             where: {user: {id: userId}}
         });

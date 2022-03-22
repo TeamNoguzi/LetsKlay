@@ -5,7 +5,7 @@ import { JwtAuthGuard } from 'routes/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'routes/auth/guard/roles.guard';
 import { Roles } from 'routes/auth/roles/roles.decorator';
 import { Role } from 'routes/auth/roles/roles.enum';
-import { CreateProjectDto, FindAllProjectListResponseDto, FindProjectResponseDto } from './projects.dto';
+import { CreateProjectDto, FindProjectResponseDto, FindProjectFullResponseDto } from './projects.dto';
 import { ProjectsService } from './projects.service';
 
 @ApiTags('projects')
@@ -15,15 +15,15 @@ export class ProjectsController {
         private readonly projectsService : ProjectsService
     ) {}
 
-    @ApiResponse({type: FindProjectResponseDto})
+    @ApiResponse({type: FindProjectFullResponseDto})
     @Get(':id')
-    async findOne(@Param('id') id: number): Promise<FindProjectResponseDto> {
+    async findOne(@Param('id') id: number): Promise<FindProjectFullResponseDto> {
         return await this.projectsService.findOne(id);
     }
 
-    @ApiResponse({type: [FindAllProjectListResponseDto]})
+    @ApiResponse({type: [FindProjectResponseDto]})
     @Get(':userId/all')
-    async findAllListFromUser(@Param('userId') userId: number): Promise<FindAllProjectListResponseDto[]> {
+    async findAllListFromUser(@Param('userId') userId: number): Promise<FindProjectResponseDto[]> {
         return await this.projectsService.findAllListFromUser(userId);
     }
 

@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { Project } from "./projects.entity";
+import { ProjectStatus } from "./projects.enum";
 
 export class CreateProjectDto{
     @ApiPropertyOptional()
@@ -13,9 +13,15 @@ export class CreateProjectDto{
   
     @ApiPropertyOptional()
     thumbnailUrl?: string;
+
+    @ApiPropertyOptional()
+    mainPictureUrl?: string;
   
     @ApiPropertyOptional()
     description?: string;
+
+    @ApiPropertyOptional()
+    fundGoal?: number;
 }
 
 export class FindProjectResponseDto{
@@ -30,21 +36,25 @@ export class FindProjectResponseDto{
   
     @ApiProperty()
     thumbnailUrl: string;
+
+    @ApiProperty()
+    fundGoal: number;
+
+    @ApiProperty()
+    fundNow: number;
+
+    @ApiProperty()
+    status: ProjectStatus;
+}
+
+export class FindProjectFullResponseDto extends FindProjectResponseDto{
+    @ApiProperty()
+    mainPictureUrl: string;
   
     @ApiProperty()
     description: string;
-}
-
-export class FindAllProjectListResponseDto{
-    @ApiProperty()
-    title: string;
 
     @ApiProperty()
-    subtitle: string;
-  
-    @ApiProperty()
-    summary: string;
-  
-    @ApiProperty()
-    thumbnailUrl: string;
+    createdAt: Date;
 }
+
