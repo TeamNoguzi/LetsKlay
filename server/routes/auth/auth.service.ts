@@ -35,7 +35,7 @@ export class AuthService {
     }
     
     login(user: any): string {
-        const payload = {role:user.role, address:user.address}
+        const payload = {id: user.id, role:user.role, address:user.address}
         return this.jwtService.sign(payload, {
             expiresIn:'1h',
             algorithm:'ES256'
