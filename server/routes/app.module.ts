@@ -8,11 +8,13 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { UsersModule } from './users/users.module';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: (() => {
     const production = process.env.NODE_ENV === 'production';
     const nestModules = [
+      ProjectsModule,
       UsersModule,
       AuthModule,
     ];

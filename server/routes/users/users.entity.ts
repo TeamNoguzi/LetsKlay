@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Project } from 'routes/projects/projects.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
@@ -17,6 +17,9 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(type=>Project, project=>project.user)
+  projects: Project[]
 
   @CreateDateColumn()
   createAt: Date;

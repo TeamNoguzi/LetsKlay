@@ -17,7 +17,7 @@ export class AppController {
     private readonly authService: AuthService
   ) {}
   
-  @ApiBody({ type: FindUserDto})
+  @ApiBody({type: FindUserDto})
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(@Req() req: Request, @Res({passthrough: true}) res: Response): void {
@@ -30,7 +30,6 @@ export class AppController {
     });
     return;
   }
-
 
   @Post('register')
   async register(@Body() createUserDto:CreateUserDto): Promise<boolean> {
