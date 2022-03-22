@@ -1,5 +1,6 @@
 import { User } from 'routes/users/users.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { ProjectStatus } from './projects.enum';
 
 @Entity()
 export class Project {
@@ -23,11 +24,23 @@ export class Project {
   thumbnailUrl: string;
 
   @Column({nullable:true})
+  mainPictureUrl: string;
+
+  @Column({nullable:true})
   description: string;
 
+  @Column({nullable:true})
+  fundGoal: number;
+
+  @Column({nullable:false, default: 0})
+  fundNow: number;
+
+  @Column({nullable:false, default: ProjectStatus.preparing})
+  status: ProjectStatus;
+
   @CreateDateColumn()
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 }
