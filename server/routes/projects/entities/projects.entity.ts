@@ -39,7 +39,9 @@ export class Project {
   @Column({nullable:false, default: ProjectStatus.preparing})
   status: ProjectStatus;
 
-  @OneToMany(type=>Reward, Reward=>Reward.project)
+  @OneToMany(type=>Reward, Reward=>Reward.project, {
+    cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
+  })
   rewards: Reward[];
 
   @CreateDateColumn()

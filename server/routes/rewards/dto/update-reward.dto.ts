@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateRewardDto } from './create-reward.dto';
+import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
+import { CreateRewardDto, CreateRewardItemDto } from "./create-reward.dto";
 
-export class UpdateRewardDto extends PartialType(CreateRewardDto) {}
+export class UpdateRewardItemDto extends CreateRewardItemDto {
+    @ApiPropertyOptional()
+    id?: number;
+}
+
+export class UpdateRewardDto extends PartialType(CreateRewardDto) {
+    @ApiPropertyOptional({type: [UpdateRewardItemDto]})
+    items?: UpdateRewardItemDto[]
+}

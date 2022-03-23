@@ -55,8 +55,8 @@ export class RewardsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRewardDto: UpdateRewardDto) {
-    return this.rewardsService.update(+id, updateRewardDto);
+  updateOne(@Param('id') id: string, @Body() updateRewardDto: UpdateRewardDto) {
+    return this.rewardsService.updateOne(+id, updateRewardDto);
   }
 
   @ApiOperation({summary:'리워드 삭제'})
@@ -65,6 +65,6 @@ export class RewardsController {
   @Roles(Role.User, Role.Admin)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.rewardsService.remove(+id);
+    return this.rewardsService.deleteOne(+id);
   }
 }

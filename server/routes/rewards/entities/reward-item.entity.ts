@@ -6,7 +6,10 @@ export class RewardItem {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type=>Reward, Reward=>Reward.items)
+    @ManyToOne(type=>Reward, Reward=>Reward.items, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
     reward: Reward
 
     @Column()

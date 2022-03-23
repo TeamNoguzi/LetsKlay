@@ -22,22 +22,18 @@ export class RewardsService {
   }
 
   findAll(projectId: number) {
-    return this.rewardsRepository.find({
-      where: {
-        project: {id: projectId}
-      }
-    })
+    return this.rewardsRepository
+    .createQueryBuilder('reward')
+    .leftJoinAndSelect('reward.items', 'item')
+    .where('reward.projectId = :projectId', {projectId})
+    .getMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reward`;
+  updateOne(id: number, updateRewardDto: UpdateRewardDto) {
+    return this.rewardsRepository.save({...updateRewardDto, id});
   }
 
-  update(id: number, updateRewardDto: UpdateRewardDto) {
-    return `This action updates a #${id} reward`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} reward`;
+  deleteOne(id: number) {
+    return this.rewardsRepository.delete({id});
   }
 }

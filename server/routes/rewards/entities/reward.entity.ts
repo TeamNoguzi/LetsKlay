@@ -7,10 +7,14 @@ export class Reward {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type=>Project, Project=>Project.rewards)
+    @ManyToOne(type=>Project, Project=>Project.rewards, {
+        onDelete:'CASCADE', onUpdate:'CASCADE'
+    })
     project: Project;
 
-    @OneToMany(type=>RewardItem, RewardItem=>RewardItem.reward)
+    @OneToMany(type=>RewardItem, RewardItem=>RewardItem.reward, {
+        cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
+    })
     items: RewardItem[];
 
     @Column()

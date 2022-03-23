@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 
 export class CreateRewardItemDto {
     @ApiProperty()
@@ -9,9 +9,6 @@ export class CreateRewardItemDto {
 }
 
 export class CreateRewardDto {
-    @ApiProperty({type:[CreateRewardItemDto]})
-    items: CreateRewardItemDto[];
-    
     @ApiProperty()
     title: string;
 
@@ -29,4 +26,12 @@ export class CreateRewardDto {
 
     @ApiProperty()
     stock: number;
+
+    @ApiProperty({type:[CreateRewardItemDto]})
+    items: CreateRewardItemDto[];
+}
+
+export class CreateRewardResponseDto extends CreateRewardDto {
+    @ApiProperty()
+    id: number;
 }
