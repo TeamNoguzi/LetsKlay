@@ -46,7 +46,7 @@ export class ProjectsService {
         return await this.projectsRepository.findOne({where: {id: id}});
     }
 
-    async findAllListFromUser(userId:number) {
+    async findAllListFromUser(userId:number, status:number) {
         return await this.projectsRepository.find({
             select: {
                 id:true,
@@ -57,7 +57,10 @@ export class ProjectsService {
                 fundNow:true,
                 status:true
             },
-            where: {user: {id: userId}}
+            where: {
+                user: {id: userId},
+                status
+            }
         });
     }
 
@@ -66,20 +69,18 @@ export class ProjectsService {
     }
 
     async updateOne(userId:number, id:number, updateDto:UpdateProjectDto) {
-        await this.verifyUserProject(userId, id);
-        return await this.projectsRepository.save({...updateDto, id: id});
+        return await this.projectsRepository.update({id: id, user: {id:userId}}, {...updateDto});
     }
 
     async deleteOne(userId:number, id:number) {
-        await this.verifyUserProject(userId, id);
-        return await this.projectsRepository.delete({id});
+        return await this.projectsRepository.delete({id:id, user:{id:userId}});
     }
 
-    async updateStatusOne(userId:number, id:number, status:ProjectStatus): Promise<Project> {
+    async updateStatusOne(userId:number, id:number, status:ProjectStatus) {
         const user = await this.verifyUserProject(userId, id);
-        const filled = Object.keys(user).every((val, idx, arr) => user[val]);
+        const filled = Object.keys(user).every((val, idx, arr) => user[val]!==null);
         if(filled)
-            return this.projectsRepository.save({id, status});
+            return this.projectsRepository.update({user:{id:userId}, id: id}, {status});
         else {
             const err = new Error('The project information are not filled');
             err.name = 'NullException';
