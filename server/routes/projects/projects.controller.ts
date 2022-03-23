@@ -5,13 +5,13 @@ import { JwtAuthGuard } from 'routes/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'routes/auth/guard/roles.guard';
 import { Roles } from 'routes/auth/roles/roles.decorator';
 import { Role } from 'routes/auth/roles/roles.enum';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { 
     CreateProjectDto, 
     FindProjectResponseDto, 
     FindProjectFullResponseDto, 
     UpdateProjectDto, 
     CreateProjectResponseDto,
-    UpdateProjectResponseDto
 } from './projects.dto';
 import { ProjectStatus } from './projects.enum';
 import { ProjectsService } from './projects.service';
@@ -47,7 +47,7 @@ export class ProjectsController {
         @Req() req: Request,
         @Param('id') id: number, 
         @Body() updateDto : UpdateProjectDto
-    ): Promise<CreateProjectResponseDto> {
+    ): Promise<UpdateResult> {
         return await this.projectsService.updateOne(Number(req.user.id), id, updateDto);
     }
 
@@ -59,7 +59,7 @@ export class ProjectsController {
     async deleteOne(
         @Req() req: Request,
         @Param('id') id: number, 
-    ) {
+    ): Promise<DeleteResult> {
         return await this.projectsService.deleteOne(Number(req.user.id), id);
     }
 
@@ -73,7 +73,7 @@ export class ProjectsController {
         @Req() req: Request,
         @Param('id') id: number,
         @Param('status') status: ProjectStatus
-    ): Promise<UpdateProjectResponseDto> {
+    ): Promise<UpdateResult> {
         return await this.projectsService.updateStatusOne(Number(req.user.id), id, status);
     }
 
@@ -83,8 +83,8 @@ export class ProjectsController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(Role.User, Role.Admin)
     @Get('mylist/:status')
-    async findAllListFromUser(@Req() req: Request): Promise<FindProjectResponseDto[]> {
-        return await this.projectsService.findAllListFromUser(Number(req.user.id));
+    async findAllListFromUser(@Req() req: Request, @Param('status') status: number): Promise<FindProjectResponseDto[]> {
+        return await this.projectsService.findAllListFromUser(Number(req.user.id), status);
     }
 
     @ApiOperation({summary:'프로젝트 생성'})
