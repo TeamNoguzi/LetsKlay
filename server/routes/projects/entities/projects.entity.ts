@@ -1,6 +1,7 @@
+import { Reward } from 'routes/rewards/entities/reward.entity';
 import { User } from 'routes/users/users.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
-import { ProjectStatus } from './projects.enum';
+import { ProjectStatus } from '../projects.enum';
 
 @Entity()
 export class Project {
@@ -37,6 +38,11 @@ export class Project {
 
   @Column({nullable:false, default: ProjectStatus.preparing})
   status: ProjectStatus;
+
+  @OneToMany(type=>Reward, Reward=>Reward.project, {
+    cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
+  })
+  rewards: Reward[];
 
   @CreateDateColumn()
   createdAt: Date;

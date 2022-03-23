@@ -6,13 +6,9 @@ import { RolesGuard } from 'routes/auth/guard/roles.guard';
 import { Roles } from 'routes/auth/roles/roles.decorator';
 import { Role } from 'routes/auth/roles/roles.enum';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { 
-    CreateProjectDto, 
-    FindProjectResponseDto, 
-    FindProjectFullResponseDto, 
-    UpdateProjectDto, 
-    CreateProjectResponseDto,
-} from './projects.dto';
+import { CreateProjectDto, CreateProjectResponseDto } from './dto/create-project.dto';
+import { FindProjectResponseDto, FindProjectFullResponseDto} from './dto/find-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectStatus } from './projects.enum';
 import { ProjectsService } from './projects.service';
 
@@ -48,7 +44,7 @@ export class ProjectsController {
         @Param('id') id: number, 
         @Body() updateDto : UpdateProjectDto
     ): Promise<UpdateResult> {
-        return await this.projectsService.updateOne(Number(req.user.id), id, updateDto);
+        return await this.projectsService.updateOne(+req.user.id, id, updateDto);
     }
 
     @ApiOperation({summary:'프로젝트 삭제'})
@@ -60,9 +56,8 @@ export class ProjectsController {
         @Req() req: Request,
         @Param('id') id: number, 
     ): Promise<DeleteResult> {
-        return await this.projectsService.deleteOne(Number(req.user.id), id);
+        return await this.projectsService.deleteOne(+req.user.id, id);
     }
-
 
     @ApiOperation({summary:'프로젝트 상태 변경'})
     @ApiBearerAuth()

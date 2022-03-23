@@ -1,4 +1,4 @@
-import { Project } from 'routes/projects/projects.entity';
+import { Project } from 'routes/projects/entities/projects.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 @Entity()

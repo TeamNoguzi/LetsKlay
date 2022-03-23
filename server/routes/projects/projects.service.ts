@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateProjectDto, UpdateProjectDto } from './projects.dto';
-import { Project } from './projects.entity';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+import { Project } from './entities/projects.entity';
 import { ProjectStatus } from './projects.enum';
 
 @Injectable()
@@ -77,9 +78,15 @@ export class ProjectsService {
     }
 
     async updateStatusOne(userId:number, id:number, status:ProjectStatus) {
-        const user = await this.verifyUserProject(userId, id);
-        const filled = Object.keys(user).every((val, idx, arr) => user[val]!==null);
-        if(filled)
+        const project = await this.projectsRepository
+            .createQueryBuilder('project')
+            .leftJoinAndSelect('project.rewards', 'reward')
+            .where('project.id = :id', {id})
+            .andWhere('project.userId = :userId', {userId})
+            .getOne();
+
+        const filled = Object.values(project).every((val, idx, arr) => (typeof val === 'number') || val != null);
+        if(project && filled)
             return this.projectsRepository.update({user:{id:userId}, id: id}, {status});
         else {
             const err = new Error('The project information are not filled');
