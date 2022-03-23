@@ -12,7 +12,7 @@ import {
     FindProjectFullResponseDto, 
     UpdateProjectDto, 
     CreateProjectResponseDto,
-} from './projects.dto';
+} from './dto/projects.dto';
 import { ProjectStatus } from './projects.enum';
 import { ProjectsService } from './projects.service';
 

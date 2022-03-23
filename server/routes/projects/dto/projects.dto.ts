@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional, ApiTags } from "@nestjs/swagger";
-import { ProjectStatus } from "./projects.enum";
+import { ProjectStatus } from "../projects.enum";
 
 export class FindProjectResponseDto{
     @ApiProperty()
