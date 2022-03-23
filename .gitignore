@@ -106,4 +106,4 @@ dist
 server/build
 build
 
-server/server.config.*
+server/config/server.config.*
