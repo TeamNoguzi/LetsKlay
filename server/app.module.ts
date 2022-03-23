@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import configs from '../server.config';
+import configs from './config/server.config';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from 'routes/users/users.module';
 import { join } from 'path';
-import { AuthModule } from './auth/auth.module';
-import { ProjectsModule } from './projects/projects.module';
+import { AuthModule } from 'routes/auth/auth.module';
+import { ProjectsModule } from 'routes/projects/projects.module';
 
 @Module({
   imports: (() => {
