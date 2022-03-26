@@ -15,12 +15,6 @@ module.exports = {
     },
   },
   "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-docs",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app",
-    "@storybook/addon-viewport",
     {
       name: '@storybook/addon-storysource',
       options: {
@@ -33,9 +27,20 @@ module.exports = {
         },
       },
     },
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        configureJSX: true,
+      },
+    },
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "@storybook/preset-create-react-app",
+    "@storybook/addon-viewport",
   ],
   "framework": "@storybook/react",
   "core": {
     "builder": "webpack5"
-  }
+  },
 }

@@ -3,42 +3,42 @@
 
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-Thin.otf)';
+  src: url('../public/fonts/Metropolis-Thin.otf');
   font-weight: 100;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-ExtraLight.otf)';
+  src: url('../public/fonts/Metropolis-ExtraLight.otf');
   font-weight: 200;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-Light.otf)';
+  src: url('../public/fonts/Metropolis-Light.otf');
   font-weight: 300;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-Regular.otf)';
+  src: url('../public/fonts/Metropolis-Regular.otf');
   font-weight: 400;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-Medium.otf)';
+  src: url('../public/fonts/Metropolis-Medium.otf');
   font-weight: 500;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-SemiBold.otf)';
+  src: url('../public/fonts/Metropolis-SemiBold.otf');
   font-weight: 600;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-Bold.otf)';
+  src: url('../public/fonts/Metropolis-Bold.otf');
   font-weight: 700;
 }
 @font-face {
   font-family: 'Metropolis';
-  src: 'url(/public/fonts/Metropolis-ExtraBold.otf)';
+  src: url('../public/fonts/Metropolis-ExtraBold.otf');
   font-weight: 800;
 }
 
@@ -54,10 +54,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-:export {
-  @each $key, $value in $grid-breakpoints {
-    $key: $value;
-  }
 }
