@@ -44,7 +44,13 @@ export class ProjectsService {
     }
 
     async findOne(id:number) {
-        return await this.projectsRepository.findOne({where: {id: id}});
+        const project = this.projectsRepository
+        .createQueryBuilder('project')
+        .leftJoinAndSelect('project.rewards', 'rewards')
+        .leftJoinAndSelect('rewards.items', 'items')
+        .where('project.id = :id', {id})
+        .getOne();
+        return await project;
     }
 
     async findAllListFromUser(userId:number, status:number) {
@@ -70,7 +76,8 @@ export class ProjectsService {
     }
 
     async updateOne(userId:number, id:number, updateDto:UpdateProjectDto) {
-        return await this.projectsRepository.update({id: id, user: {id:userId}}, {...updateDto});
+        await this.verifyUserProject(userId, id);
+        return await this.projectsRepository.save({id: id, user: {id:userId}, ...updateDto});
     }
 
     async deleteOne(userId:number, id:number) {
