@@ -31,7 +31,7 @@ export class ProjectsController {
     @ApiResponse({type: FindProjectFullResponseDto})
     @Get(':id')
     async findOne(@Param('id') id: number): Promise<FindProjectFullResponseDto> {
-        return await this.projectsService.findOne(id);
+        return await this.projectsService.findOne(+id);
     }
 
     @ApiOperation({summary:'프로젝트 수정'})
@@ -43,8 +43,8 @@ export class ProjectsController {
         @Req() req: Request,
         @Param('id') id: number, 
         @Body() updateDto : UpdateProjectDto
-    ): Promise<UpdateResult> {
-        return await this.projectsService.updateOne(+req.user.id, id, updateDto);
+    ) {
+        return await this.projectsService.updateOne(+req.user.id, +id, updateDto);
     }
 
     @ApiOperation({summary:'프로젝트 삭제'})
@@ -56,7 +56,7 @@ export class ProjectsController {
         @Req() req: Request,
         @Param('id') id: number, 
     ): Promise<DeleteResult> {
-        return await this.projectsService.deleteOne(+req.user.id, id);
+        return await this.projectsService.deleteOne(+req.user.id, +id);
     }
 
     @ApiOperation({summary:'프로젝트 상태 변경'})
@@ -69,7 +69,7 @@ export class ProjectsController {
         @Param('id') id: number,
         @Param('status') status: ProjectStatus
     ): Promise<UpdateResult> {
-        return await this.projectsService.updateStatusOne(Number(req.user.id), id, status);
+        return await this.projectsService.updateStatusOne(+req.user.id, +id, status);
     }
 
     @ApiOperation({summary:'내 상태별 프로젝트 리스트 조회'})
@@ -79,7 +79,7 @@ export class ProjectsController {
     @Roles(Role.User, Role.Admin)
     @Get('mylist/:status')
     async findAllListFromUser(@Req() req: Request, @Param('status') status: number): Promise<FindProjectResponseDto[]> {
-        return await this.projectsService.findAllListFromUser(Number(req.user.id), status);
+        return await this.projectsService.findAllListFromUser(+req.user.id, status);
     }
 
     @ApiOperation({summary:'프로젝트 생성'})
@@ -88,6 +88,6 @@ export class ProjectsController {
     @Roles(Role.User, Role.Admin)
     @Post()
     async createOne(@Req() req: Request, @Body() createDto : CreateProjectDto): Promise<CreateProjectResponseDto> {
-        return await this.projectsService.createOne(Number(req.user.id), createDto);
+        return await this.projectsService.createOne(+req.user.id, createDto);
     }
 }
