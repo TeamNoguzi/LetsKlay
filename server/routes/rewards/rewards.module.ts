@@ -4,7 +4,6 @@ import { RewardsController } from './rewards.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Reward } from './entities/reward.entity';
 import { RewardItem } from './entities/reward-item.entity';
-import { ProjectsService } from 'routes/projects/projects.service';
 import { ProjectsModule } from 'routes/projects/projects.module';
 
 @Module({

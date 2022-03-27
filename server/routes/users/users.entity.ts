@@ -1,4 +1,5 @@
 import { Project } from 'routes/projects/entities/projects.entity';
+import { Like } from 'routes/likes/entities/like.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 @Entity()
@@ -26,4 +27,9 @@ export class User {
 
   @UpdateDateColumn()
   updateAt: Date;
+
+  @OneToMany(type=>Like, like=>like.user, {
+    cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
+  })
+  likes:Like[]
 }
