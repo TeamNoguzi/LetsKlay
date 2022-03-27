@@ -1,3 +1,4 @@
+import { Like } from 'routes/likes/entities/like.entity';
 import { Reward } from 'routes/rewards/entities/reward.entity';
 import { User } from 'routes/users/users.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
@@ -43,6 +44,11 @@ export class Project {
     cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
   })
   rewards: Reward[];
+
+  @OneToMany(type=>Like, like=>like.user, {
+    cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
+  })
+  likes:Like[]
 
   @CreateDateColumn()
   createdAt: Date;
