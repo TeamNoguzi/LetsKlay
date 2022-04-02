@@ -11,11 +11,13 @@ import { AuthModule } from 'routes/auth/auth.module';
 import { ProjectsModule } from 'routes/projects/projects.module';
 import { RewardsModule } from './routes/rewards/rewards.module';
 import { LikesModule } from './routes/likes/likes.module';
+import { TransactionModule } from './routes/transaction/transaction.module';
 
 @Module({
   imports: (() => {
     const production = process.env.NODE_ENV === 'production';
     const nestModules = [
+      TransactionModule,
       LikesModule,
       RewardsModule,
       ProjectsModule,

@@ -10,7 +10,6 @@ export class Project {
   id: number;
 
   @ManyToOne(type=>User, user=>user.projects)
-  @JoinColumn({name: 'userId'})
   user: User;
 
   @Column({nullable:true})
