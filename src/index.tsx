@@ -1,8 +1,8 @@
+import './index.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './pages/Home/Home';
-
-import './index.scss';
 
 import {
   BrowserRouter, 
