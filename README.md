@@ -3,9 +3,11 @@
 클레이튼을 사용한 크라우드 펀딩 서비스
 
 ### 0. 주요 스택
-- Node 14 (express.js)
+- Node 14
 - React + Bootstrap
-- Mysql
+- NestJS
+- Mysql + TypeORM
+- Solidity(예정)
   
 
 ### 1. 실행 방법
