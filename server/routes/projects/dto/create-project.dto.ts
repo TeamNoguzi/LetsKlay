@@ -1,56 +1,56 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { CreateRewardDto, CreateRewardResponseDto } from "routes/rewards/dto/create-reward.dto";
 
-export class CreateProjectDto{
-    @ApiPropertyOptional()
-    title?: string;
+export class CreateProjectDto {
+  @ApiPropertyOptional()
+  title?: string;
 
-    @ApiPropertyOptional()
-    subtitle?: string;
-  
-    @ApiPropertyOptional()
-    summary?: string;
-  
-    @ApiPropertyOptional()
-    thumbnailUrl?: string;
+  @ApiPropertyOptional()
+  subtitle?: string;
 
-    @ApiPropertyOptional()
-    mainPictureUrl?: string;
-  
-    @ApiPropertyOptional()
-    description?: string;
+  @ApiPropertyOptional()
+  summary?: string;
 
-    @ApiPropertyOptional()
-    fundGoal?: number;
+  @ApiPropertyOptional()
+  thumbnailUrl?: string;
 
-    @ApiPropertyOptional({type: [CreateRewardDto]})
-    rewards?: CreateRewardDto[]
+  @ApiPropertyOptional()
+  mainPictureUrl?: string;
+
+  @ApiPropertyOptional()
+  description?: string;
+
+  @ApiPropertyOptional()
+  fundGoal?: number;
+
+  @ApiPropertyOptional({ type: [CreateRewardDto] })
+  rewards?: CreateRewardDto[];
 }
 export class CreateProjectResponseDto {
-    @ApiProperty()
-    title: string;
+  @ApiProperty()
+  title: string;
 
-    @ApiProperty()
-    subtitle: string;
-  
-    @ApiProperty()
-    summary: string;
-  
-    @ApiProperty()
-    thumbnailUrl: string;
+  @ApiProperty()
+  subtitle: string;
 
-    @ApiProperty()
-    mainPictureUrl: string;
-  
-    @ApiProperty()
-    description: string;
+  @ApiProperty()
+  summary: string;
 
-    @ApiProperty()
-    fundGoal: number;
+  @ApiProperty()
+  thumbnailUrl: string;
 
-    @ApiProperty()
-    createdAt: Date;
+  @ApiProperty()
+  mainPictureUrl: string;
 
-    @ApiProperty({type: [CreateRewardResponseDto]})
-    rewards: CreateRewardResponseDto[]
+  @ApiProperty()
+  description: string;
+
+  @ApiProperty()
+  fundGoal: number;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty({ type: [CreateRewardResponseDto] })
+  rewards: CreateRewardResponseDto[];
 }

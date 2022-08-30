@@ -5,36 +5,38 @@ import { RewardItem } from "./reward-item.entity";
 
 @Entity()
 export class Reward {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ManyToOne(type=>Project, Project=>Project.rewards)
-    project: Project;
+  @ManyToOne(() => Project, (Project) => Project.rewards)
+  project: Project;
 
-    @OneToMany(type=>RewardItem, RewardItem=>RewardItem.reward, {
-        cascade: true, onDelete:'CASCADE', onUpdate:'CASCADE'
-    })
-    items: RewardItem[];
+  @OneToMany(() => RewardItem, (RewardItem) => RewardItem.reward, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  items: RewardItem[];
 
-    @Column()
-    title: string;
-    
-    @Column()
-    description: string;
+  @Column()
+  title: string;
 
-    @Column()
-    deliveryStart: Date;
+  @Column()
+  description: string;
 
-    @Column()
-    deliveryEnd: Date;
+  @Column()
+  deliveryStart: Date;
 
-    @Column()
-    maxStock: number;
+  @Column()
+  deliveryEnd: Date;
 
-    @Column()
-    stock: number;
+  @Column()
+  maxStock: number;
 
-    // should not be cascaded
-    @OneToMany(type=>Transaction, transaction=>transaction.reward)
-    transactions: Transaction[];
+  @Column()
+  stock: number;
+
+  // should not be cascaded
+  @OneToMany(() => Transaction, (transaction) => transaction.reward)
+  transactions: Transaction[];
 }

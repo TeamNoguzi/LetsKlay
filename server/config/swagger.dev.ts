@@ -1,10 +1,12 @@
 export default (req, res, next) => {
-    if(req.cookies.user)
-        return next('route')
-    else {
-        res.header('Content-Security-Policy', "script-src 'nonce-sV2iuiAYOQj8JZfadC1gInhyWX5W62j1QYaMS8V9a8c'")
-        return res.send(
-            `<!DOCTYPE html>
+  if (req.cookies.user) return next("route");
+  else {
+    res.header(
+      "Content-Security-Policy",
+      "script-src 'nonce-sV2iuiAYOQj8JZfadC1gInhyWX5W62j1QYaMS8V9a8c'"
+    );
+    return res.send(
+      `<!DOCTYPE html>
             <html>
                 <head></head>
                 <body>
@@ -26,7 +28,7 @@ export default (req, res, next) => {
                             const sign = await window.caver.klay.sign('test', addr);
                             console.log(sign);
                             try {
-                                const res = await fetch('http://localhost:3000/login', {
+                                const res = await fetch('http://localhost:5000/login', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -53,7 +55,7 @@ export default (req, res, next) => {
                             const email = emailInput.value;
                             console.log(sign);
                             try {
-                                const res = await fetch('http://localhost:3000/register', {
+                                const res = await fetch('http://localhost:5000/register', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -73,6 +75,6 @@ export default (req, res, next) => {
                     </script>
                 </body>
             </html>`
-        );
-    }
-}
+    );
+  }
+};

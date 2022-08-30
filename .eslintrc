@@ -1,0 +1,11 @@
+{
+  "extends": ["plugin:prettier/recommended", "eslint:recommended"],
+  "root": true,
+  "ignorePatterns": ["node_modules", "*.d.ts"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
+}

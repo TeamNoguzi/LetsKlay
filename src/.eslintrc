@@ -1,0 +1,27 @@
+{
+  "ignorePatterns": [".next"],
+  "root": false,
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "extends": ["next", "airbnb", "airbnb-typescript/base", "../.eslintrc"],
+      "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module"
+      },
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-props-no-spreading": "warn",
+        "react/function-component-definition": "off"
+      }
+    },
+    {
+      "files": ["styles/**/*.ts", "**/styled.tsx"],
+      "plugins": ["@emotion"],
+      "rules": {
+        "@typescript-eslint/no-unused-expressions": "off"
+      }
+    }
+  ]
+}

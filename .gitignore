@@ -107,3 +107,10 @@ server/build
 build
 
 server/config/server.config.*
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

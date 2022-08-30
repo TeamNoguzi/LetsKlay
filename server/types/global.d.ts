@@ -1,6 +1,5 @@
-
 namespace Express {
-    interface User {
-        id: string
-    }
+  interface User {
+    id: string;
+  }
 }

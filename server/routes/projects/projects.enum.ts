@@ -1,1 +1,5 @@
-export enum ProjectStatus {'preparing', 'funding', 'ended'};
+export enum ProjectStatus {
+  "preparing",
+  "funding",
+  "ended",
+}
