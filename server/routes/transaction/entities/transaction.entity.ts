@@ -1,5 +1,5 @@
 import { Reward } from "routes/rewards/entities/reward.entity";
-import { User } from "routes/users/users.entity";
+import { User } from "routes/users/entities/users.entity";
 import {
   Column,
   CreateDateColumn,
@@ -8,9 +8,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Transaction as TransactionType } from "@/entities";
 
 @Entity()
-export class Transaction {
+export class Transaction implements TransactionType {
   @PrimaryGeneratedColumn()
   id: number;
 

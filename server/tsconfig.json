@@ -9,17 +9,17 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "typeRoots": ["types"]
+    "baseUrl": "./",
+    "paths": { "@/*": ["../common/*"] }
   },
+  "references": [{ "path": "../common" }],
   "exclude": ["build"]
 }

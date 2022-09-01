@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { FindRewardResponseDto } from "routes/rewards/dto/find-reward.dto";
-import { ProjectStatus } from "../projects.enum";
+import { ProjectStatus } from "@/enums";
 
 export class FindProjectResponseDto {
   @ApiProperty()

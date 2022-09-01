@@ -1,6 +1,6 @@
 import { Like } from "routes/likes/entities/like.entity";
 import { Reward } from "routes/rewards/entities/reward.entity";
-import { User } from "routes/users/users.entity";
+import { User } from "routes/users/entities/users.entity";
 import {
   Entity,
   Column,
@@ -10,15 +10,13 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
-import { ProjectStatus } from "../projects.enum";
+import { Project as ProjectType } from "@/entities";
+import { ProjectStatus } from "@/enums";
 
 @Entity()
-export class Project {
+export class Project implements ProjectType {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @ManyToOne(() => User, (user) => user.projects)
-  user: User;
 
   @Column({ nullable: true })
   title: string;
@@ -47,6 +45,15 @@ export class Project {
   @Column({ nullable: false, default: ProjectStatus.preparing })
   status: ProjectStatus;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @ManyToOne(() => User, (user) => user.projects)
+  user: User;
+
   @OneToMany(() => Reward, (Reward) => Reward.project, {
     cascade: true,
     onDelete: "CASCADE",
@@ -60,10 +67,4 @@ export class Project {
     onUpdate: "CASCADE",
   })
   likes: Like[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

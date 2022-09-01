@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Reward } from "./reward.entity";
+import { RewardItem as RewardItemType } from "@/entities";
 
 @Entity()
-export class RewardItem {
+export class RewardItem implements RewardItemType {
   @PrimaryGeneratedColumn()
   id: number;
 

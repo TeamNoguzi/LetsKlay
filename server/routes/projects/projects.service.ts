@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { Project } from "./entities/projects.entity";
-import { ProjectStatus } from "./projects.enum";
+import { ProjectStatus } from "@/enums";
 
 @Injectable()
 export class ProjectsService {

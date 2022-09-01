@@ -9,9 +9,10 @@ import {
   OneToMany,
 } from "typeorm";
 import { Transaction } from "routes/transaction/entities/transaction.entity";
+import { User as UserType } from "@/entities";
 
 @Entity()
-export class User {
+export class User implements UserType {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -46,8 +47,8 @@ export class User {
   transactions: Transaction[];
 
   @CreateDateColumn()
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 }

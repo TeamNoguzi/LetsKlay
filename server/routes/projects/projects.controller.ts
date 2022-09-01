@@ -9,7 +9,7 @@ import { DeleteResult, UpdateResult } from "typeorm";
 import { CreateProjectDto, CreateProjectResponseDto } from "./dto/create-project.dto";
 import { FindProjectResponseDto, FindProjectFullResponseDto } from "./dto/find-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
-import { ProjectStatus } from "./projects.enum";
+import { ProjectStatus } from "@/enums";
 import { ProjectsService } from "./projects.service";
 
 @ApiTags("projects")

@@ -8,7 +8,7 @@ import { LocalAuthGuard } from "./routes/auth/guard/local-auth.guard";
 import { RolesGuard } from "./routes/auth/guard/roles.guard";
 import { Roles } from "./routes/auth/roles/roles.decorator";
 import { Role } from "./routes/auth/roles/roles.enum";
-import { CreateUserDto, FindUserDto } from "./routes/users/users.dto";
+import { CreateUserDto, FindUserDto } from "./routes/users/dto/users.dto";
 
 @Controller()
 export class AppController {
