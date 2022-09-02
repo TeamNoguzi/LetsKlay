@@ -9,28 +9,7 @@
   "scripts": {
     "build": "yarn workspaces foreach --parallel run build",
     "start": "yarn workspaces foreach --parallel run start",
-    "lint": "yarn workspaces foreach --parallel run lint",
-    "storybook": "start-storybook -p 6006 -s src",
-    "build-storybook": "build-storybook -s src",
-    "dev:back": "cd server && yarn dev",
-    "dev:front": "cd src && yarn dev",
-    "dev": "concurrently \"yarn dev:back\" \"yarn dev:front\" "
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
+    "lint": "yarn workspaces foreach --parallel run lint"
   },
   "browserslist": {
     "production": [
@@ -45,15 +24,11 @@
     ]
   },
   "devDependencies": {
-    "@emotion/eslint-plugin": "^11.10.0",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-next": "^12.2.5",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.0",
     "eslint-plugin-import": "^2.26.0",

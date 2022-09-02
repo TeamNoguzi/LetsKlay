@@ -18,6 +18,6 @@
     "paths": { "@/*": ["../common/*"] }
   },
   "references": [{ "path": "../common" }],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "stories/Cards/.stories.tsx"],
   "exclude": ["node_modules"]
 }
