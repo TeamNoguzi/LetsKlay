@@ -1,0 +1,25 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import Modal from "./index";
+import { useAtom } from "jotai";
+import Button from "stories/Buttons/Button";
+import { modalToggleAtom } from "atoms";
+
+<Meta title="Components/Modal" component={Modal} />
+
+export const ModalStory = (args) => {
+  const [_, toggle] = useAtom(modalToggleAtom);
+  return (
+    <>
+      <Button variant="primary" onClick={toggle}>
+        Launch demo modal
+      </Button>
+      <Modal {...args} />
+    </>
+  );
+};
+
+# Modal
+
+<Canvas>
+  <Story name="default">{ModalStory.bind({})}</Story>
+</Canvas>
