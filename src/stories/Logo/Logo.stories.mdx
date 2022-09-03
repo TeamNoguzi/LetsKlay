@@ -1,0 +1,12 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import Logo from "./index";
+
+<Meta title="Components/Logo" component={Logo} />
+
+export const LogoStory = (args) => <Logo {...args} />;
+
+# Logo
+
+<Canvas>
+  <Story name="default">{LogoStory.bind({})}</Story>
+</Canvas>

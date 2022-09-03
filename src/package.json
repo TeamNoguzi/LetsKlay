@@ -16,10 +16,20 @@
     "@emotion/react": "^11.10.0",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "latest",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0",
+    "jotai": "^1.8.2",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.34.2",
+    "react-query": "^3.39.2",
+    "styled-breakpoints": "^11.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

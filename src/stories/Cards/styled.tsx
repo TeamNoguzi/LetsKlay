@@ -44,8 +44,6 @@ const CardImage = styled(BsCard.Img)<CardImageProps>`
 const CardTitle = styled(BsCard.Title)`
   font-variation-settings: "wght" 500;
   font-size: 18pt;
-
-  color: ${(props) => props.theme.colors.primary};
 `;
 
 const CardText = styled(BsCard.Text)`

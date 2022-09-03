@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { IconButton } from "stories/Buttons";
+import { IconButton } from "stories/Buttons/IconButton";
 import { faBars, faPlus, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useBreakpoint } from "styled-breakpoints/react-emotion";
 import { down } from "styled-breakpoints";
 import SearchBar from "stories/SearchBar";
-import SideBar from "./SideBar";
+import SideBar from "../SideBar";
 import * as S from "./styled";
 
 function Navigation() {
