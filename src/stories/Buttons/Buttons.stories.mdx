@@ -1,0 +1,14 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { IconButton } from "./index";
+
+<Meta title="Buttons" component={IconButton} />
+
+export const IconButtonStory = (args) => <IconButton {...args} />;
+
+# Button
+
+## IconButton
+
+<Canvas>
+  <Story name="default">{ButtonStory.bind({})}</Story>
+</Canvas>
