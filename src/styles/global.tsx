@@ -14,6 +14,16 @@ const GlobalStyle = () => (
         font-style: italic;
         src: url(${MulishItalic});
       }
+
+      * {
+        font-family: "Mulish", san-serif;
+      }
+
+      .btn-close {
+        &&&:focus {
+          box-shadow: none;
+        }
+      }
     `}
   />
 );
