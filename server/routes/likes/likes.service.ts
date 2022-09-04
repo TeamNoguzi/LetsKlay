@@ -21,13 +21,25 @@ export class LikesService {
     });
   }
 
-  findProjects(userId: number) {
+  async findProjects(userId: number) {
     return this.likesRepository
       .find({
         relations: ["project"],
         where: { user: { id: userId } },
       })
       .then((data) => data.map((val) => val.project));
+  }
+
+  findLikesOne(userId: number, projectId: number) {
+    return this.likesRepository.find({
+      where: { user: { id: userId }, project: { id: projectId } },
+    });
+  }
+
+  findLikesAll(projectId: number) {
+    return this.likesRepository.find({
+      where: { project: { id: projectId } },
+    });
   }
 
   remove(userId: number, projectId: number) {
