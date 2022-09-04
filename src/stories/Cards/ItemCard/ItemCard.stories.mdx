@@ -1,14 +1,14 @@
 import { Canvas, Meta, Story } from "@storybook/addon-docs";
-import Card from "./index";
+import ItemCard from "./index";
 
-<Meta title="Components/Cards" component={Card} />
+<Meta title="Components/ItemCards" component={ItemCard} />
 
-export const CardStory = (args) => <Card {...args} />;
+export const ItemCardStory = (args) => <ItemCard {...args} />;
 
-# Card
+# ItemCard
 
 <Canvas>
   <Story name="default" args={{ bigSize: true, title: "default", body: "default", height: 300 }}>
-    {CardStory.bind({})}
+    {ItemCardStory.bind({})}
   </Story>
 </Canvas>

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import * as S from "./styled";
 
 interface ButtonProps {
-  children: string;
+  children: (string | ReactElement) | (string | ReactElement)[];
   variant: "primary" | "outline";
   onClick?: (e: React.MouseEvent) => unknown;
   [key: string]: unknown;

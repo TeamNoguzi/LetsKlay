@@ -1,6 +1,6 @@
 import { Global, css } from "@emotion/react";
-import Mulish from "public/fonts/Mulish/Mulish-VariableFont_wght.ttf";
-import MulishItalic from "public/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf";
+// import Mulish from "public/fonts/Mulish/Mulish-VariableFont_wght.ttf";
+// import MulishItalic from "public/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf";
 import theme from "./theme";
 
 const GlobalStyle = () => (
@@ -8,12 +8,14 @@ const GlobalStyle = () => (
     styles={css`
       @font-face {
         font-family: "Mulish";
-        src: url(${Mulish});
+        src: url("/fonts/Mulish/Mulish-VariableFont_wght.ttf"),
+          url("public/fonts/Mulish/Mulish-VariableFont_wght.ttf");
       }
       @font-face {
         font-family: "Mulish";
         font-style: italic;
-        src: url(${MulishItalic});
+        src: url("/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf"),
+          url("public/fonts/Mulish/Mulish-VariableFont_wght.ttf");
       }
 
       * {

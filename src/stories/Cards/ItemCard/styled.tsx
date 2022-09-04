@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
-import { Card as BsCard } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { flexBox, ellipsis } from "styles/mixins";
 
-interface CardProps {
+interface ItemCardProps {
   bigSize: boolean;
   height: number;
 }
 
-interface CardImageProps {
+interface ItemCardImageProps {
   bigSize: boolean;
 }
 
-const Card = styled(BsCard)<CardProps>`
+const ItemCard = styled(Card)<ItemCardProps>`
   ${(props) => flexBox({ direction: props.bigSize ? "column" : "row", middle: false })}
 
   width: 100%;
@@ -21,13 +21,13 @@ const Card = styled(BsCard)<CardProps>`
   }
 `;
 
-const CardBody = styled(BsCard.Body)`
+const ItemCardBody = styled(Card.Body)`
   height: 100%;
   width: 100%;
   padding: 10px 15px;
 `;
 
-const CardImage = styled(BsCard.Img)<CardImageProps>`
+const ItemCardImage = styled(Card.Img)<ItemCardImageProps>`
   ${(props) =>
     props.bigSize
       ? `
@@ -41,13 +41,13 @@ const CardImage = styled(BsCard.Img)<CardImageProps>`
   object-fit: cover;
 `;
 
-const CardTitle = styled(BsCard.Title)`
+const ItemCardTitle = styled(Card.Title)`
   font-variation-settings: "wght" 500;
   font-size: 18pt;
 `;
 
-const CardText = styled(BsCard.Text)`
+const ItemCardText = styled(Card.Text)`
   ${ellipsis({ line: 2, lineHeight: 18 })}
 `;
 
-export { Card, CardImage, CardTitle, CardBody, CardText };
+export { ItemCard, ItemCardImage, ItemCardTitle, ItemCardBody, ItemCardText };

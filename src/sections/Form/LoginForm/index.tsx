@@ -22,11 +22,14 @@ const LoginForm = ({ isPage, prevPage }: LoginFormProps) => {
   };
 
   return (
-    <Form className="d-flex flex-column align-items-center">
+    <Form className="d-flex flex-column align-items-center w-100">
       <Logo />
+      <p>Wallet which supports klaytn is essential to login.</p>
+      <p>Get Wallet &gt;</p>
       <S.FormButton className="mt-3" onClick={handleLogin} variant="primary" type="submit">
         Login With Wallet
       </S.FormButton>
+      <p>Register</p>
     </Form>
   );
 };
