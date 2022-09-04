@@ -1,0 +1,12 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import RegisterForm from "./index";
+
+<Meta title="Sections/Forms/RegisterForm" component={RegisterForm} />
+
+export const RegisterFormStory = (args) => <RegisterForm {...args} />;
+
+# RegisterForm
+
+<Canvas>
+  <Story name="default">{RegisterFormStory.bind({})}</Story>
+</Canvas>

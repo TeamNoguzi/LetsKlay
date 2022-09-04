@@ -1,9 +1,10 @@
+import React from "react";
 import * as S from "./styled";
 
 interface ButtonProps {
   children: string;
   variant: "primary" | "outline";
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => unknown;
   [key: string]: unknown;
 }
 

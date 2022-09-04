@@ -1,0 +1,12 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import LoginForm from "./index";
+
+<Meta title="Sections/Forms/LoginForm" component={LoginForm} />
+
+export const LoginFormStory = (args) => <LoginForm {...args} />;
+
+# LoginForm
+
+<Canvas>
+  <Story name="default">{LoginFormStory.bind({})}</Story>
+</Canvas>
