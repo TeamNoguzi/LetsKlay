@@ -8,14 +8,12 @@ const GlobalStyle = () => (
     styles={css`
       @font-face {
         font-family: "Mulish";
-        src: url("/fonts/Mulish/Mulish-VariableFont_wght.ttf"),
-          url("public/fonts/Mulish/Mulish-VariableFont_wght.ttf");
+        src: url("/fonts/Mulish/Mulish-VariableFont_wght.ttf");
       }
       @font-face {
         font-family: "Mulish";
         font-style: italic;
-        src: url("/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf"),
-          url("public/fonts/Mulish/Mulish-VariableFont_wght.ttf");
+        src: url("/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf");
       }
 
       * {

@@ -15,7 +15,8 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["../common/*"] }
+    "paths": { "@/*": ["../common/*"] },
+    "types": ["@emotion/core"]
   },
   "references": [{ "path": "../common" }],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "stories/Cards/.stories.tsx"],
