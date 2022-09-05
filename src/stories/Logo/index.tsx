@@ -1,7 +1,11 @@
 import * as S from "./styled";
 
-const Logo = () => {
-  return <S.LogoText>LetsKlay</S.LogoText>;
+interface LogoProps {
+  center: boolean;
+}
+
+const Logo = ({ center }: LogoProps) => {
+  return <S.LogoText center={center}>LetsKlay</S.LogoText>;
 };
 
 export default Logo;

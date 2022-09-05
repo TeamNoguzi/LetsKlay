@@ -1,14 +1,29 @@
 import { Project } from "@/entities/projects";
 import { fetchProjectWithId } from "api";
 import { GetServerSidePropsContext } from "next";
+import { Row } from "react-bootstrap";
+import Logo from "stories/Logo";
+import Navigation from "stories/Navigation/Navigation";
 import ProjectIntro from "sections/Projects/Intro";
+import ProjectDescription from "sections/Projects/Description";
+import * as S from "./styled";
 
 interface ProjectDetailPageProps {
   project: Project;
 }
 
 const ProjectDetail = ({ project }: ProjectDetailPageProps) => {
-  return <ProjectIntro project={project} />;
+  return (
+    <S.Container>
+      <Logo center />
+      <Navigation />
+      <ProjectIntro project={project} />
+      <Row>
+        <S.Divider />
+      </Row>
+      <ProjectDescription project={project} />
+    </S.Container>
+  );
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
