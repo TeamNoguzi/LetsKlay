@@ -4,14 +4,17 @@ import { flexBox } from "styles/mixins";
 
 interface LogoTextProps {
   center?: boolean;
+  fontSize?: number;
 }
 
 const LogoText = styled.div<LogoTextProps>`
-  font-size: 32pt;
-  color: ${(props) => props.theme.colors.primary};
-  cursor: pointer;
-
   width: fit-content;
+  font-size: ${(props) => props.fontSize ?? 28}pt;
+
+  & > a {
+    text-decoration: none;
+    color: ${(props) => props.theme.colors.primary};
+  }
 
   ${(props) =>
     props.center &&

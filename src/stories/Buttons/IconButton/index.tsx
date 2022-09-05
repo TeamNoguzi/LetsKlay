@@ -5,13 +5,14 @@ import * as S from "./styled";
 interface IconButtonProps {
   icon: IconProp;
   width?: number;
+  fontSize?: number;
   onClick?: () => void;
 }
 
-const IconButton = ({ icon, width = 32, onClick }: IconButtonProps) => {
+const IconButton = ({ icon, width = 32, fontSize = 16, onClick }: IconButtonProps) => {
   return (
     <S.IconButtonContainer width={width} onClick={onClick}>
-      <FontAwesomeIcon icon={icon} />
+      <FontAwesomeIcon icon={icon} fontSize={fontSize} />
     </S.IconButtonContainer>
   );
 };

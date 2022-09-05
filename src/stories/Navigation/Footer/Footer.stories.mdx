@@ -1,0 +1,12 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import Footer from "./index";
+
+<Meta title="Components/Navigation/Footer" component={Footer} />
+
+export const FooterStory = (args) => <Footer {...args} />;
+
+# Footer
+
+<Canvas>
+  <Story name="default">{FooterStory.bind({})}</Story>
+</Canvas>

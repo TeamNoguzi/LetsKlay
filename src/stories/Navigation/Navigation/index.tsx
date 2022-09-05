@@ -3,16 +3,26 @@ import { IconButton } from "stories/Buttons/IconButton";
 import { faBars, faPlus, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useBreakpoint } from "styled-breakpoints/react-emotion";
 import { down } from "styled-breakpoints";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import SearchBar from "stories/SearchBar";
 import SideBar from "../SideBar";
 import * as S from "./styled";
 
-function Navigation() {
+interface NavigationProps {
+  footer?: boolean;
+}
+
+function Navigation({ footer }: NavigationProps) {
+  const router = useRouter();
   const mobile = useBreakpoint(down("md"));
   const [showMobile, setShowMobile] = useState<boolean>(false);
 
   const handleOpenMobile = () => setShowMobile(true);
   const handleCloseMobile = () => setShowMobile(false);
+
+  const handleClickPlus = () => router.push("/projects/new");
+  const handleClickProfile = () => router.push("/profile");
 
   return (
     <>
@@ -22,10 +32,14 @@ function Navigation() {
         {!mobile && (
           <>
             <S.NavItem>
-              <S.NavLink href="#">Home</S.NavLink>
+              <S.NavLink>
+                <Link href="/">Home</Link>
+              </S.NavLink>
             </S.NavItem>
             <S.NavItem>
-              <S.NavLink href="#">Items</S.NavLink>
+              <S.NavLink>
+                <Link href="/">Items</Link>
+              </S.NavLink>
             </S.NavItem>
           </>
         )}
@@ -35,8 +49,12 @@ function Navigation() {
             <SearchBar height={50} />
           </S.SearchBarWrapper>
         )}
-        <IconButton icon={faPlus} />
-        <IconButton icon={faUser} />
+        {!footer && (
+          <>
+            <IconButton icon={faPlus} onClick={handleClickPlus} />
+            <IconButton icon={faUser} onClick={handleClickProfile} />
+          </>
+        )}
       </S.Navigation>
     </>
   );

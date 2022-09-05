@@ -8,5 +8,13 @@ export const NavigationStory = (args) => <Navigation {...args} />;
 # Navigation
 
 <Canvas>
-  <Story name="default">{NavigationStory.bind({})}</Story>
+  <Story name="default" args={{ footer: false }}>
+    {NavigationStory.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="footerNavigation" args={{ footer: true }}>
+    {NavigationStory.bind({})}
+  </Story>
 </Canvas>

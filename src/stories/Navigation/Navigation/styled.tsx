@@ -24,17 +24,18 @@ const NavItem = styled(Nav.Item)`
   height: 100%;
 `;
 
-const NavLink = styled(Nav.Link)`
-  && {
+const NavLink = styled.span`
+  & > a {
     ${flexBox({ direction: "column", middle: true })}
     width: 100px;
     height: 100%;
+    text-decoration: none;
     color: ${(props) => props.theme.colors.black};
     font-weight: 500;
-  }
 
-  &:hover {
-    background-color: ${(props) => props.theme.colors.primaryLight};
+    &:hover {
+      background-color: ${(props) => props.theme.colors.primaryLight};
+    }
   }
 `;
 

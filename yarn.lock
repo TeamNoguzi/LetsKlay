@@ -2685,6 +2685,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-brands-svg-icons@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.2.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.2.0
+  checksum: 402b4e102bec60b234169c878b08ab1280feededf91d54c9c080bfcae2a2b0c52e05ab3fb9192293ed5d488501335e656c726e7ba3926876277bdf8e31d34026
+  languageName: node
+  linkType: hard
+
 "@fortawesome/free-regular-svg-icons@npm:^6.2.0":
   version: 6.2.0
   resolution: "@fortawesome/free-regular-svg-icons@npm:6.2.0"
@@ -14125,6 +14134,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "letsklay@workspace:."
   dependencies:
+    "@fortawesome/free-brands-svg-icons": ^6.2.0
     "@typescript-eslint/eslint-plugin": ^5.35.1
     "@typescript-eslint/parser": ^5.35.1
     add: ^2.0.6
