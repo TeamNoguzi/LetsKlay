@@ -13,6 +13,9 @@ export class CreateRewardDto {
   title: string;
 
   @ApiProperty()
+  price: number;
+
+  @ApiProperty()
   description: string;
 
   @ApiProperty()

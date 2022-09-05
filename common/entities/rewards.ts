@@ -10,6 +10,8 @@ interface RewardItem {
 interface Reward {
   id: number;
   project?: Project;
+  items?: RewardItem[];
+  price: number;
   title: string;
   description: string;
   deliveryStart: Date;

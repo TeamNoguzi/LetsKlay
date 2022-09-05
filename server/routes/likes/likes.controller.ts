@@ -51,8 +51,6 @@ export class LikesController {
 
   @ApiOperation({ summary: "프로젝트 내 좋아요 모두 조회" })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.User, Role.Admin)
   @Get("projects/:projectId/all")
   findLikesAll(@Param("projectId") projectId: number) {
     return this.likesService.findLikesAll(+projectId);

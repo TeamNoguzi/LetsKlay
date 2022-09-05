@@ -20,6 +20,9 @@ export class Reward implements RewardType {
   items: RewardItem[];
 
   @Column()
+  price: number;
+
+  @Column()
   title: string;
 
   @Column()
