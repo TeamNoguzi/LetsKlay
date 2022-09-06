@@ -6,6 +6,7 @@ import Logo from "stories/Logo";
 import Navigation from "stories/Navigation/Navigation";
 import ProjectIntro from "sections/Projects/Intro";
 import ProjectDescription from "sections/Projects/Description";
+import Footer from "stories/Navigation/Footer";
 import * as S from "./styled";
 
 interface ProjectDetailPageProps {
@@ -22,6 +23,7 @@ const ProjectDetail = ({ project }: ProjectDetailPageProps) => {
         <S.Divider />
       </Row>
       <ProjectDescription project={project} />
+      <Footer />
     </S.Container>
   );
 };

@@ -1,3 +1,5 @@
+import { IconButton } from "stories/Buttons/IconButton";
+import { faFacebookSquare, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Project } from "@/entities/projects";
 import { Row, Col, ProgressBar } from "react-bootstrap";
 import Image from "next/image";
@@ -40,10 +42,17 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
             </span>
             <span style={{ float: "right" }}> supports</span>
           </S.ProjectGoal>
-          <Button variant="outline" onClick={() => toggleLikes.mutate()}>
-            <FontAwesomeIcon icon={faHeart} />
-            {` ${likes?.length ?? 0}`}
-          </Button>
+          <S.ButtonGroups>
+            <Button variant="outline" onClick={() => toggleLikes.mutate()}>
+              <FontAwesomeIcon icon={faHeart} />
+              {` ${likes?.length ?? 0}`}
+            </Button>
+            <S.IconGroups>
+              <IconButton icon={faFacebookSquare} width={36} fontSize={24} />
+              <IconButton icon={faInstagram} width={36} fontSize={24} />
+              <IconButton icon={faTwitter} width={36} fontSize={24} />
+            </S.IconGroups>
+          </S.ButtonGroups>
         </S.ProjectSummary>
       </Col>
     </Row>

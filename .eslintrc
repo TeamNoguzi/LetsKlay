@@ -1,7 +1,7 @@
 {
   "extends": ["plugin:prettier/recommended", "eslint:recommended"],
   "root": true,
-  "ignorePatterns": ["node_modules", "*.d.ts"],
+  "ignorePatterns": ["node_modules", "*.d.ts", "klaytn"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint/eslint-plugin"],
   "rules": {

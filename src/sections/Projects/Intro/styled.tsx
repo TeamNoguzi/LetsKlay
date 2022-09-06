@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ellipsis } from "styles/mixins";
+import { ellipsis, flexBox } from "styles/mixins";
 
 const ProjectSummary = styled.div`
   display: flex;
@@ -36,4 +36,21 @@ const ImageWrapper = styled.div`
   min-height: 400px;
 `;
 
-export { ProjectSummary, ProjectText, ProjectGoal, ImageWrapper };
+const ButtonGroups = styled.div`
+  ${flexBox({ direction: "row", middle: true })}
+  gap:0 20px;
+  width: 100%;
+
+  & > button:first-child {
+    width: 100%;
+    height: 50px;
+    font-weight: bold;
+  }
+`;
+
+const IconGroups = styled.div`
+  ${flexBox({ direction: "row", middle: true })}
+  gap: 0 5px;
+`;
+
+export { ProjectSummary, ProjectText, ProjectGoal, ImageWrapper, ButtonGroups, IconGroups };
