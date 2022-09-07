@@ -35,6 +35,7 @@ export class ProjectsService {
         id: true,
         title: true,
         subtitle: true,
+        summary: true,
         thumbnailUrl: true,
         fundGoal: true,
         fundNow: true,
