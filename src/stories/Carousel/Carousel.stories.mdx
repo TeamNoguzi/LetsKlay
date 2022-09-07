@@ -1,0 +1,42 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import Carousel from "./index";
+import FundCard from "stories/Cards/FundCard";
+
+<Meta title="Components/Cards/Carousel" component={Carousel} />
+
+const project = {  
+ title: "test",
+subtitle: "testtest",
+summary: "hihihi",
+fundNow: 1000,
+fundGoal: 10000,
+thumbnailUrl: "public/Landscape-Color.jpg",
+}
+
+export const CarouselStory = (args) => (
+  <Carousel {...args}>
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+    <FundCard project={project} />
+  </Carousel>
+);
+
+# Carousel
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      offset: 100,
+      count: 0,
+    }}
+  >
+    {CarouselStory.bind({})}
+  </Story>
+</Canvas>
