@@ -1,0 +1,26 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import FundCard from "./index";
+
+<Meta title="Components/Cards/FundCard" component={FundCard} />
+
+export const FundCardStory = (args) => <FundCard {...args} />;
+
+# FundCard
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      project: {
+        title: "test",
+        subtitle: "testtest",
+        summary: "hihihi",
+        fundNow: 1000,
+        fundGoal: 10000,
+        thumbnailUrl: "public/Landscape-Color.jpg",
+      },
+    }}
+  >
+    {FundCardStory.bind({})}
+  </Story>
+</Canvas>
