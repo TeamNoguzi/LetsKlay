@@ -17,7 +17,7 @@ const ProjectText = styled.div`
     margin-bottom: 25px;
   }
   p {
-    ${ellipsis({ line: 8, lineHeight: 14 })}
+    ${ellipsis({ line: 8, lineHeight: 14 })};
   }
 `;
 
@@ -37,8 +37,8 @@ const ImageWrapper = styled.div`
 `;
 
 const ButtonGroups = styled.div`
-  ${flexBox({ direction: "row", middle: true })}
-  gap:0 20px;
+  ${flexBox({ direction: "row", middle: true })};
+  gap: 0 20px;
   width: 100%;
 
   & > button:first-child {
@@ -49,7 +49,7 @@ const ButtonGroups = styled.div`
 `;
 
 const IconGroups = styled.div`
-  ${flexBox({ direction: "row", middle: true })}
+  ${flexBox({ direction: "row", middle: true })};
   gap: 0 5px;
 `;
 
