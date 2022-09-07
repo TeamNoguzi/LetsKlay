@@ -7,8 +7,8 @@ const Offcanvas = styled(BsOffcanvas)`
 `;
 
 const NavContainer = styled.div`
-  ${flexBox({ direction: "column", middle: true })}
-  align-items:flex-end;
+  ${flexBox({ direction: "column", middle: true })};
+  align-items: flex-end;
   gap: 15px 0;
 
   width: 100%;
@@ -25,8 +25,8 @@ const NavItem = styled.div`
     background-color: ${(props) => props.theme.colors.primaryLight};
   }
   & > a {
-    ${flexBox({ direction: "column", middle: true })}
-    align-items:flex-end;
+    ${flexBox({ direction: "column", middle: true })};
+    align-items: flex-end;
 
     width: 100%;
     height: 100%;

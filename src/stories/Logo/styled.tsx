@@ -19,7 +19,7 @@ const LogoText = styled.div<LogoTextProps>`
   ${(props) =>
     props.center &&
     css`
-      ${flexBox({ direction: "column", middle: true })}
+      ${flexBox({ direction: "column", middle: true })};
       width: 100%;
       margin: 5px 0;
     `}

@@ -4,8 +4,8 @@ import { Nav } from "react-bootstrap";
 import { down } from "styled-breakpoints";
 
 const Navigation = styled(Nav)`
-  ${flexBox({ direction: "row", middle: true })}
-  justify-content:flex-start;
+  ${flexBox({ direction: "row", middle: true })};
+  justify-content: flex-start;
   gap: 0 10px;
 
   width: 100%;
@@ -26,7 +26,7 @@ const NavItem = styled(Nav.Item)`
 
 const NavLink = styled.span`
   & > a {
-    ${flexBox({ direction: "column", middle: true })}
+    ${flexBox({ direction: "column", middle: true })};
     width: 100px;
     height: 100%;
     text-decoration: none;

@@ -1,23 +1,31 @@
 import React from "react";
+import Image from "next/image";
 import * as S from "./styled";
 
 interface ItemCardProps {
   bigSize?: boolean;
   title: string;
   body: string;
-  height?: number;
+  imageHeight?: number;
   onClick?: (e: React.MouseEvent) => unknown;
+  className?: string;
 }
 
-function ItemCard({ bigSize = false, title, body, height = 300, onClick }: ItemCardProps) {
+function ItemCard({
+  bigSize = false,
+  title,
+  body,
+  imageHeight = 300,
+  className = "",
+  onClick,
+}: ItemCardProps) {
   return (
-    <S.ItemCard bigSize={bigSize ?? false} height={height} onClick={onClick}>
-      <S.ItemCardImage
-        bigSize={bigSize ?? false}
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png"
-      />
-      <S.ItemCardBody>
-        <S.ItemCardTitle>{title}</S.ItemCardTitle>
+    <S.ItemCard className={className} bigSize={bigSize} onClick={onClick}>
+      <S.ItemCardImageWrapper bigSize={bigSize} height={imageHeight}>
+        <Image src="/Landscape-Color.jpg" layout="fill" objectFit="cover" />
+      </S.ItemCardImageWrapper>
+      <S.ItemCardBody bigSize={bigSize}>
+        <S.ItemCardTitle bigSize={bigSize}>{title}</S.ItemCardTitle>
         <S.ItemCardText>{body}</S.ItemCardText>
       </S.ItemCardBody>
     </S.ItemCard>

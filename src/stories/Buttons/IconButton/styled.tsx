@@ -6,7 +6,7 @@ interface IconButtonContainerProps {
 }
 
 const IconButtonContainer = styled.div<IconButtonContainerProps>`
-  ${flexBox({ direction: "column", middle: true })}
+  ${flexBox({ direction: "column", middle: true })};
 
   width: ${(props) => props.width}px;
   height: ${(props) => props.width}px;

@@ -31,7 +31,7 @@ const RewardCard = styled.div`
 `;
 
 const RewardCardMask = styled.div`
-  ${flexBox({ direction: "column", middle: true })}
+  ${flexBox({ direction: "column", middle: true })};
   position: absolute;
   top: 0;
   left: 0;
