@@ -1,9 +1,11 @@
+import { css } from "@emotion/react";
+
 interface EllipsisProps {
   line: number;
   lineHeight: number;
 }
 
-const ellipsis = ({ line, lineHeight }: EllipsisProps) => `
+const ellipsis = ({ line, lineHeight }: EllipsisProps) => css`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
