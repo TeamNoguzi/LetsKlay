@@ -3,10 +3,10 @@ import { fetchProjectWithId } from "api";
 import { GetServerSidePropsContext } from "next";
 import { Row } from "react-bootstrap";
 import Logo from "stories/Logo";
-import Navigation from "stories/Navigation/Navigation";
+import Navigation from "stories/Layout/Navigation";
 import ProjectIntro from "sections/Projects/Intro";
 import ProjectDescription from "sections/Projects/Description";
-import Footer from "stories/Navigation/Footer";
+import Footer from "stories/Layout/Footer";
 import * as S from "./styled";
 
 interface ProjectDetailPageProps {

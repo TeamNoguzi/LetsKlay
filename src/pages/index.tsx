@@ -1,11 +1,11 @@
 import { fetchProjects } from "api";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
-import Navigation from "stories/Navigation/Navigation";
+import Navigation from "stories/Layout/Navigation";
 import { Project } from "@/entities/projects";
 import HomeMain from "sections/Home/Main";
 import Logo from "stories/Logo";
-import Footer from "stories/Navigation/Footer";
+import Footer from "stories/Layout/Footer";
 import HomeRecent from "sections/Home/Recent";
 import * as S from "./styled";
 
