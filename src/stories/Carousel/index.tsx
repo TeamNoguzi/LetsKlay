@@ -1,3 +1,5 @@
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactElement, useState } from "react";
 import * as S from "./styled";
 
@@ -27,8 +29,12 @@ const Carousel = ({ children, gap = 15, width, itemWidth, count, division }: Car
 
   return (
     <S.CarouselWrapper>
-      <S.CarouselLeftButton onClick={handleMovePrev}>&lt;</S.CarouselLeftButton>
-      <S.CarouselRightButton onClick={handleMoveNext}>&gt;</S.CarouselRightButton>
+      <S.CarouselLeftButton onClick={handleMovePrev}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </S.CarouselLeftButton>
+      <S.CarouselRightButton onClick={handleMoveNext}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </S.CarouselRightButton>
       <S.Carousel width={width}>
         <S.CarouselSlider
           page={page}
