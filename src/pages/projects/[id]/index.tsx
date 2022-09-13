@@ -5,7 +5,7 @@ import { Row } from "react-bootstrap";
 import Logo from "stories/Logo";
 import Navigation from "stories/Layout/Navigation";
 import ProjectIntro from "sections/Projects/Intro";
-import ProjectDescription from "sections/Projects/Description";
+import ProjectDescription from "sections/Projects/Info/Description";
 import Footer from "stories/Layout/Footer";
 import * as S from "./styled";
 
