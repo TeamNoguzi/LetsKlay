@@ -6,6 +6,17 @@ interface StepperItemProps {
   selected?: boolean;
 }
 
+const StepperTitle = styled.h6`
+  padding-left: 20px;
+  margin-bottom: 20px;
+
+  color: ${(props) => props.theme.colors.secondaryBold};
+  font-size: 18pt;
+  font-weight: bold;
+  line-height: 18pt;
+  vertical-align: middle;
+`;
+
 const StepperContainer = styled.div`
   ${flexBox({ direction: "column", middle: true })};
 
@@ -33,4 +44,4 @@ const StepperItem = styled.div<StepperItemProps>`
     `}
 `;
 
-export { StepperContainer, StepperItem };
+export { StepperTitle, StepperContainer, StepperItem };
