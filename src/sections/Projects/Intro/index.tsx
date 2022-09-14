@@ -7,7 +7,7 @@ import numeral from "numeral";
 import Button from "stories/Buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { useLikes, useIsLiked, useToggleLikes } from "hooks";
+import { useLikes, useIsLiked, useToggleLikesMutation } from "hooks";
 import * as S from "./styled";
 
 interface ProjectIntroProps {
@@ -17,7 +17,7 @@ interface ProjectIntroProps {
 const ProjectIntro = ({ project }: ProjectIntroProps) => {
   const { likes } = useLikes(project.id);
   const { isLiked } = useIsLiked(project.id);
-  const toggleLikes = useToggleLikes(project.id, isLiked);
+  const toggleLikesMutation = useToggleLikesMutation();
 
   const progress = project.fundNow / project.fundGoal;
 
@@ -43,7 +43,10 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
             <span style={{ float: "right" }}> supports</span>
           </S.ProjectGoal>
           <S.ButtonGroups>
-            <Button variant="outline" onClick={() => toggleLikes.mutate()}>
+            <Button
+              variant="outline"
+              onClick={() => toggleLikesMutation.mutate({ isLiked, projectId: project.id })}
+            >
               <FontAwesomeIcon icon={faHeart} />
               {` ${likes?.length ?? 0}`}
             </Button>

@@ -41,7 +41,7 @@ const ButtonGroups = styled.div`
   gap: 0 20px;
   width: 100%;
 
-  & > button:first-child {
+  & > button:first-of-type {
     width: 100%;
     height: 50px;
     font-weight: bold;

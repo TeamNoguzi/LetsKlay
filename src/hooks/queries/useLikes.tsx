@@ -2,6 +2,11 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { fetchIsLiked, fetchLikesAll, likeProject, unlikeProject } from "api";
 import queryClient from "./client";
 
+interface LikesMutationParam {
+  projectId: number;
+  isLiked: boolean;
+}
+
 const useLikes = (projectId: number) => {
   const { data, isError } = useQuery(["likes"], () => fetchLikesAll(projectId));
 
@@ -14,9 +19,9 @@ const useIsLiked = (projectId: number) => {
   return { isLiked: data, isError };
 };
 
-const useToggleLikes = (projectId: number, isLiked: boolean) => {
-  const mutation = useMutation(
-    () => (isLiked ? unlikeProject(projectId) : likeProject(projectId)),
+const useToggleLikesMutation = () => {
+  const mutation = useMutation<unknown, unknown, LikesMutationParam>(
+    ({ projectId, isLiked }) => (isLiked ? unlikeProject(projectId) : likeProject(projectId)),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["likes"]);
@@ -27,4 +32,4 @@ const useToggleLikes = (projectId: number, isLiked: boolean) => {
   return mutation;
 };
 
-export { useLikes, useIsLiked, useToggleLikes };
+export { useLikes, useIsLiked, useToggleLikesMutation };

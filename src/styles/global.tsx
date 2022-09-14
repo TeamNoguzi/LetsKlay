@@ -27,11 +27,24 @@ const GlobalStyle = () => (
         }
       }
 
-      .form-control {
+      .form-control,
+      .form-select,
+      .form-check-input {
         &&&:focus {
           box-shadow: none;
           border-color: ${theme.colors.secondary};
         }
+      }
+
+      .form-check-input:checked {
+        border-color: ${theme.colors.secondary};
+        background-color: ${theme.colors.secondary};
+      }
+
+      .form-label {
+        font-size: 10pt;
+        color: #808080;
+        margin-bottom: 5px;
       }
     `}
   />
