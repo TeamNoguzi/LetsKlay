@@ -1,6 +1,6 @@
 import { IconButton } from "stories/Buttons/IconButton";
 import { faFacebookSquare, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Project } from "@/entities/projects";
+import { FindProjectFullResponseDto } from "@/dto";
 import { Row, Col, ProgressBar } from "react-bootstrap";
 import Image from "next/image";
 import numeral from "numeral";
@@ -11,7 +11,7 @@ import { useLikes, useIsLiked, useToggleLikesMutation } from "hooks";
 import * as S from "./styled";
 
 interface ProjectIntroProps {
-  project: Project;
+  project: FindProjectFullResponseDto;
 }
 
 const ProjectIntro = ({ project }: ProjectIntroProps) => {
@@ -32,7 +32,7 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
         <S.ProjectSummary>
           <S.ProjectText>
             <h2>{project.title}</h2>
-            <p>{project.description}</p>
+            <p>{project.summary}</p>
           </S.ProjectText>
           <S.ProjectGoal>
             <h2>{numeral(project.fundNow).format("$0,0")}</h2>

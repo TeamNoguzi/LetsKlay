@@ -2,6 +2,7 @@ import { FindRewardResponseDto } from "../rewards/find-reward.dto";
 import { ProjectStatus } from "../../enums";
 
 interface FindProjectResponseDto {
+  id: number;
   title: string;
   subtitle: string;
   summary: string;

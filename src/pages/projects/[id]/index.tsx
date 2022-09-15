@@ -1,4 +1,4 @@
-import { Project } from "@/entities/projects";
+import { FindProjectFullResponseDto } from "@/dto";
 import { fetchProjectWithId } from "api";
 import { GetServerSidePropsContext } from "next";
 import { Row } from "react-bootstrap";
@@ -10,7 +10,7 @@ import Footer from "stories/Layout/Footer";
 import * as S from "./styled";
 
 interface ProjectDetailPageProps {
-  project: Project;
+  project: FindProjectFullResponseDto;
 }
 
 const ProjectDetail = ({ project }: ProjectDetailPageProps) => {

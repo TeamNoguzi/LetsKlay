@@ -25,7 +25,7 @@ const HomeMain = ({ projects }: HomeMainProps) => {
           imageHeight={isMobile ? 250 : 400}
           bigSize
           title={projects[0].title}
-          body={projects[0].summary}
+          body={projects[0].subtitle}
           onClick={() => handleClickItem(projects[0].id)}
         />
       </Col>

@@ -1,10 +1,10 @@
-import { Reward } from "@/entities/rewards";
+import { FindRewardResponseDto } from "@/dto";
 import numeral from "numeral";
 import moment from "moment";
 import * as S from "./styled";
 
 interface RewardCardProps {
-  reward: Reward;
+  reward: FindRewardResponseDto;
 }
 
 const RewardCard = ({ reward }: RewardCardProps) => {

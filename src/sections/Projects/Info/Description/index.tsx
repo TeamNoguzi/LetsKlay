@@ -1,12 +1,12 @@
 import { Row, Col, Tabs, Tab } from "react-bootstrap";
-import { Project } from "@/entities/projects";
+import { FindProjectFullResponseDto } from "@/dto";
 import { useBreakpoint } from "styled-breakpoints/react-emotion";
 import { down } from "styled-breakpoints";
 import ProjectRewards from "../Rewards";
 import * as S from "./styled";
 
 interface ProjectDescriptionProps {
-  project: Project;
+  project: FindProjectFullResponseDto;
 }
 
 const ProjectDescription = ({ project }: ProjectDescriptionProps) => {

@@ -5,6 +5,7 @@
     {
       "files": ["**/*.ts?(x)"],
       "extends": ["next", "airbnb", "airbnb-typescript/base", "../.eslintrc"],
+      "globals": { "JSX": true },
       "parserOptions": {
         "project": "tsconfig.json",
         "sourceType": "module"

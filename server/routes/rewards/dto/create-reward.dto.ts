@@ -7,6 +7,9 @@ import {
 
 export class CreateRewardItemDto implements CreateRewardItemDtoType {
   @ApiProperty()
+  id: number;
+
+  @ApiProperty()
   name: string;
 
   @ApiProperty()

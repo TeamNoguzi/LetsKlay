@@ -8,6 +8,9 @@ import { ProjectStatus } from "@/enums";
 
 export class FindProjectResponseDto implements FindProjectResponseDtoType {
   @ApiProperty()
+  id: number;
+
+  @ApiProperty()
   title: string;
 
   @ApiProperty()

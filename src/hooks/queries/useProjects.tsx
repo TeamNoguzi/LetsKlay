@@ -1,17 +1,17 @@
-import { Project } from "@/entities";
+import { CreateProjectDto, FindProjectFullResponseDto, UpdateProjectDto } from "@/dto";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetchProjectWithId, createProject, updateProject } from "api";
 import queryClient from "./client";
 
 interface CreateProjectMutationParam {
-  project?: Project;
+  project?: CreateProjectDto;
 }
 
 interface UpdateProjectMutationParam {
-  project: Project;
+  project: UpdateProjectDto & { id: number };
 }
 
-const useProject = (projectId: number, initialData: Project) => {
+const useProject = (projectId: number, initialData: FindProjectFullResponseDto) => {
   const { data, isError } = useQuery(["projects", projectId], () => fetchProjectWithId(projectId), {
     initialData,
   });

@@ -1,20 +1,27 @@
-import { useState, useMemo, useCallback } from "react";
-import Stepper from "sections/Projects/New/Stepper";
-import { Container, Row, Col } from "react-bootstrap";
+import { useState, useMemo, useCallback, Suspense } from "react";
+import Stepper from "sections/Projects/Modify/Stepper";
+import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import Logo from "stories/Logo";
 import Navigation from "stories/Layout/Navigation";
 import Footer from "stories/Layout/Footer";
-import FormBasics from "sections/Projects/New/Form/Basics";
 import { GetServerSidePropsContext } from "next";
 import { fetchProjectWithId } from "api";
-import { Project } from "@/entities";
+import { FindProjectFullResponseDto } from "@/dto";
 import { useProject } from "hooks/queries/useProjects";
+import dynamic from "next/dynamic";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
   projectId: number;
-  initialProject: Project;
+  initialProject: FindProjectFullResponseDto;
 }
+
+const DynamicFormBasics = dynamic(() => import("sections/Projects/Modify/Form/Basics"), {
+  suspense: true,
+});
+const DynamicFormPictures = dynamic(() => import("sections/Projects/Modify/Form/Pictures"), {
+  suspense: true,
+});
 
 const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
   const [selected, setSelected] = useState<number>(0);
@@ -43,6 +50,11 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
     []
   );
 
+  const Pages = useMemo(
+    () => [<DynamicFormBasics project={project} />, <DynamicFormPictures project={project} />],
+    [project]
+  );
+
   return (
     <Container>
       <header>
@@ -54,7 +66,23 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
           <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
         </Col>
         <Col xs={12} md={8} lg={9}>
-          <FormBasics project={project} />
+          <Suspense
+            fallback={
+              <>
+                <Placeholder as="p" animation="wave">
+                  <Placeholder xs={4} />
+                </Placeholder>
+                <Placeholder as="p" animation="wave">
+                  <Placeholder xs={12} />
+                </Placeholder>
+                <Placeholder as="p" animation="wave">
+                  <Placeholder xs={12} />
+                </Placeholder>
+              </>
+            }
+          >
+            {Pages[selected]}
+          </Suspense>
         </Col>
       </Row>
       <footer>

@@ -1,4 +1,5 @@
 interface CreateRewardItemDto {
+  id: number;
   name: string;
   quantity: number;
 }

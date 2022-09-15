@@ -1,9 +1,9 @@
-import { Reward } from "@/entities/rewards";
+import { FindRewardResponseDto } from "@/dto";
 import RewardCard from "stories/Cards/RewardCard";
 import * as S from "./styled";
 
 interface ProjectRewardsProps {
-  rewards: Reward[];
+  rewards: FindRewardResponseDto[];
 }
 
 const ProjectRewards = ({ rewards }: ProjectRewardsProps) => {
