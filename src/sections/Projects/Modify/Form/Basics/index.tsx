@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "stories/Buttons/Button";
-import { Project } from "@/entities";
+import { FindProjectFullResponseDto } from "@/dto";
 import { useProjectsUpdateMutation } from "hooks/queries";
 import * as S from "./styled";
 
@@ -12,7 +12,7 @@ interface FormInput {
 }
 
 interface FormBasicsProps {
-  project: Project;
+  project: FindProjectFullResponseDto;
 }
 
 const FormBasics = ({ project }: FormBasicsProps) => {
