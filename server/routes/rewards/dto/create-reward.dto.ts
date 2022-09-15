@@ -1,6 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
+import {
+  CreateRewardItemDto as CreateRewardItemDtoType,
+  CreateRewardDto as CreateRewardDtoType,
+  CreateRewardResponseDto as CreateRewardResponseDtoType,
+} from "@/dto";
 
-export class CreateRewardItemDto {
+export class CreateRewardItemDto implements CreateRewardItemDtoType {
   @ApiProperty()
   name: string;
 
@@ -8,7 +13,7 @@ export class CreateRewardItemDto {
   quantity: number;
 }
 
-export class CreateRewardDto {
+export class CreateRewardDto implements CreateRewardDtoType {
   @ApiProperty()
   title: string;
 
@@ -34,7 +39,10 @@ export class CreateRewardDto {
   items: CreateRewardItemDto[];
 }
 
-export class CreateRewardResponseDto extends CreateRewardDto {
+export class CreateRewardResponseDto
+  extends CreateRewardDto
+  implements CreateRewardResponseDtoType
+{
   @ApiProperty()
   id: number;
 }

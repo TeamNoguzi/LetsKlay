@@ -1,7 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import {
+  CreateProjectDto as CreateProjectDtoType,
+  CreateProjectResponseDto as CreateProjectResponseDtoType,
+} from "@/dto";
 import { CreateRewardDto, CreateRewardResponseDto } from "routes/rewards/dto/create-reward.dto";
 
-export class CreateProjectDto {
+export class CreateProjectDto implements CreateProjectDtoType {
   @ApiPropertyOptional()
   title?: string;
 
@@ -26,7 +30,7 @@ export class CreateProjectDto {
   @ApiPropertyOptional({ type: [CreateRewardDto] })
   rewards?: CreateRewardDto[];
 }
-export class CreateProjectResponseDto {
+export class CreateProjectResponseDto implements CreateProjectResponseDtoType {
   @ApiProperty()
   title: string;
 

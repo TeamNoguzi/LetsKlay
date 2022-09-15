@@ -1,8 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
+import {
+  FindProjectResponseDto as FindProjectResponseDtoType,
+  FindProjectFullResponseDto as FindProjectFullResponseDtoType,
+} from "@/dto";
 import { FindRewardResponseDto } from "routes/rewards/dto/find-reward.dto";
 import { ProjectStatus } from "@/enums";
 
-export class FindProjectResponseDto {
+export class FindProjectResponseDto implements FindProjectResponseDtoType {
   @ApiProperty()
   title: string;
 
@@ -24,7 +28,10 @@ export class FindProjectResponseDto {
   @ApiProperty()
   status: ProjectStatus;
 }
-export class FindProjectFullResponseDto extends FindProjectResponseDto {
+export class FindProjectFullResponseDto
+  extends FindProjectResponseDto
+  implements FindProjectFullResponseDtoType
+{
   @ApiProperty()
   mainPictureUrl: string;
 
