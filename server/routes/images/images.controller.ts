@@ -14,7 +14,7 @@ export class ImagesController {
 
   @ApiOperation({ summary: "이미지 업로드" })
   @ApiBearerAuth()
-  @ApiFile("file")
+  @ApiFile("image")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Post()

@@ -10,8 +10,6 @@ import { RewardsModule } from "./routes/rewards/rewards.module";
 import { LikesModule } from "./routes/likes/likes.module";
 import { ImagesModule } from "routes/images/images.module";
 import { TransactionModule } from "./routes/transaction/transaction.module";
-import { ServeStaticModule } from "@nestjs/serve-static";
-import { join } from "path";
 
 @Module({
   imports: (() => {
@@ -24,7 +22,6 @@ import { join } from "path";
       UsersModule,
       AuthModule,
       ImagesModule,
-      ServeStaticModule.forRoot({ rootPath: join(__dirname, "uploads") }),
     ];
 
     const prodModules = [
