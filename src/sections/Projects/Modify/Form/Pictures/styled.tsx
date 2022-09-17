@@ -15,4 +15,17 @@ const FormDescription = styled.p`
   margin-bottom: 20px;
 `;
 
-export { FormTitle, FormSubtitle, FormDescription };
+const FormImage = styled.img`
+  display: block;
+  min-height: 100px;
+  &:before {
+    content: "Please upload image.";
+    display: block;
+    position: absolute;
+    height: 100px;
+    width: 200px;
+    background-color: white;
+  }
+`;
+
+export { FormTitle, FormSubtitle, FormDescription, FormImage };
