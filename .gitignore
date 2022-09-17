@@ -113,3 +113,6 @@ server/config/server.config.*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# upload files
+uploads

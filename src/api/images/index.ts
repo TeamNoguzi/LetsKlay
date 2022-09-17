@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 const uploadImage = async (image: File) => {
-  const { data } = await axios.post(
+  const { data } = await axios.post<string>(
     "/images",
     { image },
     {
