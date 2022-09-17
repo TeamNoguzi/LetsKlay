@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,12 +17,30 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
     "incremental": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["../common/*"] },
-    "types": ["@emotion/core"]
+    "paths": {
+      "@/*": [
+        "../common/*"
+      ]
+    },
+    "types": [
+      "@emotion/core"
+    ]
   },
-  "references": [{ "path": "../common" }],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "stories/Cards/.stories.tsx"],
-  "exclude": ["node_modules"]
+  "references": [
+    {
+      "path": "../common"
+    }
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "stories/Cards/.stories.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
