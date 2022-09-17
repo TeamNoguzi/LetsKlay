@@ -1,11 +1,7 @@
 import { CreateRewardDto, CreateRewardItemDto } from "./create-reward.dto";
 
-interface UpdateRewardItemDto extends CreateRewardItemDto {
-  id?: number;
-}
+interface UpdateRewardItemDto extends CreateRewardItemDto {}
 
-interface UpdateRewardDto extends Partial<CreateRewardDto> {
-  items?: UpdateRewardItemDto[];
-}
+interface UpdateRewardDto extends Partial<CreateRewardDto> {}
 
 export type { UpdateRewardDto, UpdateRewardItemDto };
