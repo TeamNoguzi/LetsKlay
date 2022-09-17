@@ -22,6 +22,12 @@ const DynamicFormBasics = dynamic(() => import("sections/Projects/Modify/Form/Ba
 const DynamicFormPictures = dynamic(() => import("sections/Projects/Modify/Form/Pictures"), {
   suspense: true,
 });
+const DynamicFormDescriptions = dynamic(
+  () => import("sections/Projects/Modify/Form/Descriptions"),
+  {
+    ssr: false,
+  }
+);
 
 const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
   const [selected, setSelected] = useState<number>(0);
@@ -51,7 +57,11 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
   );
 
   const Pages = useMemo(
-    () => [<DynamicFormBasics project={project} />, <DynamicFormPictures project={project} />],
+    () => [
+      <DynamicFormBasics project={project} />,
+      <DynamicFormPictures project={project} />,
+      <DynamicFormDescriptions project={project} />,
+    ],
     [project]
   );
 
@@ -62,10 +72,10 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
         <Navigation />
       </header>
       <Row className="mt-4">
-        <Col xs={12} md={4} lg={3} as="nav">
+        <Col xs={12} md={4} lg={3} xl={2} as="nav">
           <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
         </Col>
-        <Col xs={12} md={8} lg={9}>
+        <Col xs={12} md={8} lg={9} xl={10}>
           <Suspense
             fallback={
               <>

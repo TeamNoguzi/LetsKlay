@@ -27,12 +27,12 @@ const useProjectsCreateMutation = () => {
   return mutation;
 };
 
-const useProjectsUpdateMutation = () => {
+const useProjectsUpdateMutation = (invalidate: boolean = true) => {
   const mutation = useMutation<unknown, unknown, UpdateProjectMutationParam>(
     ({ project }) => updateProject(project.id, project),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["projects"]);
+        if (invalidate) queryClient.invalidateQueries(["projects"]);
       },
     }
   );
