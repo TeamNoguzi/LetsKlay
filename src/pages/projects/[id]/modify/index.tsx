@@ -28,6 +28,9 @@ const DynamicFormDescriptions = dynamic(
     ssr: false,
   }
 );
+const DynamicFormRewards = dynamic(() => import("sections/Projects/Modify/Form/Rewards"), {
+  suspense: true,
+});
 
 const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
   const [selected, setSelected] = useState<number>(0);
@@ -61,6 +64,7 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
       <DynamicFormBasics project={project} />,
       <DynamicFormPictures project={project} />,
       <DynamicFormDescriptions project={project} />,
+      <DynamicFormRewards project={project} />,
     ],
     [project]
   );
