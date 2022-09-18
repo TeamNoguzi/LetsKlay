@@ -6,6 +6,7 @@ import { down } from "styled-breakpoints";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SearchBar from "stories/SearchBar";
+import { createProject } from "api";
 import SideBar from "../SideBar";
 import * as S from "./styled";
 
@@ -21,7 +22,10 @@ function Navigation({ footer }: NavigationProps) {
   const handleOpenMobile = () => setShowMobile(true);
   const handleCloseMobile = () => setShowMobile(false);
 
-  const handleClickPlus = () => router.push("/projects/new");
+  const handleClickPlus = async () => {
+    const { id } = await createProject();
+    router.push(`/projects/${id}/modify`);
+  };
   const handleClickProfile = () => router.push("/profile");
 
   return (

@@ -127,7 +127,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
                         {...register(`rewards.${rewardIdx}.maxStock`, {
                           required: true,
                           onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                            setValue(`rewards.${rewardIdx}.stock`, e.target.value),
+                            setValue(`rewards.${rewardIdx}.stock`, +e.target.value),
                         })}
                         type="number"
                         min="1"

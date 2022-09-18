@@ -3,6 +3,7 @@ import {
   FindProjectFullResponseDto,
   CreateProjectDto,
   UpdateProjectDto,
+  CreateProjectResponseDto,
 } from "@/dto";
 import axios from "../axios";
 
@@ -17,7 +18,7 @@ const fetchProjectWithId = async (id: number) => {
 };
 
 const createProject = async (project?: CreateProjectDto) => {
-  const { data } = await axios.post("/projects", project);
+  const { data } = await axios.post<CreateProjectResponseDto>("/projects", project);
   return data;
 };
 
