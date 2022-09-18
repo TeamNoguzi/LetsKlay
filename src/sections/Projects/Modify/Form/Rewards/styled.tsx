@@ -18,8 +18,8 @@ const FormDescription = styled.p`
 `;
 
 const RewardToggle = styled.div`
-  ${flexBox({ direction: "column", middle: false })};
-  justify-content: center;
+  ${flexBox({ direction: "row", middle: false })};
+  align-items: center;
 
   height: 50px;
   width: 100%;
@@ -27,6 +27,11 @@ const RewardToggle = styled.div`
   padding: 10px;
 
   background-color: ${(props) => props.theme.colors.primary}40;
+
+  span {
+    display: inline-block;
+    margin-right: auto;
+  }
 `;
 
 const collapseStyle = css`
