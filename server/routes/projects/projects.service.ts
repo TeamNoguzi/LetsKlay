@@ -29,6 +29,22 @@ export class ProjectsService {
     return user;
   }
 
+  // 프로젝트가 비공개 상태인지 확인
+  async confirmPreparing(id: number) {
+    const project = await this.projectsRepository.findOne({
+      where: {
+        id: id,
+        status: ProjectStatus.preparing,
+      },
+    });
+    if (!project) {
+      const err = new Error("The project is public. Cannot modify public projects.");
+      err.name = "Prohibited Modification";
+      throw err;
+    }
+    return project;
+  }
+
   async findAll() {
     return await this.projectsRepository.find({
       select: {
@@ -78,6 +94,7 @@ export class ProjectsService {
 
   async updateOne(userId: number, id: number, updateDto: UpdateProjectDto) {
     await this.verifyUserProject(userId, id);
+    await this.confirmPreparing(id);
     return await this.projectsRepository.save({ id: id, user: { id: userId }, ...updateDto });
   }
 

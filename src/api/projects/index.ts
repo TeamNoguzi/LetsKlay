@@ -3,6 +3,7 @@ import {
   FindProjectFullResponseDto,
   CreateProjectDto,
   UpdateProjectDto,
+  CreateProjectResponseDto,
 } from "@/dto";
 import axios from "../axios";
 
@@ -17,7 +18,7 @@ const fetchProjectWithId = async (id: number) => {
 };
 
 const createProject = async (project?: CreateProjectDto) => {
-  const { data } = await axios.post("/projects", project);
+  const { data } = await axios.post<CreateProjectResponseDto>("/projects", project);
   return data;
 };
 
@@ -26,4 +27,9 @@ const updateProject = async (id: number, project: UpdateProjectDto) => {
   return data;
 };
 
-export { fetchProjects, fetchProjectWithId, createProject, updateProject };
+const updateProjectPublic = async (id: number) => {
+  const { data } = await axios.patch(`/projects/${id}/public`);
+  return data;
+};
+
+export { fetchProjects, fetchProjectWithId, createProject, updateProject, updateProjectPublic };

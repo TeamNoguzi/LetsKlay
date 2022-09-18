@@ -11,6 +11,7 @@ interface CreateProjectDto {
   rewards?: CreateRewardDto[];
 }
 interface CreateProjectResponseDto {
+  id: number;
   title: string;
   subtitle: string;
   summary: string;

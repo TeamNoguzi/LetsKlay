@@ -1,11 +1,7 @@
-import { CreateProjectDto, FindProjectFullResponseDto, UpdateProjectDto } from "@/dto";
+import { FindProjectFullResponseDto, UpdateProjectDto } from "@/dto";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchProjectWithId, createProject, updateProject } from "api";
+import { fetchProjectWithId, updateProject } from "api";
 import queryClient from "./client";
-
-interface CreateProjectMutationParam {
-  project?: CreateProjectDto;
-}
 
 interface UpdateProjectMutationParam {
   project: UpdateProjectDto & { id: number };
@@ -17,14 +13,6 @@ const useProject = (projectId: number, initialData: FindProjectFullResponseDto) 
   });
 
   return { project: data, isError };
-};
-
-const useProjectsCreateMutation = () => {
-  const mutation = useMutation<unknown, unknown, CreateProjectMutationParam>(({ project }) =>
-    createProject(project)
-  );
-
-  return mutation;
 };
 
 const useProjectsUpdateMutation = (invalidate: boolean = true) => {
@@ -40,4 +28,4 @@ const useProjectsUpdateMutation = (invalidate: boolean = true) => {
   return mutation;
 };
 
-export { useProject, useProjectsCreateMutation, useProjectsUpdateMutation };
+export { useProject, useProjectsUpdateMutation };

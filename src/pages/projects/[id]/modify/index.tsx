@@ -5,10 +5,13 @@ import Logo from "stories/Logo";
 import Navigation from "stories/Layout/Navigation";
 import Footer from "stories/Layout/Footer";
 import { GetServerSidePropsContext } from "next";
-import { fetchProjectWithId } from "api";
+import { fetchProjectWithId, updateProjectPublic } from "api";
 import { FindProjectFullResponseDto } from "@/dto";
 import { useProject } from "hooks/queries/useProjects";
 import dynamic from "next/dynamic";
+import Button from "stories/Buttons/Button";
+import { ProjectStatus } from "@/enums";
+import { useRouter } from "next/router";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
@@ -33,9 +36,14 @@ const DynamicFormRewards = dynamic(() => import("sections/Projects/Modify/Form/R
 });
 
 const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
+  const router = useRouter();
   const [selected, setSelected] = useState<number>(0);
   const handleSelect = useCallback((idx: number) => setSelected(idx), []);
   const { project } = useProject(projectId, initialProject);
+  const handleUpdatePublic = async () => {
+    await updateProjectPublic(project.id);
+    router.push(`/projects/${project.id}`);
+  };
 
   const steps = useMemo(
     () => [
@@ -59,7 +67,7 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
     []
   );
 
-  const Pages = useMemo(
+  const sections = useMemo(
     () => [
       <DynamicFormBasics project={project} />,
       <DynamicFormPictures project={project} />,
@@ -95,8 +103,12 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
               </>
             }
           >
-            {Pages[selected]}
+            {sections[selected]}
           </Suspense>
+          <hr />
+          <Button type="button" variant="primary" onClick={handleUpdatePublic}>
+            Open to Public
+          </Button>
         </Col>
       </Row>
       <footer>
@@ -117,6 +129,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!project) {
     context.res.statusCode = 404;
     return { notFound: true };
+  }
+  if (project.status !== ProjectStatus.preparing) {
+    context.res.statusCode = 405;
+    return { redirect: { destination: `/projects/${projectId}` } };
   }
 
   return { props: { projectId, initialProject: project } };

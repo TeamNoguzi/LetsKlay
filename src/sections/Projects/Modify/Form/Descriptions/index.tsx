@@ -52,7 +52,7 @@ const FormDescriptions = ({ project }: FormDescriptionsProps) => {
           },
         }}
       />
-      <Button type="submit" variant="primary" className="mt-3" onClick={handleSave}>
+      <Button type="submit" variant="outline" className="mt-3" onClick={handleSave}>
         Save Changes
       </Button>
     </>
