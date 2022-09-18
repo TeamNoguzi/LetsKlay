@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const TabsWrapper = styled.div`
@@ -30,4 +31,10 @@ const TabsWrapper = styled.div`
   }
 `;
 
-export { TabsWrapper };
+const markdownStyle = css`
+  p {
+    white-space: pre-line;
+  }
+`;
+
+export { TabsWrapper, markdownStyle };

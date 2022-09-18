@@ -2,6 +2,7 @@ import { Row, Col, Tabs, Tab } from "react-bootstrap";
 import { FindProjectFullResponseDto } from "@/dto";
 import { useBreakpoint } from "styled-breakpoints/react-emotion";
 import { down } from "styled-breakpoints";
+import ReactMarkdown from "react-markdown";
 import ProjectRewards from "../Rewards";
 import * as S from "./styled";
 
@@ -17,7 +18,7 @@ const ProjectDescription = ({ project }: ProjectDescriptionProps) => {
         <S.TabsWrapper>
           <Tabs defaultActiveKey="Description">
             <Tab eventKey="Description" title="Description">
-              {project.description}
+              <ReactMarkdown css={S.markdownStyle}>{project.description}</ReactMarkdown>
             </Tab>
             {isMobile && (
               <Tab eventKey="Reward" title="Reward">

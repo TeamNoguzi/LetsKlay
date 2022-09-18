@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
 import { flexBox } from "styles/mixins";
 import { css } from "@emotion/react";
+import { down } from "styled-breakpoints";
 
 interface StepperItemProps {
   selected?: boolean;
 }
 
 const StepperTitle = styled.h6`
-  padding-left: 20px;
+  padding: 20px;
   margin-bottom: 20px;
 
   color: ${(props) => props.theme.colors.secondaryBold};
@@ -15,6 +16,10 @@ const StepperTitle = styled.h6`
   font-weight: bold;
   line-height: 18pt;
   vertical-align: middle;
+
+  ${down("md")} {
+    border: 1px solid #3c3c3c20;
+  }
 `;
 
 const StepperContainer = styled.div`

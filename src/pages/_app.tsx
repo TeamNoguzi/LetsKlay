@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import theme from "styles/theme";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { SSRProvider } from "react-bootstrap";
 import queryClient from "hooks/queries/client";
 import Modal from "stories/Modal";
 import GlobalStyle from "styles/global";
@@ -14,13 +15,15 @@ config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-        <Modal />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <SSRProvider>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <Component {...pageProps} />
+          <Modal />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </SSRProvider>
   );
 }
 
