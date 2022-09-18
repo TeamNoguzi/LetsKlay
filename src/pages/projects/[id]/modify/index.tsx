@@ -132,7 +132,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
   if (project.status !== ProjectStatus.preparing) {
     context.res.statusCode = 405;
-    return { notFound: true };
+    return { redirect: { destination: `/projects/${projectId}` } };
   }
 
   return { props: { projectId, initialProject: project } };
