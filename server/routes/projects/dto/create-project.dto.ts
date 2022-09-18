@@ -32,6 +32,9 @@ export class CreateProjectDto implements CreateProjectDtoType {
 }
 export class CreateProjectResponseDto implements CreateProjectResponseDtoType {
   @ApiProperty()
+  id: number;
+
+  @ApiProperty()
   title: string;
 
   @ApiProperty()

@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,26 +17,15 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "../common/*"
-      ]
+      "@/*": ["../common/*"]
     },
-    "types": [
-      "@emotion/core"
-    ]
+    "types": ["@emotion/core"]
   },
   "references": [
     {
       "path": "../common"
     }
   ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "stories/Cards/.stories.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "stories/Cards/.stories.tsx"],
+  "exclude": ["node_modules"]
 }

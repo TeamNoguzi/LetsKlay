@@ -15953,6 +15953,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-transpile-modules@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "next-transpile-modules@npm:9.0.0"
+  dependencies:
+    enhanced-resolve: ^5.7.0
+    escalade: ^3.1.1
+  checksum: 9a5d86d80cedc2404b2b1d5bd4994f2f7bf60e5e20f24e8cc5cfec34da1418b4a439916f37a95ca336bcf6d81094c3647354ac6a0c6737b3df59e62b6380507d
+  languageName: node
+  linkType: hard
+
 "next@npm:12.2.5":
   version: 12.2.5
   resolution: "next@npm:12.2.5"
@@ -19780,6 +19790,7 @@ __metadata:
     lodash: ^4.17.21
     moment: ^2.29.4
     next: 12.2.5
+    next-transpile-modules: ^9.0.0
     numeral: ^2.0.6
     postcss-loader: ^7.0.1
     react: 18.2.0

@@ -34,8 +34,8 @@ const FormRewards = ({ project }: FormRewardsProps) => {
     },
   });
   const { fields, append, remove } = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "rewards", // unique name for your Field Array
+    control,
+    name: "rewards",
   });
 
   const handleValidSubmit: SubmitHandler<FormInput> = (data) =>
@@ -225,7 +225,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
           </React.Fragment>
         ))}
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="outline">
           Save Changes
         </Button>
       </Form>

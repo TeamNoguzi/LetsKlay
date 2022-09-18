@@ -62,7 +62,7 @@ const FormBasics = ({ project }: FormBasicsProps) => {
           <S.FormDescription>hi</S.FormDescription>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="outline">
           Save Changes
         </Button>
       </Form>

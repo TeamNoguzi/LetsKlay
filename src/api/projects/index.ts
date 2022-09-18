@@ -27,4 +27,9 @@ const updateProject = async (id: number, project: UpdateProjectDto) => {
   return data;
 };
 
-export { fetchProjects, fetchProjectWithId, createProject, updateProject };
+const updateProjectPublic = async (id: number) => {
+  const { data } = await axios.patch(`/projects/${id}/public`);
+  return data;
+};
+
+export { fetchProjects, fetchProjectWithId, createProject, updateProject, updateProjectPublic };

@@ -54,17 +54,13 @@ export class ProjectsController {
     return await this.projectsService.deleteOne(+req.user.id, +id);
   }
 
-  @ApiOperation({ summary: "프로젝트 상태 변경" })
+  @ApiOperation({ summary: "프로젝트 공개 전환" })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
-  @Patch(":id/:status")
-  async updateStatusOne(
-    @Req() req: Request,
-    @Param("id") id: number,
-    @Param("status") status: ProjectStatus
-  ): Promise<UpdateResult> {
-    return await this.projectsService.updateStatusOne(+req.user.id, +id, status);
+  @Patch(":id/public")
+  async updateStatusOne(@Req() req: Request, @Param("id") id: number): Promise<UpdateResult> {
+    return await this.projectsService.updateStatusOne(+req.user.id, +id, ProjectStatus.funding);
   }
 
   @ApiOperation({ summary: "내 상태별 프로젝트 리스트 조회" })

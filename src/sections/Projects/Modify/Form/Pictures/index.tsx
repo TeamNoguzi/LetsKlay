@@ -85,7 +85,7 @@ const FormPictures = ({ project }: FormPicturesProps) => {
         <S.FormImage src={`/${watch("thumbnailUrl")}`} alt="thumbnail" />
         <S.FormDescription> The title is displayed on the item list. </S.FormDescription>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="outline">
           Save Changes
         </Button>
       </Form>
