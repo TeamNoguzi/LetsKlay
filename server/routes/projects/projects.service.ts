@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { Project } from "./entities/projects.entity";
@@ -57,7 +57,33 @@ export class ProjectsService {
         fundNow: true,
         status: true,
       },
+      where: {
+        status: Not(ProjectStatus.preparing),
+      },
     });
+  }
+
+  async findRecents() {
+    return await this.projectsRepository
+      .createQueryBuilder("project")
+      .select()
+      .where("project.status != :status", { status: ProjectStatus.preparing })
+      .orderBy("project.updatedAt", "ASC")
+      .limit(10)
+      .getMany();
+  }
+
+  async findPopular() {
+    return await this.projectsRepository
+      .createQueryBuilder("project")
+      .select()
+      .addSelect("COUNT(*) AS count")
+      .leftJoin("project.likes", "likes")
+      .where("project.status != :status", { status: ProjectStatus.preparing })
+      .groupBy("project.id")
+      .orderBy("count", "DESC")
+      .limit(10)
+      .getMany();
   }
 
   async findOne(id: number) {

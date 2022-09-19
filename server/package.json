@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node build/server.js",
     "build": "rimraf ./build && nest build",
-    "dev": "rimraf ./build && nodemon",
+    "dev": "rimraf ./build && nest start -w",
     "lint": "eslint ."
   },
   "dependencies": {

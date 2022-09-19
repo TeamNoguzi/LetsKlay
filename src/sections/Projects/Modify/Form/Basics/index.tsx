@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "stories/Buttons/Button";
 import { FindProjectFullResponseDto } from "@/dto";
-import { useProjectsUpdateMutation } from "hooks/queries";
+import { useProjectUpdateMutation } from "hooks/queries";
 import * as S from "./styled";
 
 interface FormInput {
@@ -16,7 +16,7 @@ interface FormBasicsProps {
 }
 
 const FormBasics = ({ project }: FormBasicsProps) => {
-  const mutation = useProjectsUpdateMutation();
+  const mutation = useProjectUpdateMutation();
   const { register, handleSubmit } = useForm<FormInput>({
     defaultValues: {
       ...project,

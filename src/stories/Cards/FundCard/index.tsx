@@ -1,11 +1,11 @@
 import { Card, ProgressBar } from "react-bootstrap";
-import { Project } from "@/entities";
+import { FindProjectResponseDto } from "@/dto";
 import Image from "next/image";
 import numeral from "numeral";
 import * as S from "./styled";
 
 interface FundCardProps {
-  project: Project;
+  project: FindProjectResponseDto;
   width?: number;
   onClick?: () => void;
 }

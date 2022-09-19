@@ -12,6 +12,16 @@ const fetchProjects = async () => {
   return data;
 };
 
+const fetchProjectsRecent = async () => {
+  const { data } = await axios.get<FindProjectResponseDto[]>("/projects/recents");
+  return data;
+};
+
+const fetchProjectsPopular = async () => {
+  const { data } = await axios.get<FindProjectResponseDto[]>("/projects/popular");
+  return data;
+};
+
 const fetchProjectWithId = async (id: number) => {
   const { data } = await axios.get<FindProjectFullResponseDto>(`/projects/${id}`);
   return data;
@@ -32,4 +42,12 @@ const updateProjectPublic = async (id: number) => {
   return data;
 };
 
-export { fetchProjects, fetchProjectWithId, createProject, updateProject, updateProjectPublic };
+export {
+  fetchProjects,
+  fetchProjectsRecent,
+  fetchProjectsPopular,
+  fetchProjectWithId,
+  createProject,
+  updateProject,
+  updateProjectPublic,
+};

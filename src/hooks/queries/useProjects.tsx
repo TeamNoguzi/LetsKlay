@@ -1,6 +1,6 @@
-import { FindProjectFullResponseDto, UpdateProjectDto } from "@/dto";
+import { FindProjectFullResponseDto, FindProjectResponseDto, UpdateProjectDto } from "@/dto";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchProjectWithId, updateProject } from "api";
+import { fetchProjectsRecent, fetchProjectWithId, updateProject } from "api";
 import queryClient from "./client";
 
 interface UpdateProjectMutationParam {
@@ -15,12 +15,28 @@ const useProject = (projectId: number, initialData: FindProjectFullResponseDto) 
   return { project: data, isError };
 };
 
-const useProjectsUpdateMutation = (invalidate: boolean = true) => {
+const useProjectsRecent = (initialData?: FindProjectResponseDto[]) => {
+  const { data, isError } = useQuery(["projects", "recent"], () => fetchProjectsRecent(), {
+    initialData,
+  });
+
+  return { project: data, isError };
+};
+
+const useProjectsPopular = (initialData?: FindProjectResponseDto[]) => {
+  const { data, isError } = useQuery(["projects", "recent"], () => fetchProjectsPopular(), {
+    initialData,
+  });
+
+  return { project: data, isError };
+};
+
+const useProjectUpdateMutation = (invalidate: boolean = true) => {
   const mutation = useMutation<unknown, unknown, UpdateProjectMutationParam>(
     ({ project }) => updateProject(project.id, project),
     {
-      onSuccess: () => {
-        if (invalidate) queryClient.invalidateQueries(["projects"]);
+      onSuccess: (_, { project }) => {
+        if (invalidate) queryClient.invalidateQueries(["projects", project.id]);
       },
     }
   );
@@ -28,4 +44,4 @@ const useProjectsUpdateMutation = (invalidate: boolean = true) => {
   return mutation;
 };
 
-export { useProject, useProjectsUpdateMutation };
+export { useProject, useProjectsRecent, useProjectsPopular, useProjectUpdateMutation };

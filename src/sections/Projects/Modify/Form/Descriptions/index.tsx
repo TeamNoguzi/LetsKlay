@@ -1,7 +1,7 @@
 import { FindProjectFullResponseDto } from "@/dto";
 import { Editor } from "@toast-ui/react-editor";
 import { useRef, useEffect } from "react";
-import { useProjectsUpdateMutation } from "hooks";
+import { useProjectUpdateMutation } from "hooks";
 import { uploadImage } from "api";
 import { debounce } from "lodash";
 import Button from "stories/Buttons/Button";
@@ -14,7 +14,7 @@ interface FormDescriptionsProps {
 }
 
 const FormDescriptions = ({ project }: FormDescriptionsProps) => {
-  const mutation = useProjectsUpdateMutation(false);
+  const mutation = useProjectUpdateMutation(false);
   const ref = useRef<Editor>(null);
 
   useEffect(() => {
