@@ -61,7 +61,7 @@ export class Project implements ProjectType {
   })
   rewards: Reward[];
 
-  @OneToMany(() => Like, (like) => like.user, {
+  @OneToMany(() => Like, (like) => like.project, {
     cascade: true,
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
