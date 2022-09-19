@@ -30,8 +30,7 @@ const ProjectDetail = ({ project }: ProjectDetailPageProps) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!context.params?.id) {
-    context.res.statusCode = 404;
-    return {};
+    return { notFound: true };
   }
   const project = await fetchProjectWithId(+context.params.id);
   return {

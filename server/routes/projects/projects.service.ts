@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Not, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { Project } from "./entities/projects.entity";
@@ -56,9 +56,6 @@ export class ProjectsService {
         fundGoal: true,
         fundNow: true,
         status: true,
-      },
-      where: {
-        status: Not(ProjectStatus.preparing),
       },
     });
   }
@@ -126,6 +123,10 @@ export class ProjectsService {
 
   async deleteOne(userId: number, id: number) {
     return await this.projectsRepository.delete({ id: id, user: { id: userId } });
+  }
+
+  async deleteOneAdmin(id: number) {
+    return await this.projectsRepository.delete({ id });
   }
 
   async updateStatusOne(userId: number, id: number, status: ProjectStatus) {

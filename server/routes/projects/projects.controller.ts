@@ -18,16 +18,6 @@ export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @ApiOperation({
-    summary: "프로젝트 전체 조회",
-    description: "현재 공개된 상태의 프로젝트 전체 조회",
-  })
-  @ApiResponse({ type: [FindProjectResponseDto] })
-  @Get()
-  async findAll(): Promise<FindProjectResponseDto[]> {
-    return await this.projectsService.findAll();
-  }
-
-  @ApiOperation({
     summary: "최근 10개 프로젝트 조회",
     description: "최근 공개된 프로젝트 10개 조회",
   })
