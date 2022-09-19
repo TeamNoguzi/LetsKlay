@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Project } from "@/entities";
+import { FindProjectResponseDto } from "@/dto";
 import { Row } from "react-bootstrap";
 import Carousel from "stories/Carousel";
 import FundCard from "stories/Cards/FundCard";
@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import * as S from "./styled";
 
 interface HomeRecentProps {
-  projects: Project[];
+  projects: FindProjectResponseDto[];
 }
 
 const HomeRecent = ({ projects }: HomeRecentProps) => {

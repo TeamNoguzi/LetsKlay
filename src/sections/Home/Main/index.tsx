@@ -1,4 +1,4 @@
-import { Project } from "@/entities/projects";
+import { FindProjectResponseDto } from "@/dto";
 import { Row, Col } from "react-bootstrap";
 import ItemCard from "stories/Cards/ItemCard";
 import { useRouter } from "next/router";
@@ -7,7 +7,7 @@ import { down } from "styled-breakpoints";
 import * as S from "./styled";
 
 interface HomeMainProps {
-  projects: Project[];
+  projects: FindProjectResponseDto[];
 }
 
 const HomeMain = ({ projects }: HomeMainProps) => {

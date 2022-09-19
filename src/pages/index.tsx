@@ -1,19 +1,20 @@
-import { fetchProjects } from "api";
+import { fetchProjectsPopular, fetchProjectsRecent } from "api";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import Navigation from "stories/Layout/Navigation";
-import { Project } from "@/entities/projects";
 import HomeMain from "sections/Home/Main";
 import Logo from "stories/Logo";
 import Footer from "stories/Layout/Footer";
 import HomeRecent from "sections/Home/Recent";
+import { FindProjectResponseDto } from "@/dto";
 import * as S from "./styled";
 
 interface HomePageProps {
-  projects: Project[];
+  projectsPopular: FindProjectResponseDto[];
+  projectsRecent: FindProjectResponseDto[];
 }
 
-const Home = ({ projects }: HomePageProps) => {
+const Home = ({ projectsPopular, projectsRecent }: HomePageProps) => {
   return (
     <>
       <Head>
@@ -27,9 +28,9 @@ const Home = ({ projects }: HomePageProps) => {
           <Navigation />
         </header>
         <S.HomeMainContainer>
-          <HomeMain projects={projects} />
+          <HomeMain projects={projectsPopular} />
           <hr />
-          <HomeRecent projects={projects} />
+          <HomeRecent projects={projectsRecent} />
         </S.HomeMainContainer>
 
         <Footer />
@@ -39,10 +40,11 @@ const Home = ({ projects }: HomePageProps) => {
 };
 
 export async function getServerSideProps() {
-  const projects = await fetchProjects();
+  const projectsPopular = await fetchProjectsPopular();
+  const projectsRecent = await fetchProjectsRecent();
 
   return {
-    props: { projects },
+    props: { projectsPopular, projectsRecent },
   };
 }
 

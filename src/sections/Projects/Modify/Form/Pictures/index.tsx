@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Form } from "react-bootstrap";
 import Button from "stories/Buttons/Button";
 import { uploadImage } from "api/images";
-import { useProjectsUpdateMutation } from "hooks";
+import { useProjectUpdateMutation } from "hooks";
 import * as S from "./styled";
 
 interface FormInput {
@@ -19,7 +19,7 @@ interface FormPicturesProps {
 }
 
 const FormPictures = ({ project }: FormPicturesProps) => {
-  const mutation = useProjectsUpdateMutation();
+  const mutation = useProjectUpdateMutation();
   const { register, handleSubmit, setValue, watch } = useForm<FormInput>({
     defaultValues: {
       ...project,

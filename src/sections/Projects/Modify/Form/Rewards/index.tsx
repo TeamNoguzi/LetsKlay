@@ -2,7 +2,7 @@ import { Collapse, Container, Form, Row, Col } from "react-bootstrap";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import Button from "stories/Buttons/Button";
 import { FindProjectFullResponseDto, CreateRewardDto, FindRewardResponseDto } from "@/dto";
-import { useProjectsUpdateMutation } from "hooks/queries";
+import { useProjectUpdateMutation } from "hooks/queries";
 import React, { useState } from "react";
 import RewardCard from "stories/Cards/RewardCard";
 import { IconButton } from "stories/Buttons/IconButton";
@@ -23,7 +23,7 @@ interface FormRewardsProps {
 
 const FormRewards = ({ project }: FormRewardsProps) => {
   const [selected, setSelected] = useState<number | false>(0);
-  const mutation = useProjectsUpdateMutation();
+  const mutation = useProjectUpdateMutation();
   const { register, handleSubmit, watch, setValue, control } = useForm<FormInput>({
     defaultValues: {
       rewards: project.rewards.map((reward) => ({
