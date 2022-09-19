@@ -10,6 +10,7 @@ import { RewardsModule } from "./routes/rewards/rewards.module";
 import { LikesModule } from "./routes/likes/likes.module";
 import { ImagesModule } from "routes/images/images.module";
 import { TransactionModule } from "./routes/transaction/transaction.module";
+import { AdminModule } from "./admin/admin.module";
 
 @Module({
   imports: (() => {
@@ -22,6 +23,7 @@ import { TransactionModule } from "./routes/transaction/transaction.module";
       UsersModule,
       AuthModule,
       ImagesModule,
+      AdminModule,
     ];
 
     const prodModules = [
