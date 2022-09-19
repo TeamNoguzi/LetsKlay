@@ -7,6 +7,7 @@ import Logo from "stories/Logo";
 import Footer from "stories/Layout/Footer";
 import HomeRecent from "sections/Home/Recent";
 import { FindProjectResponseDto } from "@/dto";
+import { useProjectsPopular, useProjectsRecent } from "hooks";
 import * as S from "./styled";
 
 interface HomePageProps {
@@ -15,6 +16,9 @@ interface HomePageProps {
 }
 
 const Home = ({ projectsPopular, projectsRecent }: HomePageProps) => {
+  const { projects: projectsPopularCached } = useProjectsPopular(projectsPopular);
+  const { projects: projectsRecentCached } = useProjectsRecent(projectsRecent);
+
   return (
     <>
       <Head>
@@ -28,9 +32,9 @@ const Home = ({ projectsPopular, projectsRecent }: HomePageProps) => {
           <Navigation />
         </header>
         <S.HomeMainContainer>
-          <HomeMain projects={projectsPopular} />
+          <HomeMain projects={projectsPopularCached ?? []} />
           <hr />
-          <HomeRecent projects={projectsRecent} />
+          <HomeRecent projects={projectsRecentCached ?? []} />
         </S.HomeMainContainer>
 
         <Footer />

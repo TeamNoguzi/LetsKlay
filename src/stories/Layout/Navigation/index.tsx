@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import SearchBar from "stories/SearchBar";
 import { createProject } from "api";
+import { useAuthGuard } from "hooks";
 import SideBar from "../SideBar";
 import * as S from "./styled";
 
@@ -18,13 +19,14 @@ function Navigation({ footer }: NavigationProps) {
   const router = useRouter();
   const mobile = useBreakpoint(down("md"));
   const [showMobile, setShowMobile] = useState<boolean>(false);
+  const createProjectGuarded = useAuthGuard(createProject);
 
   const handleOpenMobile = () => setShowMobile(true);
   const handleCloseMobile = () => setShowMobile(false);
 
   const handleClickPlus = async () => {
-    const { id } = await createProject();
-    router.push(`/projects/${id}/modify`);
+    const result = await createProjectGuarded(undefined);
+    if (result) router.push(`/projects/${result.id}/modify`);
   };
   const handleClickProfile = () => router.push("/profile");
 

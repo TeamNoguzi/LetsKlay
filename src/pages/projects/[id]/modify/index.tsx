@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import Button from "stories/Buttons/Button";
 import { ProjectStatus } from "@/enums";
 import { useRouter } from "next/router";
+import { useAuthGuard } from "hooks";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
@@ -40,9 +41,12 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
   const [selected, setSelected] = useState<number>(0);
   const handleSelect = useCallback((idx: number) => setSelected(idx), []);
   const { project } = useProject(projectId, initialProject);
-  const handleUpdatePublic = async () => {
-    await updateProjectPublic(project.id);
-    router.push(`/projects/${project.id}`);
+  const updateProjectPublicGuarded = useAuthGuard(updateProjectPublic);
+
+  const handleUpdatePublic = () => {
+    updateProjectPublicGuarded(project.id)
+      .then(() => router.push(`/projects/${project.id}`))
+      .catch(() => {});
   };
 
   const steps = useMemo(

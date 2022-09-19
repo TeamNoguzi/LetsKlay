@@ -1,6 +1,6 @@
 import { FindProjectFullResponseDto, FindProjectResponseDto, UpdateProjectDto } from "@/dto";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchProjectsRecent, fetchProjectWithId, updateProject } from "api";
+import { fetchProjectsPopular, fetchProjectsRecent, fetchProjectWithId, updateProject } from "api";
 import queryClient from "./client";
 
 interface UpdateProjectMutationParam {
@@ -20,15 +20,15 @@ const useProjectsRecent = (initialData?: FindProjectResponseDto[]) => {
     initialData,
   });
 
-  return { project: data, isError };
+  return { projects: data, isError };
 };
 
 const useProjectsPopular = (initialData?: FindProjectResponseDto[]) => {
-  const { data, isError } = useQuery(["projects", "recent"], () => fetchProjectsPopular(), {
+  const { data, isError } = useQuery(["projects", "popular"], () => fetchProjectsPopular(), {
     initialData,
   });
 
-  return { project: data, isError };
+  return { projects: data, isError };
 };
 
 const useProjectUpdateMutation = (invalidate: boolean = true) => {

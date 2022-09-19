@@ -3,6 +3,8 @@ import { login } from "api";
 import { Form } from "react-bootstrap";
 import Logo from "stories/Logo";
 import { useRouter } from "next/router";
+import { modalCloseAtom } from "atoms";
+import { useAtom } from "jotai";
 import * as S from "./styled";
 
 interface LoginFormProps {
@@ -12,13 +14,14 @@ interface LoginFormProps {
 
 const LoginForm = ({ isPage, prevPage }: LoginFormProps) => {
   const router = useRouter();
+  const closeModal = useAtom(modalCloseAtom)[1];
 
   const handleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
     await login();
 
     if (isPage) router.replace(prevPage ?? "/");
-    else window.close();
+    else closeModal();
   };
 
   return (
