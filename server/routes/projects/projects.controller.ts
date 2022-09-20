@@ -66,7 +66,10 @@ export class ProjectsController {
     return await this.projectsService.deleteOne(+req.user.id, +id);
   }
 
-  @ApiOperation({ summary: "프로젝트 공개 전환" })
+  @ApiOperation({
+    summary: "프로젝트 공개 전환",
+    description: "프로젝트가 모두 작성되어야 사용 가능",
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
