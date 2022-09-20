@@ -41,10 +41,10 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-// require('dotenv').config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
+require("dotenv").config();
+const { PRIVATE_KEY } = process.env;
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require("truffle-hdwallet-provider-klaytn");
 
 module.exports = {
   /**
@@ -68,7 +68,26 @@ module.exports = {
       host: "127.0.0.1", // Localhost (default: none)
       port: 7545, // Standard Ethereum port (default: none)
       network_id: "5777", // Any network (default: none)
-      from: "0xd7e3663e743e8789df86ebb8997aaa199200de1a",
+      from: "0xD7E3663E743e8789Df86EBb8997Aaa199200de1A",
+    },
+    baobab: {
+      provider: () => {
+        return new HDWalletProvider(PRIVATE_KEY, "https://api.baobab.klaytn.net:8651");
+      },
+      network_id: "1001", //Klaytn baobab testnet's network id
+      gas: "8500000",
+      gasPrice: null,
+    },
+    cypress: {
+      provider: () => {
+        return new HDWalletProvider(
+          PRIVATE_KEY,
+          "https://public-node-api.klaytnapi.com/v1/cypress"
+        );
+      },
+      network_id: "8217", //Klaytn mainnet's network id
+      gas: "8500000",
+      gasPrice: null,
     },
     //
     // An additional network, but with some advanced options…

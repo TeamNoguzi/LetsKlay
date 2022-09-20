@@ -30,6 +30,7 @@
     "@typescript-eslint/parser": "^5.35.1",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.0.2",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.0",
@@ -41,6 +42,7 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "add": "^2.0.6",
+    "truffle-hdwallet-provider-klaytn": "^1.4.2",
     "uuid": "^9.0.0",
     "yarn": "^1.22.19"
   }
