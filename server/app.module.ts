@@ -11,6 +11,7 @@ import { LikesModule } from "./routes/likes/likes.module";
 import { ImagesModule } from "routes/images/images.module";
 import { TransactionModule } from "./routes/transaction/transaction.module";
 import { AdminModule } from "./admin/admin.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: (() => {
@@ -24,6 +25,7 @@ import { AdminModule } from "./admin/admin.module";
       AuthModule,
       ImagesModule,
       AdminModule,
+      ConfigModule.forRoot(),
     ];
 
     const prodModules = [
