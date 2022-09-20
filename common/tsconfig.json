@@ -19,5 +19,5 @@
     "esModuleInterop": true,
     "composite": true
   },
-  "exclude": ["build"]
+  "exclude": ["klaytn"]
 }
