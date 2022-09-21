@@ -1,10 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from "@nestjs/common";
+import { Injectable, OnModuleInit } from "@nestjs/common";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
 import { UpdateTransactionDto } from "./dto/update-transaction.dto";
+import Caver, { AbiItem } from "caver-js";
+import FactoryABI from "@/klaytn/build/contracts/Factory.json";
 
 @Injectable()
-export class TransactionService {
+export class TransactionService implements OnModuleInit {
+  onModuleInit() {
+    const caver = new Caver("wss://api.baobab.klaytn.net:8652/");
+    const contract = new caver.contract(FactoryABI.abi as AbiItem[], process.env.FACTORY_ADDR);
+    contract.events
+      .FundResolveEvent()
+      .on("connected", function (subscriptionId) {
+        console.log(subscriptionId);
+      })
+      .on("data", async (data) => {
+        console.log(data, "hi");
+      });
+    contract.events
+      .FundCancelEvent()
+      .on("connected", function (subscriptionId) {
+        console.log(subscriptionId);
+      })
+      .on("data", async (data) => {
+        console.log(data, "hi");
+      });
+  }
+
   create(createTransactionDto: CreateTransactionDto) {
     return "This action adds a new transaction";
   }
