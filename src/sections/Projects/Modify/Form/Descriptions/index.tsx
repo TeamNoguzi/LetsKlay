@@ -18,7 +18,7 @@ const FormDescriptions = ({ project }: FormDescriptionsProps) => {
   const ref = useRef<Editor>(null);
 
   useEffect(() => {
-    ref.current?.getInstance().setMarkdown(project.description);
+    ref.current?.getInstance().setMarkdown(project.description ?? "");
   }, [project.description]);
 
   const handleSave = debounce(
@@ -26,7 +26,7 @@ const FormDescriptions = ({ project }: FormDescriptionsProps) => {
       mutation.mutate({
         project: {
           id: project.id,
-          description: ref.current?.getInstance().getMarkdown(),
+          description: ref.current?.getInstance().getMarkdown() ?? "",
         },
       }),
     250

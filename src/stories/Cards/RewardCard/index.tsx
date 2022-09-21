@@ -5,11 +5,12 @@ import * as S from "./styled";
 
 interface RewardCardProps {
   reward: FindRewardResponseDto;
+  onClick?: () => void;
 }
 
-const RewardCard = ({ reward }: RewardCardProps) => {
+const RewardCard = ({ reward, onClick }: RewardCardProps) => {
   return (
-    <S.RewardCard>
+    <S.RewardCard onClick={onClick}>
       <S.RewardCardMask>select this reward</S.RewardCardMask>
       <h1>Support {numeral(reward.price).format("$0,0")}</h1>
       <h2>{reward.title}</h2>
