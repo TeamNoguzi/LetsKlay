@@ -77,6 +77,7 @@ contract Project {
   }
 
   function cancelProject() external {
+    state = ProjectState.Ended;
     factory.emitEvent(IFactory.EventType.ProjectClose, 0, 0);
   }
 }

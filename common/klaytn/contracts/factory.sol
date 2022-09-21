@@ -13,8 +13,9 @@ contract Factory is IFactory{
     uint[] memory prices, 
     uint _fundGoal, 
     uint _projectId
-  ) public {
-    projects[_projectId] = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
+  ) public returns(address) {
+    Project newProject = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
+    projects[_projectId] = newProject;
   }
 
   function emitEvent (EventType eventType, uint rewardId, uint32 amount) external {
@@ -30,5 +31,9 @@ contract Factory is IFactory{
     else if (eventType == EventType.FundCancel) {
       emit FundCancelEvent(msg.sender, rewardId, amount);
     }
+  }
+
+  function getProjectAddress (uint projectId) view external returns(address) {
+    return address(projects[projectId]);
   }
 }
