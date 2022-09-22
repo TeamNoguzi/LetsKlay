@@ -1,5 +1,5 @@
 import { Project } from "routes/projects/entities/projects.entity";
-import { Transaction } from "routes/transaction/entities/transaction.entity";
+import { Transaction } from "routes/transactions/entities/transaction.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RewardItem } from "./reward-item.entity";
 import { Reward as RewardType } from "@/entities";

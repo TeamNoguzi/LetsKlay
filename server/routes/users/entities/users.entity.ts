@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { Transaction } from "routes/transaction/entities/transaction.entity";
+import { Transaction } from "routes/transactions/entities/transaction.entity";
 import { User as UserType } from "@/entities";
 
 @Entity()

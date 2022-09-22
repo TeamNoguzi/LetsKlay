@@ -9,7 +9,7 @@ import { ProjectsModule } from "routes/projects/projects.module";
 import { RewardsModule } from "./routes/rewards/rewards.module";
 import { LikesModule } from "./routes/likes/likes.module";
 import { ImagesModule } from "routes/images/images.module";
-import { TransactionModule } from "./routes/transaction/transaction.module";
+import { TransactionModule } from "./routes/transactions/transactions.module";
 import { AdminModule } from "./routes/admin/admin.module";
 import { ConfigModule } from "@nestjs/config";
 
