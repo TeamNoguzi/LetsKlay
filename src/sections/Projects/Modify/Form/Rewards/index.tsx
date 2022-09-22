@@ -26,11 +26,12 @@ const FormRewards = ({ project }: FormRewardsProps) => {
   const mutation = useProjectUpdateMutation();
   const { register, handleSubmit, watch, setValue, control } = useForm<FormInput>({
     defaultValues: {
-      rewards: project.rewards.map((reward) => ({
-        ...reward,
-        deliveryStart: moment(reward.deliveryStart).format("YYYY-MM-DD") as unknown as Date,
-        deliveryEnd: moment(reward.deliveryEnd).format("YYYY-MM-DD") as unknown as Date,
-      })),
+      rewards:
+        project.rewards?.map((reward) => ({
+          ...reward,
+          deliveryStart: moment(reward.deliveryStart).format("YYYY-MM-DD") as unknown as Date,
+          deliveryEnd: moment(reward.deliveryEnd).format("YYYY-MM-DD") as unknown as Date,
+        })) ?? [],
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -61,12 +62,12 @@ const FormRewards = ({ project }: FormRewardsProps) => {
   };
   const handleAddItem = (rewardIdx: number) => {
     setValue(`rewards.${rewardIdx}.items`, [
-      ...project.rewards[rewardIdx].items,
+      ...(project.rewards[rewardIdx]?.items ?? []),
       { name: "", quantity: 1 },
     ]);
   };
   const handleRemoveItem = (rewardIdx: number, itemIdx: number) => {
-    const newItems = [...project.rewards[rewardIdx].items];
+    const newItems = [...(project.rewards[rewardIdx]?.items ?? [])];
     newItems.splice(itemIdx, 1);
     setValue(`rewards.${rewardIdx}.items`, newItems);
   };

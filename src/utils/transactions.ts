@@ -30,7 +30,7 @@ const sendTransaction = async (
     );
   } catch (err) {
     console.error(err);
-    return Promise.resolve(null);
+    return Promise.reject(err);
   }
 };
 
@@ -42,7 +42,7 @@ const callTransaction = async ({ abi, address, method }: TransactionParam, ...ar
     return await contract.call(method, ...args);
   } catch (err) {
     console.error(err);
-    return Promise.resolve(null);
+    return Promise.reject(err);
   }
 };
 

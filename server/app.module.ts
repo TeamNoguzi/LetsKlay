@@ -12,6 +12,7 @@ import { ImagesModule } from "routes/images/images.module";
 import { TransactionModule } from "./routes/transactions/transactions.module";
 import { AdminModule } from "./routes/admin/admin.module";
 import { ConfigModule } from "@nestjs/config";
+import { DataSource } from "typeorm";
 
 @Module({
   imports: (() => {
@@ -32,8 +33,9 @@ import { ConfigModule } from "@nestjs/config";
       ...nestModules,
       TypeOrmModule.forRoot({
         ...configs["production"],
+        type: "mysql",
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
-        synchronize: true,
+        // synchronize: true,
         //autoLoadEntities:true,
       }),
     ];
@@ -42,8 +44,10 @@ import { ConfigModule } from "@nestjs/config";
       ...nestModules,
       TypeOrmModule.forRoot({
         ...configs["development"],
+        type: "mysql",
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
         synchronize: true,
+        logger: "simple-console",
         //autoLoadEntities:true,
       }),
     ];
@@ -53,4 +57,6 @@ import { ConfigModule } from "@nestjs/config";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}

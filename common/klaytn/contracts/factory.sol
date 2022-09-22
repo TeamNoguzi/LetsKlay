@@ -19,21 +19,21 @@ contract Factory is IFactory{
 
   }
 
-  function emitEvent (EventType eventType, uint rewardId, uint32 amount) external {
+  function emitEvent (EventType eventType, address addr, uint rewardId, uint32 amount) external {
     if(eventType == EventType.ProjectOpen) {
-      emit ProjectOpenEvent(msg.sender, rewardId);
+      emit ProjectOpenEvent(addr, rewardId);
     }
     if(eventType == EventType.ProjectClose) {
-      emit ProjectCloseEvent (msg.sender);
+      emit ProjectCloseEvent (addr);
     }
     else if (eventType == EventType.FundEnd) {
-      emit FundEndEvent (msg.sender);
+      emit FundEndEvent (addr);
     }
     else if (eventType == EventType.FundResolve) {
-      emit FundResolveEvent(msg.sender, rewardId, amount);
+      emit FundResolveEvent(addr, rewardId, amount);
     }
     else if (eventType == EventType.FundCancel) {
-      emit FundCancelEvent(msg.sender, rewardId, amount);
+      emit FundCancelEvent(addr, rewardId, amount);
     }
   }
 

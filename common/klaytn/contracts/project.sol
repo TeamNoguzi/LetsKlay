@@ -40,7 +40,7 @@ contract Project {
     factory = _factory;
     state = ProjectState.Funding;
 
-    factory.emitEvent(IFactory.EventType.ProjectOpen, rewardIds[0], 0);
+    factory.emitEvent(IFactory.EventType.ProjectOpen, address(this), rewardIds[0], 0);
   }
 
   function addFund(uint rewardId, uint32 amount) external payable {
@@ -58,13 +58,13 @@ contract Project {
     if(excess > 0)
       payable(msg.sender).transfer(excess);
     
-    factory.emitEvent(IFactory.EventType.FundResolve, rewardId, amount);
+    factory.emitEvent(IFactory.EventType.FundResolve, msg.sender, rewardId, amount);
     
     // when fund is success
     if(address(this).balance >= fundGoal * (1 ether)) {
       payable(owner).transfer(address(this).balance);
       state = ProjectState.Ended;
-      factory.emitEvent(IFactory.EventType.FundEnd, 0, 0);
+      factory.emitEvent(IFactory.EventType.FundEnd, address(this), 0, 0);
     }
   }
 
@@ -75,11 +75,11 @@ contract Project {
     users[msg.sender].funds[rewardId].amount -= amount;
     payable(msg.sender).transfer(refund);
 
-    factory.emitEvent(IFactory.EventType.FundCancel, rewardId, amount);
+    factory.emitEvent(IFactory.EventType.FundCancel, address(this), rewardId, amount);
   }
 
   function cancelProject() external {
     state = ProjectState.Ended;
-    factory.emitEvent(IFactory.EventType.ProjectClose, 0, 0);
+    factory.emitEvent(IFactory.EventType.ProjectClose, address(this), 0, 0);
   }
 }
