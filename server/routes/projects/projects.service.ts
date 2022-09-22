@@ -16,7 +16,22 @@ export class ProjectsService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    const caver = new Caver("wss://api.baobab.klaytn.net:8652/");
+    const provider = new Caver.providers.WebsocketProvider("wss://api.baobab.klaytn.net:8652/", {
+      timeout: 10000,
+      clientConfig: {
+        keepalive: true,
+        keepaliveInterval: 6000,
+      },
+      reconnect: {
+        auto: true,
+        delay: 1000,
+        // @ts-ignore
+        maxAttempts: 10,
+        onTimeout: false,
+      },
+    });
+
+    const caver = new Caver(provider);
     const contract = new caver.contract(FactoryABI.abi as AbiItem[], process.env.FACTORY_ADDR);
 
     contract.events
