@@ -53,7 +53,8 @@ export class ProjectsService implements OnModuleInit {
       })
       .on("data", (data) => {
         console.log(data, "close");
-      });
+      })
+      .on("error", console.error);
 
     contract.events
       .FundEndEvent((data) => {
@@ -64,7 +65,8 @@ export class ProjectsService implements OnModuleInit {
       })
       .on("data", (data) => {
         console.log(data, "end");
-      });
+      })
+      .on("error", console.error);
   }
 
   // 프로젝트 소유자 id와 userId가 일치하는지 확인

@@ -9,6 +9,7 @@ import { User } from "routes/users/entities/users.entity";
 import { ContractEvent } from "@/entities";
 import { Reward } from "routes/rewards/entities/reward.entity";
 import { Project } from "routes/projects/entities/projects.entity";
+import { DeleteTransactionDto } from "./dto/delete-transaction.dto";
 
 @Injectable()
 export class TransactionsService implements OnModuleInit {
@@ -59,9 +60,10 @@ export class TransactionsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", async (data) => {
-        console.log(data, "cancel");
-      });
+      .on("data", async (data: ContractEvent<DeleteTransactionDto>) => {
+        this.remove(data.returnValues);
+      })
+      .on("error", console.error);
   }
 
   async create({ amount, rewardId, userAddress }: CreateTransactionDto) {
@@ -110,7 +112,36 @@ export class TransactionsService implements OnModuleInit {
     return `This action updates a #${id} transaction`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
+  remove({ amount, rewardId, userAddress }: DeleteTransactionDto) {
+    return this.datasource.manager.transaction(async (_manager) => {
+      await this.rewardsRepository
+        .createQueryBuilder("reward")
+        .update()
+        .set({ stock: () => `stock + ${amount}` })
+        .where("reward.id = :id", { id: rewardId })
+        .execute();
+
+      const reward = await this.rewardsRepository.findOne({
+        select: { price: true, projectId: true },
+        where: { id: rewardId },
+      });
+
+      await this.projectsRepository
+        .createQueryBuilder("project")
+        .update()
+        .set({ fundNow: () => `fundNow - ${reward.price * amount}` })
+        .where("project.id = :id", { id: reward.projectId })
+        .execute();
+
+      const user = await this.usersRepository.findOne({
+        select: { id: true },
+        where: { address: userAddress },
+      });
+
+      return await this.transactionsRepository
+        .createQueryBuilder("transaction")
+        .delete()
+        .where("userId = :userId and rewardId = :rewardId", { userId: user.id, rewardId });
+    });
   }
 }
