@@ -13,12 +13,16 @@ contract Factory is IFactory{
     uint[] memory prices, 
     uint _fundGoal, 
     uint _projectId
-  ) public returns(address) {
+  ) public {
     Project newProject = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
     projects[_projectId] = newProject;
+
   }
 
   function emitEvent (EventType eventType, uint rewardId, uint32 amount) external {
+    if(eventType == EventType.ProjectOpen) {
+      emit ProjectOpenEvent(msg.sender, rewardId);
+    }
     if(eventType == EventType.ProjectClose) {
       emit ProjectCloseEvent (msg.sender);
     }
