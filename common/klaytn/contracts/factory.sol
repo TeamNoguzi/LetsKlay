@@ -14,21 +14,30 @@ contract Factory is IFactory{
     uint _fundGoal, 
     uint _projectId
   ) public {
-    projects[_projectId] = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
+    Project newProject = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
+    projects[_projectId] = newProject;
+
   }
 
-  function emitEvent (EventType eventType, uint rewardId, uint32 amount) external {
+  function emitEvent (EventType eventType, address addr, uint rewardId, uint32 amount) external {
+    if(eventType == EventType.ProjectOpen) {
+      emit ProjectOpenEvent(addr, rewardId);
+    }
     if(eventType == EventType.ProjectClose) {
-      emit ProjectCloseEvent (msg.sender);
+      emit ProjectCloseEvent (addr);
     }
     else if (eventType == EventType.FundEnd) {
-      emit FundEndEvent (msg.sender);
+      emit FundEndEvent (addr);
     }
     else if (eventType == EventType.FundResolve) {
-      emit FundResolveEvent(msg.sender, rewardId, amount);
+      emit FundResolveEvent(addr, rewardId, amount);
     }
     else if (eventType == EventType.FundCancel) {
-      emit FundCancelEvent(msg.sender, rewardId, amount);
+      emit FundCancelEvent(addr, rewardId, amount);
     }
+  }
+
+  function getProjectAddress (uint projectId) view external returns(address) {
+    return address(projects[projectId]);
   }
 }

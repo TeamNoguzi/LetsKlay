@@ -1,4 +1,11 @@
 {
   "name": "common",
-  "packageManager": "yarn@3.2.3"
+  "packageManager": "yarn@3.2.3",
+  "scripts": {
+    "build:dev": "cd klaytn && truffle migrate --network baobab",
+    "build": "cd klaytn && truffle migrate --network "
+  },
+  "dependencies": {
+    "truffle-hdwallet-provider-klaytn": "^1.4.2"
+  }
 }

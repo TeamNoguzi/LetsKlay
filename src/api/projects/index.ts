@@ -4,8 +4,14 @@ import {
   CreateProjectDto,
   UpdateProjectDto,
   CreateProjectResponseDto,
+  UpdateProjectResponseDto,
 } from "@/dto";
 import axios from "../axios";
+
+interface UpdateProjectParam {
+  id: number;
+  project: UpdateProjectDto;
+}
 
 const fetchProjects = async () => {
   const { data } = await axios.get<FindProjectResponseDto[]>("/projects");
@@ -32,8 +38,8 @@ const createProject = async (project?: CreateProjectDto) => {
   return data;
 };
 
-const updateProject = async (id: number, project: UpdateProjectDto) => {
-  const { data } = await axios.patch(`/projects/${id}`, project);
+const updateProject = async ({ id, project }: UpdateProjectParam) => {
+  const { data } = await axios.patch<UpdateProjectResponseDto>(`/projects/${id}`, project);
   return data;
 };
 

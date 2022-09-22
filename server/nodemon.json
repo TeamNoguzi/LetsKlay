@@ -1,6 +1,0 @@
-{
-  "exec": "nest start",
-  "watch": ["."],
-  "ignore": ["./build/**/*"],
-  "ext": "ts"
-}

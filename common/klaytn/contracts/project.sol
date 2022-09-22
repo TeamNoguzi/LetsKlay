@@ -39,12 +39,14 @@ contract Project {
     owner = _owner;
     factory = _factory;
     state = ProjectState.Funding;
+
+    factory.emitEvent(IFactory.EventType.ProjectOpen, address(this), rewardIds[0], 0);
   }
 
   function addFund(uint rewardId, uint32 amount) external payable {
     require(state == ProjectState.Funding);
 
-    uint cost = amount * rewardMap[rewardId].price * 1e9;
+    uint cost = amount * rewardMap[rewardId].price * (1 ether);
     require(msg.value >= cost);
 
     users[msg.sender].funds[rewardId] = Fund({
@@ -56,27 +58,28 @@ contract Project {
     if(excess > 0)
       payable(msg.sender).transfer(excess);
     
-    factory.emitEvent(IFactory.EventType.FundResolve, rewardId, amount);
+    factory.emitEvent(IFactory.EventType.FundResolve, msg.sender, rewardId, amount);
     
     // when fund is success
-    if(address(this).balance >= fundGoal) {
+    if(address(this).balance >= fundGoal * (1 ether)) {
       payable(owner).transfer(address(this).balance);
       state = ProjectState.Ended;
-      factory.emitEvent(IFactory.EventType.FundEnd, 0, 0);
+      factory.emitEvent(IFactory.EventType.FundEnd, address(this), 0, 0);
     }
   }
 
   function removeFund(uint rewardId, uint32 amount) external {
     require(amount >= 0 && users[msg.sender].funds[rewardId].amount >= amount);
 
-    uint refund = amount * rewardMap[rewardId].price * 1e9;
+    uint refund = amount * rewardMap[rewardId].price * (1 ether);
     users[msg.sender].funds[rewardId].amount -= amount;
     payable(msg.sender).transfer(refund);
 
-    factory.emitEvent(IFactory.EventType.FundCancel, rewardId, amount);
+    factory.emitEvent(IFactory.EventType.FundCancel, address(this), rewardId, amount);
   }
 
   function cancelProject() external {
-    factory.emitEvent(IFactory.EventType.ProjectClose, 0, 0);
+    state = ProjectState.Ended;
+    factory.emitEvent(IFactory.EventType.ProjectClose, address(this), 0, 0);
   }
 }

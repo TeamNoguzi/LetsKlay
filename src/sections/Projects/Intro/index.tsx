@@ -35,12 +35,11 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
             <p>{project.summary}</p>
           </S.ProjectText>
           <S.ProjectGoal>
-            <h2>{numeral(project.fundNow).format("$0,0")}</h2>
+            <h2>{numeral(project.fundNow).format("0,0")} KLAY</h2>
             <ProgressBar now={progress} />
             <span>
-              {progress}% of {numeral(project.fundGoal).format("$0,0")}
+              {numeral(progress).format("0.0%")} of {numeral(project.fundGoal).format("0,0")} KLAY
             </span>
-            <span style={{ float: "right" }}> supports</span>
           </S.ProjectGoal>
           <S.ButtonGroups>
             <Button

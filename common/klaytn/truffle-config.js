@@ -41,7 +41,7 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 const { PRIVATE_KEY } = process.env;
 
 const HDWalletProvider = require("truffle-hdwallet-provider-klaytn");

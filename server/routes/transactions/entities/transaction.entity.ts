@@ -15,13 +15,18 @@ export class Transaction implements TransactionType {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false, unique: true })
-  txId: number;
+  @Column({ nullable: false })
+  amount: number;
 
-  @ManyToOne(() => User, (user) => user.transactions)
+  // should not be cascaded in real project
+  @ManyToOne(() => User, (user) => user.transactions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
   user: User;
 
-  @ManyToOne(() => Reward, (reward) => reward.transactions)
+  // should not be cascaded in real project
+  @ManyToOne(() => Reward, (reward) => reward.transactions, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   reward: Reward;
 
   @CreateDateColumn()

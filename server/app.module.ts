@@ -9,8 +9,10 @@ import { ProjectsModule } from "routes/projects/projects.module";
 import { RewardsModule } from "./routes/rewards/rewards.module";
 import { LikesModule } from "./routes/likes/likes.module";
 import { ImagesModule } from "routes/images/images.module";
-import { TransactionModule } from "./routes/transaction/transaction.module";
-import { AdminModule } from "./admin/admin.module";
+import { TransactionModule } from "./routes/transactions/transactions.module";
+import { AdminModule } from "./routes/admin/admin.module";
+import { ConfigModule } from "@nestjs/config";
+import { DataSource } from "typeorm";
 
 @Module({
   imports: (() => {
@@ -24,14 +26,16 @@ import { AdminModule } from "./admin/admin.module";
       AuthModule,
       ImagesModule,
       AdminModule,
+      ConfigModule.forRoot(),
     ];
 
     const prodModules = [
       ...nestModules,
       TypeOrmModule.forRoot({
         ...configs["production"],
+        type: "mysql",
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
-        synchronize: true,
+        // synchronize: true,
         //autoLoadEntities:true,
       }),
     ];
@@ -40,8 +44,10 @@ import { AdminModule } from "./admin/admin.module";
       ...nestModules,
       TypeOrmModule.forRoot({
         ...configs["development"],
+        type: "mysql",
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
         synchronize: true,
+        logger: "simple-console",
         //autoLoadEntities:true,
       }),
     ];
@@ -51,4 +57,6 @@ import { AdminModule } from "./admin/admin.module";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}

@@ -22,7 +22,7 @@ const ProjectDescription = ({ project }: ProjectDescriptionProps) => {
             </Tab>
             {isMobile && (
               <Tab eventKey="Reward" title="Reward">
-                <ProjectRewards rewards={project.rewards} />
+                <ProjectRewards projectId={project.id} rewards={project.rewards} />
               </Tab>
             )}
             <Tab eventKey="Policy" title="Policy">
@@ -35,7 +35,7 @@ const ProjectDescription = ({ project }: ProjectDescriptionProps) => {
         </S.TabsWrapper>
       </Col>
       <Col lg={4} xl={3} className="d-none d-lg-flex mt-lg-5">
-        <ProjectRewards rewards={project.rewards} />
+        <ProjectRewards projectId={project.id} rewards={project.rewards} />
       </Col>
     </Row>
   );

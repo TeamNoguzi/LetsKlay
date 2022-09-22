@@ -1,16 +1,25 @@
-import { FindProjectFullResponseDto, FindProjectResponseDto, UpdateProjectDto } from "@/dto";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  FindProjectFullResponseDto,
+  FindProjectResponseDto,
+  UpdateProjectDto,
+  UpdateProjectResponseDto,
+} from "@/dto";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchProjectsPopular, fetchProjectsRecent, fetchProjectWithId, updateProject } from "api";
-import queryClient from "./client";
+import { useAuthGuard } from "hooks/useAuthGuard";
 
 interface UpdateProjectMutationParam {
   project: UpdateProjectDto & { id: number };
 }
 
 const useProject = (projectId: number, initialData: FindProjectFullResponseDto) => {
-  const { data, isError } = useQuery(["projects", projectId], () => fetchProjectWithId(projectId), {
-    initialData,
-  });
+  const { data, isError } = useQuery(
+    ["projects", { id: +projectId }],
+    () => fetchProjectWithId(projectId),
+    {
+      initialData,
+    }
+  );
 
   return { project: data, isError };
 };
@@ -31,17 +40,18 @@ const useProjectsPopular = (initialData?: FindProjectResponseDto[]) => {
   return { projects: data, isError };
 };
 
-const useProjectUpdateMutation = (invalidate: boolean = true) => {
-  const mutation = useMutation<unknown, unknown, UpdateProjectMutationParam>(
-    ({ project }) => updateProject(project.id, project),
+const useProjectUpdateMutation = () => {
+  const queryClient = useQueryClient();
+  const updateProjectGuarded = useAuthGuard(updateProject);
+
+  return useMutation<UpdateProjectResponseDto, unknown, UpdateProjectMutationParam>(
+    ({ project }) => updateProjectGuarded({ id: +project.id, project }),
     {
-      onSuccess: (_, { project }) => {
-        if (invalidate) queryClient.invalidateQueries(["projects", project.id]);
+      onSuccess: (data, { project }) => {
+        queryClient.setQueryData(["projects", { id: +project.id }], data);
       },
     }
   );
-
-  return mutation;
 };
 
 export { useProject, useProjectsRecent, useProjectsPopular, useProjectUpdateMutation };

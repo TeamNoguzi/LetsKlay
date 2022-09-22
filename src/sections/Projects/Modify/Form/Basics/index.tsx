@@ -9,6 +9,7 @@ interface FormInput {
   title: string;
   subtitle: string;
   summary: string;
+  fundGoal: number;
 }
 
 interface FormBasicsProps {
@@ -47,6 +48,14 @@ const FormBasics = ({ project }: FormBasicsProps) => {
             placeholder="A manager pillow which checks sleeping habits and body signals to care your night"
           />
           <S.FormDescription> The subtitle is displayed under the title. </S.FormDescription>
+        </Form.Group>
+
+        <hr className="my-5" />
+        <S.FormSubtitle>Fund</S.FormSubtitle>
+        <Form.Group className="mb-3">
+          <Form.Label>Fund Goal</Form.Label>
+          <Form.Control {...register("fundGoal", { required: true })} type="number" min="1" />
+          <S.FormDescription> The title is displayed on the item list. </S.FormDescription>
         </Form.Group>
 
         <hr className="my-5" />

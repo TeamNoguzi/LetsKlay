@@ -1,7 +1,7 @@
 import axios from "api/axios";
 
-const verifySession = async (cookies: string) => {
-  const { data } = await axios.get("/verify", { headers: { Cookie: `user=${cookies}` } });
+const verifySession = async () => {
+  const { data } = await axios.get("/verify");
   return data;
 };
 

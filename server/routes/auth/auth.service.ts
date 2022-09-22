@@ -13,7 +13,7 @@ export class AuthService {
   async validateAddress(address: string, sign: any) {
     const prefix = Buffer.from("\x19Klaytn Signed Message:\n");
     const hashedMessage = caver.utils.sha3(
-      Buffer.concat([prefix, Buffer.from(String(MESSAGE.length)), Buffer.from(MESSAGE)])
+      Buffer.concat([prefix, Buffer.from(String(MESSAGE.length)), Buffer.from(MESSAGE)]).toString()
     );
     const decodedSign = caver.utils.decodeSignature(sign);
     const recovered = caver.utils.recover(hashedMessage, decodedSign, true);
