@@ -40,6 +40,6 @@ export class AdminController {
   @Roles(Role.Admin)
   @Delete("projects/:id")
   async removeProjectsOne(@Param("id") id: number): Promise<DeleteResult> {
-    return await this.projectsService.deleteOneAdmin(id);
+    return await this.projectsService.deleteOneAdmin(+id);
   }
 }
