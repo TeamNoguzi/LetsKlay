@@ -18,9 +18,11 @@ export class Transaction implements TransactionType {
   @Column({ nullable: false })
   amount: number;
 
+  // should not be cascaded in real project
   @ManyToOne(() => User, (user) => user.transactions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
   user: User;
 
+  // should not be cascaded in real project
   @ManyToOne(() => Reward, (reward) => reward.transactions, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",

@@ -52,17 +52,22 @@ export class TransactionsService implements OnModuleInit {
   async create({ amount, rewardId, userAddress }: CreateTransactionDto) {
     return this.datasource.manager.transaction(async (_manager) => {
       await this.rewardsRepository
-        .createQueryBuilder()
+        .createQueryBuilder("reward")
         .update()
         .set({ stock: () => `stock - ${amount}` })
+        .where("reward.id = :id", { id: rewardId })
         .execute();
 
-      const reward = await this.rewardsRepository.findOne({ where: { id: rewardId } });
+      const reward = await this.rewardsRepository.findOne({
+        select: { price: true, projectId: true },
+        where: { id: rewardId },
+      });
 
       await this.projectsRepository
-        .createQueryBuilder()
+        .createQueryBuilder("project")
         .update()
         .set({ fundNow: () => `fundNow + ${reward.price * amount}` })
+        .where("project.id = :id", { id: reward.projectId })
         .execute();
 
       const user = await this.usersRepository.findOne({
