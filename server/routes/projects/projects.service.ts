@@ -20,12 +20,24 @@ export class ProjectsService implements OnModuleInit {
     const contract = new caver.contract(FactoryABI.abi as AbiItem[], process.env.FACTORY_ADDR);
 
     contract.events
+      .ProjectOpenEvent({}, function (error, event) {
+        console.log(event);
+      })
+      .on("connected", function (subscriptionId) {
+        console.log(subscriptionId);
+      })
+      .on("data", (data) => {
+        console.log(data, "open");
+      })
+      .on("error", console.error);
+
+    contract.events
       .ProjectCloseEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", async (data) => {
-        console.log(data, "hi");
+      .on("data", (data) => {
+        console.log(data, "close");
       });
 
     contract.events
@@ -35,8 +47,8 @@ export class ProjectsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", async (data) => {
-        console.log(data, "hi");
+      .on("data", (data) => {
+        console.log(data, "end");
       });
   }
 

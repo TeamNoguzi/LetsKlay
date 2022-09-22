@@ -10,21 +10,24 @@ export class TransactionService implements OnModuleInit {
   onModuleInit() {
     const caver = new Caver("wss://api.baobab.klaytn.net:8652/");
     const contract = new caver.contract(FactoryABI.abi as AbiItem[], process.env.FACTORY_ADDR);
+
     contract.events
       .FundResolveEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
       .on("data", async (data) => {
-        console.log(data, "hi");
-      });
+        console.log(data, "resolve");
+      })
+      .on("error", console.error);
+
     contract.events
       .FundCancelEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
       .on("data", async (data) => {
-        console.log(data, "hi");
+        console.log(data, "cancel");
       });
   }
 

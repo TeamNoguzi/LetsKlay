@@ -7,7 +7,7 @@ export class RewardItem implements RewardItemType {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Reward, (Reward) => Reward.items)
+  @ManyToOne(() => Reward, (Reward) => Reward.items, { onDelete: "CASCADE", onUpdate: "CASCADE" })
   reward: Reward;
 
   @Column()

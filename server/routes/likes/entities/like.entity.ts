@@ -15,7 +15,10 @@ export class Like implements LikeType {
   @JoinColumn({ name: "userId" })
   user: User;
 
-  @ManyToOne(() => Project, (project) => project.likes)
+  @ManyToOne(() => Project, (project) => project.likes, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   @JoinColumn({ name: "projectId" })
   project: Project;
 

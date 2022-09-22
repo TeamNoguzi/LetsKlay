@@ -9,13 +9,14 @@ export class Reward implements RewardType {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Project, (Project) => Project.rewards)
+  @ManyToOne(() => Project, (Project) => Project.rewards, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   project: Project;
 
   @OneToMany(() => RewardItem, (RewardItem) => RewardItem.reward, {
     cascade: true,
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
   })
   items: RewardItem[];
 
@@ -41,6 +42,6 @@ export class Reward implements RewardType {
   stock: number;
 
   // should not be cascaded
-  @OneToMany(() => Transaction, (transaction) => transaction.reward)
+  @OneToMany(() => Transaction, (transaction) => transaction.reward, { cascade: true })
   transactions: Transaction[];
 }

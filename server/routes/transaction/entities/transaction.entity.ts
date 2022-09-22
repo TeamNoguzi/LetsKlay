@@ -18,10 +18,13 @@ export class Transaction implements TransactionType {
   @Column({ nullable: false, unique: true })
   txId: number;
 
-  @ManyToOne(() => User, (user) => user.transactions)
+  @ManyToOne(() => User, (user) => user.transactions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
   user: User;
 
-  @ManyToOne(() => Reward, (reward) => reward.transactions)
+  @ManyToOne(() => Reward, (reward) => reward.transactions, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   reward: Reward;
 
   @CreateDateColumn()
