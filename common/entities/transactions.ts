@@ -3,7 +3,7 @@ import { User } from "./users";
 
 interface Transaction {
   id: number;
-  txId: number;
+  amount: number;
   user?: User;
   reward?: Reward;
   createdAt: Date;

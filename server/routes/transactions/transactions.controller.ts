@@ -1,36 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
-import { TransactionService } from "./transactions.service";
+import { Controller, Get, Post, Body, Param, Delete } from "@nestjs/common";
+import { TransactionsService } from "./transactions.service";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
-import { UpdateTransactionDto } from "./dto/update-transaction.dto";
 import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags("transaction")
 @Controller("transaction")
-export class TransactionController {
-  constructor(private readonly transactionService: TransactionService) {}
+export class TransactionsController {
+  constructor(private readonly transactionsService: TransactionsService) {}
 
   @Post()
   create(@Body() createTransactionDto: CreateTransactionDto) {
-    return this.transactionService.create(createTransactionDto);
+    return this.transactionsService.create(createTransactionDto);
   }
 
   @Get()
   findAll() {
-    return this.transactionService.findAll();
+    return this.transactionsService.findAll();
   }
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.transactionService.findOne(+id);
-  }
-
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
-    return this.transactionService.update(+id, updateTransactionDto);
+    return this.transactionsService.findOne(+id);
   }
 
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.transactionService.remove(+id);
+    return this.transactionsService.remove(+id);
   }
 }

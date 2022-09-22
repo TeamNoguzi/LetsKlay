@@ -15,8 +15,8 @@ export class Transaction implements TransactionType {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false, unique: true })
-  txId: number;
+  @Column({ nullable: false })
+  amount: number;
 
   @ManyToOne(() => User, (user) => user.transactions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
   user: User;
