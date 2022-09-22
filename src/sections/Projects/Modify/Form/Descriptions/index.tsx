@@ -14,23 +14,21 @@ interface FormDescriptionsProps {
 }
 
 const FormDescriptions = ({ project }: FormDescriptionsProps) => {
-  const mutation = useProjectUpdateMutation(false);
+  const mutation = useProjectUpdateMutation();
   const ref = useRef<Editor>(null);
 
   useEffect(() => {
     ref.current?.getInstance().setMarkdown(project.description ?? "");
   }, [project.description]);
 
-  const handleSave = debounce(
-    () =>
-      mutation.mutate({
-        project: {
-          id: project.id,
-          description: ref.current?.getInstance().getMarkdown() ?? "",
-        },
-      }),
-    250
-  );
+  const handleSave = () =>
+    mutation.mutate({
+      project: {
+        id: project.id,
+        description: ref.current?.getInstance().getMarkdown() ?? "",
+      },
+    });
+  const debouncedSave = debounce(handleSave, 250);
 
   return (
     <>
@@ -41,7 +39,7 @@ const FormDescriptions = ({ project }: FormDescriptionsProps) => {
         initialEditType="markdown"
         previewStyle="vertical"
         height="500px"
-        onKeydown={handleSave}
+        onKeydown={debouncedSave}
         hooks={{
           async addImageBlobHook(blob, callback) {
             const split = blob.type.split("/");

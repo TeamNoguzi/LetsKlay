@@ -5,7 +5,7 @@ import Logo from "stories/Logo";
 import Navigation from "stories/Layout/Navigation";
 import Footer from "stories/Layout/Footer";
 import { GetServerSidePropsContext } from "next";
-import { fetchProjectWithId, updateProjectPublic } from "api";
+import { fetchProjectWithId, updateProjectPublic, verifySession } from "api";
 import { FindProjectFullResponseDto } from "@/dto";
 import { useProject } from "hooks/queries/useProjects";
 import dynamic from "next/dynamic";
@@ -44,19 +44,23 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
   const [selected, setSelected] = useState<number>(0);
   const handleSelect = useCallback((idx: number) => setSelected(idx), []);
   const { project } = useProject(projectId, initialProject);
-  const updateProjectPublicGuarded = useAuthGuard(updateProjectPublic);
+  const verifySessionGuarded = useAuthGuard(verifySession);
 
   const handleUpdatePublic = async () => {
+    await verifySessionGuarded(undefined);
     await sendTransaction(
-      { abi: FactoryABI.abi as AbiItem[], address: process.env.FACTORY_ADDR ?? "" },
-      "createProject",
+      {
+        abi: FactoryABI.abi as AbiItem[],
+        address: process.env.FACTORY_ADDR ?? "",
+        method: "createProject",
+      },
       project.rewards.map((reward) => reward.id),
       project.rewards.map((reward) => reward.price),
       100,
       projectId
     );
 
-    await updateProjectPublicGuarded(project.id)
+    await updateProjectPublic(project.id)
       .then(() => router.push(`/projects/${project.id}`))
       .catch(() => {});
   };

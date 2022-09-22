@@ -17,18 +17,16 @@ const ProjectRewards = ({ rewards, projectId }: ProjectRewardsProps) => {
       {
         abi: FactoryAbi.abi as AbiItem[],
         address: process.env.FACTORY_ADDR ?? "",
+        method: "getProjectAddress",
       },
-      "getProjectAddress",
       projectId
     );
 
-    const receipt = await sendTransaction(
-      { abi: ProjectAbi.abi as AbiItem[], address },
-      "addFund",
+    await sendTransaction(
+      { abi: ProjectAbi.abi as AbiItem[], address, method: "addFund", value: reward.price },
       reward.id,
       1
     );
-    console.log(receipt);
   };
   return (
     <S.RewardsContainer>
