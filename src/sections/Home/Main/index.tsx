@@ -24,6 +24,7 @@ const HomeMain = ({ projects }: HomeMainProps) => {
       <Col className="mb-3" xs={12} lg={8}>
         {bannerProject && (
           <ItemCard
+            imgSrc={bannerProject.thumbnailUrl}
             imageHeight={isMobile ? 250 : 400}
             bigSize
             title={bannerProject.title}
@@ -39,6 +40,7 @@ const HomeMain = ({ projects }: HomeMainProps) => {
             <ItemCard
               className="mb-3"
               key={project.id}
+              imgSrc={project.thumbnailUrl}
               imageHeight={100}
               title={project.title}
               body={project.subtitle}

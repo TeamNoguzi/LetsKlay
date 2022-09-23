@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import * as S from "./styled";
 
 interface ItemCardProps {
@@ -9,9 +8,11 @@ interface ItemCardProps {
   imageHeight?: number;
   onClick?: (e: React.MouseEvent) => unknown;
   className?: string;
+  imgSrc: string;
 }
 
 function ItemCard({
+  imgSrc,
   bigSize = false,
   title,
   body,
@@ -22,7 +23,7 @@ function ItemCard({
   return (
     <S.ItemCard className={className} bigSize={bigSize} onClick={onClick}>
       <S.ItemCardImageWrapper bigSize={bigSize} height={imageHeight}>
-        <Image src="/Landscape-Color.jpg" layout="fill" objectFit="cover" />
+        <img src={imgSrc} alt="item thumbnail" loading="lazy" />
       </S.ItemCardImageWrapper>
       <S.ItemCardBody bigSize={bigSize}>
         <S.ItemCardTitle bigSize={bigSize}>{title}</S.ItemCardTitle>

@@ -32,6 +32,7 @@ const HomeRecent = ({ projects }: HomeRecentProps) => {
     return projects.map((project) => (
       <FundCard
         key={project.id}
+        imgSrc={project.thumbnailUrl}
         project={project}
         width={270}
         onClick={() => handleClickCard(project.id)}
