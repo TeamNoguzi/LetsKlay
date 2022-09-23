@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { Project } from "./entities/projects.entity";
@@ -8,12 +8,16 @@ import { ProjectStatus } from "@/enums";
 import Caver, { AbiItem } from "caver-js";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
 import { ContractEvent } from "@/entities";
+import { FundsService } from "routes/funds/funds.service";
 
 @Injectable()
 export class ProjectsService implements OnModuleInit {
   constructor(
     @InjectRepository(Project)
-    private projectsRepository: Repository<Project>
+    private projectsRepository: Repository<Project>,
+    @InjectDataSource()
+    private dataSource: DataSource,
+    private fundsService: FundsService
   ) {}
 
   onModuleInit() {
@@ -36,9 +40,7 @@ export class ProjectsService implements OnModuleInit {
     const contract = new caver.contract(FactoryABI.abi as AbiItem[], process.env.FACTORY_ADDR);
 
     contract.events
-      .ProjectOpenEvent({}, function (error, event) {
-        console.log(event);
-      })
+      .ProjectOpenEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
@@ -58,14 +60,15 @@ export class ProjectsService implements OnModuleInit {
       .on("error", console.error);
 
     contract.events
-      .FundEndEvent((data) => {
-        console.log(data);
-      })
+      .FundEndEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
       .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
-        this.updateStatusOneEvent(projectId, ProjectStatus.ended);
+        this.dataSource.transaction(async () => {
+          await this.updateStatusOneEvent(projectId, ProjectStatus.ended);
+          await this.fundsService.invalidateAll(projectId);
+        });
       })
       .on("error", console.error);
   }
