@@ -5,6 +5,7 @@ interface Fund {
   id: number;
   hashId: string;
   amount: number;
+  valid: boolean;
   user?: User;
   reward?: Reward;
   createdAt: Date;

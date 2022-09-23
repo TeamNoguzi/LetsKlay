@@ -15,7 +15,7 @@ import { DeleteTransactionDto } from "./dto/delete-transaction.dto";
 export class FundsService implements OnModuleInit {
   constructor(
     @InjectRepository(Fund)
-    private readonly transactionsRepository: Repository<Fund>,
+    private readonly fundsRepository: Repository<Fund>,
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Reward)
@@ -51,7 +51,7 @@ export class FundsService implements OnModuleInit {
         console.log(subscriptionId);
       })
       .on("data", async (data: ContractEvent<CreateTransactionDto>) => {
-        this.create(data.returnValues);
+        this.createOne(data.returnValues);
       })
       .on("error", console.error);
 
@@ -61,12 +61,12 @@ export class FundsService implements OnModuleInit {
         console.log(subscriptionId);
       })
       .on("data", async (data: ContractEvent<DeleteTransactionDto>) => {
-        this.remove(data.returnValues);
+        this.invalidateOne(data.returnValues);
       })
       .on("error", console.error);
   }
 
-  async create({ amount, rewardId, userAddress, fundHashId }: CreateTransactionDto) {
+  async createOne({ amount, rewardId, userAddress, fundHashId }: CreateTransactionDto) {
     return this.datasource.manager.transaction(async (_manager) => {
       await this.rewardsRepository
         .createQueryBuilder("reward")
@@ -92,7 +92,7 @@ export class FundsService implements OnModuleInit {
         where: { address: userAddress },
       });
 
-      return await this.transactionsRepository.save({
+      return await this.fundsRepository.save({
         amount,
         hashId: fundHashId,
         reward: { id: rewardId },
@@ -113,7 +113,7 @@ export class FundsService implements OnModuleInit {
     return `This action updates a #${id} transaction`;
   }
 
-  remove({ amount, rewardId, userAddress }: DeleteTransactionDto) {
+  async invalidateOne({ amount, rewardId, fundHashId }: DeleteTransactionDto) {
     return this.datasource.manager.transaction(async (_manager) => {
       await this.rewardsRepository
         .createQueryBuilder("reward")
@@ -134,15 +134,26 @@ export class FundsService implements OnModuleInit {
         .where("project.id = :id", { id: reward.projectId })
         .execute();
 
-      const user = await this.usersRepository.findOne({
-        select: { id: true },
-        where: { address: userAddress },
-      });
+      return await this.fundsRepository.update({ hashId: fundHashId }, { valid: false });
+    });
+  }
 
-      return await this.transactionsRepository
-        .createQueryBuilder("transaction")
-        .delete()
-        .where("userId = :userId and rewardId = :rewardId", { userId: user.id, rewardId });
+  async invalidateAll(projectId: number) {
+    return this.datasource.manager.transaction(async (_manager) => {
+      const subQuery = await this.projectsRepository
+        .createQueryBuilder("project")
+        .subQuery()
+        .select("reward.id")
+        .leftJoinAndSelect("project.rewards", "reward")
+        .where("project.id := id", { id: projectId })
+        .getQuery();
+
+      await this.fundsRepository
+        .createQueryBuilder("fund")
+        .leftJoin(subQuery, "reward", "reward.id := fund.rewardId")
+        .update()
+        .set({ valid: false })
+        .execute();
     });
   }
 }

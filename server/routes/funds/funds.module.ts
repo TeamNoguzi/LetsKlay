@@ -11,5 +11,6 @@ import { Project } from "routes/projects/entities/projects.entity";
   imports: [TypeOrmModule.forFeature([Fund, User, Reward, Project])],
   controllers: [FundsController],
   providers: [FundsService],
+  exports: [FundsService],
 })
 export class FundsModule {}

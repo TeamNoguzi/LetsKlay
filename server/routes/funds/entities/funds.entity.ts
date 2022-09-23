@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -21,10 +22,17 @@ export class Fund implements FundType {
   @Column({ nullable: false })
   amount: number;
 
+  @Column({ nullable: false, default: true })
+  valid: boolean;
+
+  @Column()
+  rewardId: number;
+
   @ManyToOne(() => User, (user) => user.funds)
   user: User;
 
   @ManyToOne(() => Reward, (reward) => reward.funds)
+  @JoinColumn()
   reward: Reward;
 
   @CreateDateColumn()
