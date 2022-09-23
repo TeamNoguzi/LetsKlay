@@ -15,6 +15,12 @@ const FundCard = styled(Card)<FundCardProps>`
 const FundImageWrapper = styled.div`
   position: relative;
   height: 180px;
+
+  & > img {
+    object-fit: cover;
+    max-height: 100%;
+    width: 100%;
+  }
 `;
 
 const FundCardBody = styled(Card.Body)`

@@ -2,7 +2,6 @@ import { IconButton } from "stories/Buttons/IconButton";
 import { faFacebookSquare, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FindProjectFullResponseDto } from "@/dto";
 import { Row, Col, ProgressBar } from "react-bootstrap";
-import Image from "next/image";
 import numeral from "numeral";
 import Button from "stories/Buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +24,7 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
     <Row>
       <Col xs={12} lg={8}>
         <S.ImageWrapper>
-          <Image src="/Landscape-Color.jpg" layout="fill" objectFit="cover" />
+          <img src={`/${project.mainPictureUrl}`} alt="main" loading="lazy" />
         </S.ImageWrapper>
       </Col>
       <Col xs={12} lg={4}>

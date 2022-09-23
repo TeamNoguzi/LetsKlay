@@ -48,6 +48,12 @@ const ItemCardImageWrapper = styled.div<ItemCardImageWrapperProps>`
   position: relative;
   height: ${(props) => props.height}px;
 
+  & > img {
+    object-fit: cover;
+    max-height: 100%;
+    width: 100%;
+  }
+
   ${(props) =>
     props.bigSize
       ? `

@@ -1,21 +1,21 @@
 import { Card, ProgressBar } from "react-bootstrap";
 import { FindProjectResponseDto } from "@/dto";
-import Image from "next/image";
 import numeral from "numeral";
 import * as S from "./styled";
 
 interface FundCardProps {
+  imgSrc: string;
   project: FindProjectResponseDto;
   width?: number;
   onClick?: () => void;
 }
 
-const FundCard = ({ project, width, onClick }: FundCardProps) => {
+const FundCard = ({ imgSrc, project, width, onClick }: FundCardProps) => {
   const progress = project.fundNow / project.fundGoal;
   return (
     <S.FundCard width={width} onClick={onClick}>
       <S.FundImageWrapper>
-        <Image src="/Landscape-Color.jpg" layout="fill" objectFit="cover" />
+        <img src={imgSrc} alt="fund item thumbnail" loading="lazy" />
       </S.FundImageWrapper>
       <S.FundCardBody>
         <Card.Title>{project.title}</Card.Title>
