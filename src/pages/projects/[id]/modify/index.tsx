@@ -16,6 +16,7 @@ import { useAuthGuard } from "hooks";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
 import { AbiItem } from "caver-js";
 import { sendTransaction } from "utils/transactions";
+import { css } from "@emotion/react";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
@@ -102,6 +103,7 @@ const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
         <Logo center />
         <Navigation />
       </header>
+
       <Row className="mt-4">
         <Col xs={12} md={4} lg={3} xl={2} as="nav">
           <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
@@ -124,15 +126,25 @@ const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
           >
             {sections[selected]}
           </Suspense>
+
           <hr />
+          <Button
+            type="button"
+            variant="outline"
+            css={css`
+              margin-right: 10px;
+            `}
+            onClick={() => router.push(`/projects/${project.id}`)}
+          >
+            Preview
+          </Button>
           <Button type="button" variant="primary" onClick={handleUpdatePublic}>
             Open to Public
           </Button>
         </Col>
       </Row>
-      <footer>
-        <Footer />
-      </footer>
+
+      <Footer />
     </Container>
   );
 };
