@@ -22,13 +22,15 @@ const HomeMain = ({ projects }: HomeMainProps) => {
   return (
     <Row>
       <Col className="mb-3" xs={12} lg={8}>
-        <ItemCard
-          imageHeight={isMobile ? 250 : 400}
-          bigSize
-          title={bannerProject?.title}
-          body={bannerProject?.subtitle}
-          onClick={() => handleClickItem(bannerProject?.id)}
-        />
+        {bannerProject && (
+          <ItemCard
+            imageHeight={isMobile ? 250 : 400}
+            bigSize
+            title={bannerProject.title}
+            body={bannerProject.subtitle}
+            onClick={() => handleClickItem(bannerProject.id)}
+          />
+        )}
       </Col>
       <Col xs={12} lg={4}>
         <S.RankingTitle>Top funding projects</S.RankingTitle>
