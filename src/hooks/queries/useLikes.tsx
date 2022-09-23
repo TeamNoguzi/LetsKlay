@@ -1,6 +1,6 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchIsLiked, fetchLikesAll, likeProject, unlikeProject } from "api";
-import queryClient from "./client";
+import { useAuthGuard } from "../useAuthGuard";
 
 interface LikesMutationParam {
   projectId: number;
@@ -20,8 +20,13 @@ const useIsLiked = (projectId: number) => {
 };
 
 const useToggleLikesMutation = () => {
+  const queryClient = useQueryClient();
+  const likeProjectGuarded = useAuthGuard(likeProject);
+  const unlikeProjectGuarded = useAuthGuard(unlikeProject);
+
   const mutation = useMutation<unknown, unknown, LikesMutationParam>(
-    ({ projectId, isLiked }) => (isLiked ? unlikeProject(projectId) : likeProject(projectId)),
+    ({ projectId, isLiked }) =>
+      isLiked ? unlikeProjectGuarded(projectId) : likeProjectGuarded(projectId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["likes"]);
