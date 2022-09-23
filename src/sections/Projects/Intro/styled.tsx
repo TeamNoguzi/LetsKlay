@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { down } from "styled-breakpoints";
 import { ellipsis, flexBox } from "styles/mixins";
 
 const ProjectSummary = styled.div`
@@ -32,8 +33,17 @@ const ProjectGoal = styled.div`
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 400px;
+  height: 450px;
+
+  & > img {
+    object-fit: cover;
+    max-height: 100%;
+    width: 100%;
+  }
+
+  ${down("md")} {
+    height: 270px;
+  }
 `;
 
 const ButtonGroups = styled.div`

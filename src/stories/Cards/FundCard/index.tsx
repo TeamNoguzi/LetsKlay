@@ -15,7 +15,7 @@ const FundCard = ({ imgSrc, project, width, onClick }: FundCardProps) => {
   return (
     <S.FundCard width={width} onClick={onClick}>
       <S.FundImageWrapper>
-        <img src={imgSrc} alt="fund item thumbnail" />
+        <img src={imgSrc} alt="fund item thumbnail" loading="lazy" />
       </S.FundImageWrapper>
       <S.FundCardBody>
         <Card.Title>{project.title}</Card.Title>
