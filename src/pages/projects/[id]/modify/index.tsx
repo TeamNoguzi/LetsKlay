@@ -55,7 +55,7 @@ const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
       },
       project.rewards.map((reward) => reward.id),
       project.rewards.map((reward) => reward.price),
-      100,
+      project.fundGoal,
       +project.id
     );
 

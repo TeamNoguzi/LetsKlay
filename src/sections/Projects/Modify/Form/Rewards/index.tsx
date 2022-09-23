@@ -62,7 +62,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
   };
   const handleAddItem = (rewardIdx: number) => {
     setValue(`rewards.${rewardIdx}.items`, [
-      ...(project.rewards[rewardIdx]?.items ?? []),
+      ...(project.rewards?.[rewardIdx].items ?? []),
       { name: "", quantity: 1 },
     ]);
   };
