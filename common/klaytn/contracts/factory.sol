@@ -5,6 +5,7 @@ import "./interface.sol";
 
 contract Factory is IFactory{
   mapping(uint => Project) projects;
+  mapping(address => uint) projectIds;
   
   constructor() {}
 
@@ -16,24 +17,24 @@ contract Factory is IFactory{
   ) public {
     Project newProject = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
     projects[_projectId] = newProject;
-
+    projectIds[address(newProject)] = _projectId;
   }
 
-  function emitEvent (EventType eventType, address addr, uint rewardId, uint32 amount) external {
+  function emitEvent (EventType eventType, address addr, uint rewardId, uint32 amount, bytes32 fundHashId) external {
     if(eventType == EventType.ProjectOpen) {
       emit ProjectOpenEvent(addr, rewardId);
     }
     if(eventType == EventType.ProjectClose) {
-      emit ProjectCloseEvent (addr);
+      emit ProjectCloseEvent (addr, projectIds[addr]);
     }
     else if (eventType == EventType.FundEnd) {
-      emit FundEndEvent (addr);
+      emit FundEndEvent (addr, projectIds[addr]);
     }
     else if (eventType == EventType.FundResolve) {
-      emit FundResolveEvent(addr, rewardId, amount);
+      emit FundResolveEvent(addr, rewardId, amount, fundHashId);
     }
     else if (eventType == EventType.FundCancel) {
-      emit FundCancelEvent(addr, rewardId, amount);
+      emit FundCancelEvent(addr, rewardId, amount, fundHashId);
     }
   }
 

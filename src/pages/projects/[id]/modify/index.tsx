@@ -19,7 +19,6 @@ import { sendTransaction } from "utils/transactions";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
-  projectId: number;
   initialProject: FindProjectFullResponseDto;
 }
 
@@ -39,11 +38,11 @@ const DynamicFormRewards = dynamic(() => import("sections/Projects/Modify/Form/R
   suspense: true,
 });
 
-const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
+const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
   const router = useRouter();
   const [selected, setSelected] = useState<number>(0);
   const handleSelect = useCallback((idx: number) => setSelected(idx), []);
-  const { project } = useProject(projectId, initialProject);
+  const { project } = useProject(initialProject);
   const verifySessionGuarded = useAuthGuard(verifySession);
 
   const handleUpdatePublic = async () => {
@@ -56,8 +55,8 @@ const ProjectModify = ({ projectId, initialProject }: ProjectModifyProps) => {
       },
       project.rewards.map((reward) => reward.id),
       project.rewards.map((reward) => reward.price),
-      100,
-      projectId
+      project.fundGoal,
+      +project.id
     );
 
     await updateProjectPublic(project.id)
@@ -155,7 +154,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { redirect: { destination: `/projects/${projectId}` } };
   }
 
-  return { props: { projectId, initialProject: project } };
+  return { props: { initialProject: project } };
 }
 
 export default ProjectModify;

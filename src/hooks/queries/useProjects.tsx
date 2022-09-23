@@ -12,12 +12,12 @@ interface UpdateProjectMutationParam {
   project: UpdateProjectDto & { id: number };
 }
 
-const useProject = (projectId: number, initialData: FindProjectFullResponseDto) => {
+const useProject = (initialProject: FindProjectFullResponseDto) => {
   const { data, isError } = useQuery(
-    ["projects", { id: +projectId }],
-    () => fetchProjectWithId(projectId),
+    ["projects", { id: +initialProject.id }],
+    () => fetchProjectWithId(+initialProject.id),
     {
-      initialData,
+      initialData: initialProject,
     }
   );
 

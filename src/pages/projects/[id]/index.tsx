@@ -7,13 +7,15 @@ import Navigation from "stories/Layout/Navigation";
 import ProjectIntro from "sections/Projects/Intro";
 import ProjectDescription from "sections/Projects/Info/Description";
 import Footer from "stories/Layout/Footer";
+import { useProject } from "hooks";
 import * as S from "./styled";
 
 interface ProjectDetailPageProps {
-  project: FindProjectFullResponseDto;
+  initialProject: FindProjectFullResponseDto;
 }
 
-const ProjectDetail = ({ project }: ProjectDetailPageProps) => {
+const ProjectDetail = ({ initialProject }: ProjectDetailPageProps) => {
+  const { project } = useProject(initialProject);
   return (
     <S.Container>
       <Logo center />
@@ -32,9 +34,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!context.params?.id) {
     return { notFound: true };
   }
-  const project = await fetchProjectWithId(+context.params.id);
+  const initialProject = await fetchProjectWithId(+context.params.id);
   return {
-    props: { project },
+    props: { initialProject },
   };
 }
 

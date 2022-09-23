@@ -9,7 +9,7 @@ import { ProjectsModule } from "routes/projects/projects.module";
 import { RewardsModule } from "./routes/rewards/rewards.module";
 import { LikesModule } from "./routes/likes/likes.module";
 import { ImagesModule } from "routes/images/images.module";
-import { TransactionModule } from "./routes/transactions/transactions.module";
+import { FundsModule } from "./routes/funds/funds.module";
 import { AdminModule } from "./routes/admin/admin.module";
 import { ConfigModule } from "@nestjs/config";
 import { DataSource } from "typeorm";
@@ -18,7 +18,7 @@ import { DataSource } from "typeorm";
   imports: (() => {
     const production = process.env.NODE_ENV === "production";
     const nestModules = [
-      TransactionModule,
+      FundsModule,
       LikesModule,
       RewardsModule,
       ProjectsModule,

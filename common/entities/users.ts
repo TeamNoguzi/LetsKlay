@@ -1,6 +1,6 @@
 import { Like } from "./likes";
 import { Project } from "./projects";
-import { Transaction } from "./transactions";
+import { Fund } from "./funds";
 
 interface User {
   id: number;
@@ -10,7 +10,7 @@ interface User {
   isActive: boolean;
   projects: Project[];
   likes: Like[];
-  transactions: Transaction[];
+  funds: Fund[];
   createdAt: Date;
   updatedAt: Date;
 }

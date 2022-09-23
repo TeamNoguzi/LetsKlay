@@ -4,29 +4,35 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Transaction as TransactionType } from "@/entities";
+import { Fund as FundType } from "@/entities";
 
 @Entity()
-export class Transaction implements TransactionType {
+export class Fund implements FundType {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ nullable: false, unique: true })
+  hashId: string;
 
   @Column({ nullable: false })
   amount: number;
 
-  // should not be cascaded in real project
-  @ManyToOne(() => User, (user) => user.transactions, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+  @Column({ nullable: false, default: true })
+  valid: boolean;
+
+  @Column()
+  rewardId: number;
+
+  @ManyToOne(() => User, (user) => user.funds)
   user: User;
 
-  // should not be cascaded in real project
-  @ManyToOne(() => Reward, (reward) => reward.transactions, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  })
+  @ManyToOne(() => Reward, (reward) => reward.funds)
+  @JoinColumn()
   reward: Reward;
 
   @CreateDateColumn()

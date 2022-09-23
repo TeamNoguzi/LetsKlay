@@ -1,28 +1,46 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { Project } from "./entities/projects.entity";
 import { ProjectStatus } from "@/enums";
 import Caver, { AbiItem } from "caver-js";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
+import { ContractEvent } from "@/entities";
+import { FundsService } from "routes/funds/funds.service";
 
 @Injectable()
 export class ProjectsService implements OnModuleInit {
   constructor(
     @InjectRepository(Project)
-    private projectsRepository: Repository<Project>
+    private projectsRepository: Repository<Project>,
+    @InjectDataSource()
+    private dataSource: DataSource,
+    private fundsService: FundsService
   ) {}
 
   onModuleInit() {
-    const caver = new Caver("wss://api.baobab.klaytn.net:8652/");
+    const provider = new Caver.providers.WebsocketProvider("wss://api.baobab.klaytn.net:8652/", {
+      timeout: 10000,
+      clientConfig: {
+        keepalive: true,
+        keepaliveInterval: 6000,
+      },
+      reconnect: {
+        auto: true,
+        delay: 1000,
+        // @ts-ignore
+        maxAttempts: 10,
+        onTimeout: false,
+      },
+    });
+
+    const caver = new Caver(provider);
     const contract = new caver.contract(FactoryABI.abi as AbiItem[], process.env.FACTORY_ADDR);
 
     contract.events
-      .ProjectOpenEvent({}, function (error, event) {
-        console.log(event);
-      })
+      .ProjectOpenEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
@@ -36,20 +54,23 @@ export class ProjectsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", (data) => {
-        console.log(data, "close");
-      });
+      .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        this.updateStatusOneEvent(projectId, ProjectStatus.cancelled);
+      })
+      .on("error", console.error);
 
     contract.events
-      .FundEndEvent((data) => {
-        console.log(data);
-      })
+      .FundEndEvent()
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", (data) => {
-        console.log(data, "end");
-      });
+      .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        this.dataSource.transaction(async () => {
+          await this.updateStatusOneEvent(projectId, ProjectStatus.ended);
+          await this.fundsService.invalidateAll(projectId);
+        });
+      })
+      .on("error", console.error);
   }
 
   // 프로젝트 소유자 id와 userId가 일치하는지 확인
@@ -103,7 +124,7 @@ export class ProjectsService implements OnModuleInit {
     return await this.projectsRepository
       .createQueryBuilder("project")
       .select()
-      .where("project.status != :status", { status: ProjectStatus.preparing })
+      .where("project.status = :status", { status: ProjectStatus.funding })
       .orderBy("project.updatedAt", "ASC")
       .limit(10)
       .getMany();
@@ -115,7 +136,7 @@ export class ProjectsService implements OnModuleInit {
       .select()
       .addSelect("COUNT(*) AS count")
       .leftJoin("project.likes", "likes")
-      .where("project.status != :status", { status: ProjectStatus.preparing })
+      .where("project.status = :status", { status: ProjectStatus.funding })
       .groupBy("project.id")
       .orderBy("count", "DESC")
       .limit(10)
@@ -182,8 +203,14 @@ export class ProjectsService implements OnModuleInit {
     }
   }
 
+  // 스마트 컨트랙트 이벤트 핸들링 전용
+  async updateStatusOneEvent(id: number, status: ProjectStatus) {
+    return this.projectsRepository.update({ id }, { status });
+  }
+
   async deleteOne(userId: number, id: number) {
-    return await this.projectsRepository.delete({ id: id, user: { id: userId } });
+    await this.confirmPreparing(id);
+    return await this.projectsRepository.delete({ id, user: { id: userId } });
   }
 
   async deleteOneAdmin(id: number) {
