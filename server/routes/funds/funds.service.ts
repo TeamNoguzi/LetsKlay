@@ -67,38 +67,51 @@ export class FundsService implements OnModuleInit {
   }
 
   async createOne({ amount, rewardId, userAddress, fundHashId }: CreateTransactionDto) {
-    return this.datasource.manager.transaction(async (_manager) => {
-      await this.rewardsRepository
+    const queryRunner = this.datasource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      await queryRunner.manager
+        .withRepository(this.rewardsRepository)
         .createQueryBuilder("reward")
         .update()
         .set({ stock: () => `stock - ${amount}` })
         .where("reward.id = :id", { id: rewardId })
         .execute();
 
-      const reward = await this.rewardsRepository.findOne({
+      const reward = await queryRunner.manager.withRepository(this.rewardsRepository).findOne({
         select: { price: true, projectId: true },
         where: { id: rewardId },
       });
 
-      await this.projectsRepository
+      await queryRunner.manager
+        .withRepository(this.projectsRepository)
         .createQueryBuilder("project")
         .update()
         .set({ fundNow: () => `fundNow + ${reward.price * amount}` })
         .where("project.id = :id", { id: reward.projectId })
         .execute();
 
-      const user = await this.usersRepository.findOne({
+      const user = await queryRunner.manager.withRepository(this.usersRepository).findOne({
         select: { id: true },
         where: { address: userAddress },
       });
 
-      return await this.fundsRepository.save({
+      const result = await queryRunner.manager.withRepository(this.fundsRepository).save({
         amount,
         hashId: fundHashId,
         reward: { id: rewardId },
         user: { id: user.id },
       });
-    });
+
+      await queryRunner.commitTransaction();
+      return result;
+    } catch (err) {
+      console.error(err);
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   findAll() {
@@ -114,33 +127,52 @@ export class FundsService implements OnModuleInit {
   }
 
   async invalidateOne({ amount, rewardId, fundHashId }: DeleteTransactionDto) {
-    return this.datasource.manager.transaction(async (_manager) => {
-      await this.rewardsRepository
+    const queryRunner = this.datasource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      await queryRunner.manager
+        .withRepository(this.rewardsRepository)
         .createQueryBuilder("reward")
         .update()
         .set({ stock: () => `stock + ${amount}` })
         .where("reward.id = :id", { id: rewardId })
         .execute();
 
-      const reward = await this.rewardsRepository.findOne({
+      const reward = await queryRunner.manager.withRepository(this.rewardsRepository).findOne({
         select: { price: true, projectId: true },
         where: { id: rewardId },
       });
 
-      await this.projectsRepository
+      await queryRunner.manager
+        .withRepository(this.projectsRepository)
         .createQueryBuilder("project")
         .update()
         .set({ fundNow: () => `fundNow - ${reward.price * amount}` })
         .where("project.id = :id", { id: reward.projectId })
         .execute();
 
-      return await this.fundsRepository.update({ hashId: fundHashId }, { valid: false });
-    });
+      const result = await queryRunner.manager
+        .withRepository(this.fundsRepository)
+        .update({ hashId: fundHashId }, { valid: false });
+
+      await queryRunner.commitTransaction();
+      return result;
+    } catch (err) {
+      console.error(err);
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async invalidateAll(projectId: number) {
-    return this.datasource.manager.transaction(async (_manager) => {
-      const subQuery = await this.projectsRepository
+    const queryRunner = this.datasource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const subQuery = queryRunner.manager
+        .withRepository(this.projectsRepository)
         .createQueryBuilder("project")
         .subQuery()
         .select("reward.id")
@@ -148,12 +180,21 @@ export class FundsService implements OnModuleInit {
         .where("project.id := id", { id: projectId })
         .getQuery();
 
-      await this.fundsRepository
+      const result = await queryRunner.manager
+        .withRepository(this.fundsRepository)
         .createQueryBuilder("fund")
         .leftJoin(subQuery, "reward", "reward.id := fund.rewardId")
         .update()
         .set({ valid: false })
         .execute();
-    });
+
+      await queryRunner.commitTransaction();
+      return result;
+    } catch (err) {
+      console.error(err);
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

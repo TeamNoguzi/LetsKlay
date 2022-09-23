@@ -54,8 +54,9 @@ export class ProjectsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
-        this.updateStatusOneEvent(projectId, ProjectStatus.cancelled);
+      .on("data", async ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        await this.updateStatusOneEvent(projectId, ProjectStatus.cancelled);
+        await this.fundsService.invalidateAll(projectId);
       })
       .on("error", console.error);
 
@@ -65,10 +66,7 @@ export class ProjectsService implements OnModuleInit {
         console.log(subscriptionId);
       })
       .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
-        this.dataSource.transaction(async () => {
-          await this.updateStatusOneEvent(projectId, ProjectStatus.ended);
-          await this.fundsService.invalidateAll(projectId);
-        });
+        this.updateStatusOneEvent(projectId, ProjectStatus.ended);
       })
       .on("error", console.error);
   }
