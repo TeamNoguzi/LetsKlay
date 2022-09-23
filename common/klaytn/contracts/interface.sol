@@ -10,10 +10,10 @@ interface IFactory {
   }
 
   event ProjectOpenEvent (address projectAddress, uint rewardId);
-  event ProjectCloseEvent (address projectAddress);
-  event FundEndEvent (address projectAddress);
-  event FundResolveEvent (address userAddress, uint rewardId, uint32 amount);
-  event FundCancelEvent (address projectAddress, uint rewardId, uint32 amount);
+  event ProjectCloseEvent (address projectAddress, uint projectId);
+  event FundEndEvent (address projectAddress, uint projectId);
+  event FundResolveEvent (address userAddress, uint rewardId, uint32 amount, bytes32 fundHashId);
+  event FundCancelEvent (address projectAddress, uint rewardId, uint32 amount, bytes32 fundHashId);
 
-  function emitEvent (EventType eventType, address addr, uint rewardId, uint32 amount) external;
+  function emitEvent (EventType eventType, address addr, uint rewardId, uint32 amount, bytes32 fundHashId) external;
 }
