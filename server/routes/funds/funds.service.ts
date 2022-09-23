@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit } from "@nestjs/common";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
 import Caver, { AbiItem } from "caver-js";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
-import { Transaction } from "./entities/transaction.entity";
+import { Fund } from "./entities/funds.entity";
 import { Repository, DataSource } from "typeorm";
 import { InjectRepository, InjectDataSource } from "@nestjs/typeorm";
 import { User } from "routes/users/entities/users.entity";
@@ -12,10 +12,10 @@ import { Project } from "routes/projects/entities/projects.entity";
 import { DeleteTransactionDto } from "./dto/delete-transaction.dto";
 
 @Injectable()
-export class TransactionsService implements OnModuleInit {
+export class FundsService implements OnModuleInit {
   constructor(
-    @InjectRepository(Transaction)
-    private readonly transactionsRepository: Repository<Transaction>,
+    @InjectRepository(Fund)
+    private readonly transactionsRepository: Repository<Fund>,
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Reward)
@@ -66,7 +66,7 @@ export class TransactionsService implements OnModuleInit {
       .on("error", console.error);
   }
 
-  async create({ amount, rewardId, userAddress }: CreateTransactionDto) {
+  async create({ amount, rewardId, userAddress, fundHashId }: CreateTransactionDto) {
     return this.datasource.manager.transaction(async (_manager) => {
       await this.rewardsRepository
         .createQueryBuilder("reward")
@@ -94,6 +94,7 @@ export class TransactionsService implements OnModuleInit {
 
       return await this.transactionsRepository.save({
         amount,
+        hashId: fundHashId,
         reward: { id: rewardId },
         user: { id: user.id },
       });

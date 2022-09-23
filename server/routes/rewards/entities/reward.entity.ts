@@ -1,5 +1,5 @@
 import { Project } from "routes/projects/entities/projects.entity";
-import { Transaction } from "routes/transactions/entities/transaction.entity";
+import { Fund } from "routes/funds/entities/funds.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RewardItem } from "./reward-item.entity";
 import { Reward as RewardType } from "@/entities";
@@ -45,6 +45,6 @@ export class Reward implements RewardType {
   @Column()
   stock: number;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.reward, { cascade: true })
-  transactions: Transaction[];
+  @OneToMany(() => Fund, (fund) => fund.reward, { cascade: true })
+  funds: Fund[];
 }

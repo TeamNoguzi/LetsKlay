@@ -44,7 +44,10 @@ export class ProjectsController {
     return await this.projectsService.findOne(+id);
   }
 
-  @ApiOperation({ summary: "프로젝트 수정" })
+  @ApiOperation({
+    summary: "프로젝트 수정",
+    description: "프로젝트가 비공개 상태일 경우에만 사용 가능",
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
@@ -57,7 +60,10 @@ export class ProjectsController {
     return await this.projectsService.updateOne(+req.user.id, +id, updateDto);
   }
 
-  @ApiOperation({ summary: "프로젝트 삭제" })
+  @ApiOperation({
+    summary: "프로젝트 삭제",
+    description: "프로젝트가 비공개 상태일 경우에만 사용 가능",
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)

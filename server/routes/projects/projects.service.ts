@@ -7,6 +7,7 @@ import { Project } from "./entities/projects.entity";
 import { ProjectStatus } from "@/enums";
 import Caver, { AbiItem } from "caver-js";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
+import { ContractEvent } from "@/entities";
 
 @Injectable()
 export class ProjectsService implements OnModuleInit {
@@ -51,8 +52,8 @@ export class ProjectsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", (data) => {
-        console.log(data, "close");
+      .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        this.updateStatusOneEvent(projectId, ProjectStatus.cancelled);
       })
       .on("error", console.error);
 
@@ -63,8 +64,8 @@ export class ProjectsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", (data) => {
-        console.log(data, "end");
+      .on("data", ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        this.updateStatusOneEvent(projectId, ProjectStatus.ended);
       })
       .on("error", console.error);
   }
@@ -120,7 +121,7 @@ export class ProjectsService implements OnModuleInit {
     return await this.projectsRepository
       .createQueryBuilder("project")
       .select()
-      .where("project.status != :status", { status: ProjectStatus.preparing })
+      .where("project.status = :status", { status: ProjectStatus.funding })
       .orderBy("project.updatedAt", "ASC")
       .limit(10)
       .getMany();
@@ -132,7 +133,7 @@ export class ProjectsService implements OnModuleInit {
       .select()
       .addSelect("COUNT(*) AS count")
       .leftJoin("project.likes", "likes")
-      .where("project.status != :status", { status: ProjectStatus.preparing })
+      .where("project.status = :status", { status: ProjectStatus.funding })
       .groupBy("project.id")
       .orderBy("count", "DESC")
       .limit(10)
@@ -199,8 +200,14 @@ export class ProjectsService implements OnModuleInit {
     }
   }
 
+  // 스마트 컨트랙트 이벤트 핸들링 전용
+  async updateStatusOneEvent(id: number, status: ProjectStatus) {
+    return this.projectsRepository.update({ id }, { status });
+  }
+
   async deleteOne(userId: number, id: number) {
-    return await this.projectsRepository.delete({ id: id, user: { id: userId } });
+    await this.confirmPreparing(id);
+    return await this.projectsRepository.delete({ id, user: { id: userId } });
   }
 
   async deleteOneAdmin(id: number) {

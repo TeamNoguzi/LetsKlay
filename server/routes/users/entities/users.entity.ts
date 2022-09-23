@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { Transaction } from "routes/transactions/entities/transaction.entity";
+import { Fund } from "routes/funds/entities/funds.entity";
 import { User as UserType } from "@/entities";
 
 @Entity()
@@ -43,8 +43,8 @@ export class User implements UserType {
   likes: Like[];
 
   // should not be cascaded
-  @OneToMany(() => Transaction, (transaction) => transaction.user)
-  transactions: Transaction[];
+  @OneToMany(() => Fund, (fund) => fund.user)
+  funds: Fund[];
 
   @CreateDateColumn()
   createdAt: Date;

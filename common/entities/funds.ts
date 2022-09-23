@@ -1,8 +1,9 @@
 import { Reward } from "./rewards";
 import { User } from "./users";
 
-interface Transaction {
+interface Fund {
   id: number;
+  hashId: string;
   amount: number;
   user?: User;
   reward?: Reward;
@@ -10,4 +11,4 @@ interface Transaction {
   updatedAt: Date;
 }
 
-export { Transaction };
+export { Fund };
