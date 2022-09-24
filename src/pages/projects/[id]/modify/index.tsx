@@ -98,51 +98,51 @@ const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
   );
 
   return (
-    <Container>
+    <>
       <Header />
+      <Container as="main">
+        <Row className="mt-4">
+          <Col xs={12} md={4} lg={3} xl={2} as="nav">
+            <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
+          </Col>
+          <Col xs={12} md={8} lg={9} xl={10}>
+            <Suspense
+              fallback={
+                <>
+                  <Placeholder as="p" animation="wave">
+                    <Placeholder xs={4} />
+                  </Placeholder>
+                  <Placeholder as="p" animation="wave">
+                    <Placeholder xs={12} />
+                  </Placeholder>
+                  <Placeholder as="p" animation="wave">
+                    <Placeholder xs={12} />
+                  </Placeholder>
+                </>
+              }
+            >
+              {sections[selected]}
+            </Suspense>
 
-      <Row className="mt-4">
-        <Col xs={12} md={4} lg={3} xl={2} as="nav">
-          <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
-        </Col>
-        <Col xs={12} md={8} lg={9} xl={10}>
-          <Suspense
-            fallback={
-              <>
-                <Placeholder as="p" animation="wave">
-                  <Placeholder xs={4} />
-                </Placeholder>
-                <Placeholder as="p" animation="wave">
-                  <Placeholder xs={12} />
-                </Placeholder>
-                <Placeholder as="p" animation="wave">
-                  <Placeholder xs={12} />
-                </Placeholder>
-              </>
-            }
-          >
-            {sections[selected]}
-          </Suspense>
-
-          <hr />
-          <Button
-            type="button"
-            variant="outline"
-            css={css`
-              margin-right: 10px;
-            `}
-            onClick={() => router.push(`/projects/${project.id}`)}
-          >
-            Preview
-          </Button>
-          <Button type="button" variant="primary" onClick={handleUpdatePublic}>
-            Open to Public
-          </Button>
-        </Col>
-      </Row>
-
+            <hr />
+            <Button
+              type="button"
+              variant="outline"
+              css={css`
+                margin-right: 10px;
+              `}
+              onClick={() => router.push(`/projects/${project.id}`)}
+            >
+              Preview
+            </Button>
+            <Button type="button" variant="primary" onClick={handleUpdatePublic}>
+              Open to Public
+            </Button>
+          </Col>
+        </Row>
+      </Container>
       <Footer />
-    </Container>
+    </>
   );
 };
 

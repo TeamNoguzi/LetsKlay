@@ -20,25 +20,27 @@ const Profile = ({ initialUser }: ProfileProps) => {
   const { user } = useUser(initialUser);
 
   return (
-    <Container>
+    <>
       <Header />
-      <Row className="my-5">
-        <Col xs={12} lg={4}>
-          <MyInfo user={user} />
-        </Col>
-        <Col>
-          <Tabs defaultActiveKey="FundList">
-            <Tab title="Fund List" eventKey="FundList">
-              <DynamicFundList />
-            </Tab>
-            <Tab title="Liked Projects" eventKey="LikedProjectList">
-              hi
-            </Tab>
-          </Tabs>
-        </Col>
-      </Row>
+      <Container as="main">
+        <Row className="my-5">
+          <Col xs={12} lg={4}>
+            <MyInfo user={user} />
+          </Col>
+          <Col>
+            <Tabs defaultActiveKey="FundList">
+              <Tab title="Fund List" eventKey="FundList">
+                <DynamicFundList />
+              </Tab>
+              <Tab title="Liked Projects" eventKey="LikedProjectList">
+                hi
+              </Tab>
+            </Tabs>
+          </Col>
+        </Row>
+      </Container>
       <Footer />
-    </Container>
+    </>
   );
 };
 

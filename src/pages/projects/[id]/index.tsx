@@ -16,15 +16,17 @@ interface ProjectDetailPageProps {
 const ProjectDetail = ({ initialProject }: ProjectDetailPageProps) => {
   const { project } = useProject(initialProject);
   return (
-    <S.Container>
+    <>
       <Header />
-      <ProjectIntro project={project} />
-      <Row>
-        <S.Divider />
-      </Row>
-      <ProjectDescription project={project} />
+      <S.Container as="main">
+        <ProjectIntro project={project} />
+        <Row>
+          <S.Divider />
+        </Row>
+        <ProjectDescription project={project} />
+      </S.Container>
       <Footer />
-    </S.Container>
+    </>
   );
 };
 
