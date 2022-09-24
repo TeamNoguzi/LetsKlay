@@ -8,6 +8,7 @@ interface User {
   email: string;
   role: "user" | "admin";
   isActive: boolean;
+  profileImgUrl: string;
   projects: Project[];
   likes: Like[];
   funds: Fund[];

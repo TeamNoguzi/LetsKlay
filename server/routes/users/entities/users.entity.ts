@@ -28,6 +28,9 @@ export class User implements UserType {
   @Column({ default: true })
   isActive: boolean;
 
+  @Column({ nullable: true })
+  profileImgUrl: string;
+
   @OneToMany(() => Project, (project) => project.user, {
     cascade: true,
     onDelete: "CASCADE",

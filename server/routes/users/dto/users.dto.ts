@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { FindUserDto as FindUserDtoType } from "@/dto";
 
 export class CreateUserDto {
   @ApiProperty()
@@ -11,10 +12,22 @@ export class CreateUserDto {
   email: string;
 }
 
-export class FindUserDto {
+export class FindUserDto implements FindUserDtoType {
+  @ApiProperty()
+  id: number;
+
   @ApiProperty()
   address: string;
 
   @ApiProperty()
-  sign: string;
+  email: string;
+
+  @ApiProperty()
+  role: "user" | "admin";
+
+  @ApiProperty()
+  isActive: boolean;
+
+  @ApiProperty()
+  profileImgUrl: string;
 }

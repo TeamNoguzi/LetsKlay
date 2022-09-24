@@ -10,10 +10,19 @@ export class UsersService {
     private usersRepository: Repository<User>
   ) {}
 
+  // 인증에 사용됨
   async findOne(address: string): Promise<User> {
     return await this.usersRepository.findOne({
       where: {
         address: address,
+      },
+    });
+  }
+
+  async findOneWithId(id: number): Promise<User> {
+    return await this.usersRepository.findOne({
+      where: {
+        id,
       },
     });
   }

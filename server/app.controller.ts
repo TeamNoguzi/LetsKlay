@@ -34,7 +34,7 @@ export class AppController {
       await this.authService.register(createUserDto);
       return true;
     } catch (err) {
-      console.log(err);
+      console.error(err);
       throw err;
     }
   }
