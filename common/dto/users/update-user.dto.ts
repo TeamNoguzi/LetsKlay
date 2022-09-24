@@ -1,8 +1,12 @@
+import { FindUserDto } from "./find-user.dto";
+
 interface UpdateUserDto {
-  email: string;
-  role: "user" | "admin";
-  isActive: boolean;
-  profileImgUrl: string;
+  email?: string;
+  role?: "user" | "admin";
+  isActive?: boolean;
+  profileImgUrl?: string;
 }
 
-export { UpdateUserDto };
+interface UpdateUserResponseDto extends FindUserDto {}
+
+export { UpdateUserDto, UpdateUserResponseDto };

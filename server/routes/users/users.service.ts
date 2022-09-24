@@ -1,3 +1,4 @@
+import { UpdateUserDto } from "@/dto";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -29,5 +30,9 @@ export class UsersService {
 
   async createOne(address: string, email: string): Promise<User> {
     return await this.usersRepository.save({ address, email });
+  }
+
+  async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    return await this.usersRepository.save({ id, ...updateUserDto });
   }
 }
