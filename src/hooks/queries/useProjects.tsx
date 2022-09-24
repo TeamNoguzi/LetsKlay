@@ -7,6 +7,8 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchProjectsPopular, fetchProjectsRecent, fetchProjectWithId, updateProject } from "api";
 import { useAuthGuard } from "hooks/useAuthGuard";
+import produce from "immer";
+import { merge } from "lodash";
 
 interface UpdateProjectMutationParam {
   project: UpdateProjectDto & { id: number };
@@ -48,7 +50,12 @@ const useProjectUpdateMutation = () => {
     ({ project }) => updateProjectGuarded({ id: +project.id, project }),
     {
       onSuccess: (data, { project }) => {
-        queryClient.setQueryData(["projects", { id: +project.id }], data);
+        queryClient.setQueryData(
+          ["projects", { id: +project.id }],
+          produce(project, (draft) => {
+            merge(draft, data);
+          })
+        );
       },
     }
   );

@@ -24,7 +24,7 @@ interface FormRewardsProps {
 const FormRewards = ({ project }: FormRewardsProps) => {
   const [selected, setSelected] = useState<number | false>(0);
   const mutation = useProjectUpdateMutation();
-  const { register, handleSubmit, watch, setValue, control } = useForm<FormInput>({
+  const { register, handleSubmit, watch, setValue, getValues, control } = useForm<FormInput>({
     defaultValues: {
       rewards:
         project.rewards?.map((reward) => ({
@@ -61,13 +61,12 @@ const FormRewards = ({ project }: FormRewardsProps) => {
     remove(rewardIdx);
   };
   const handleAddItem = (rewardIdx: number) => {
-    setValue(`rewards.${rewardIdx}.items`, [
-      ...(project.rewards?.[rewardIdx].items ?? []),
-      { name: "", quantity: 1 },
-    ]);
+    const items = getValues(`rewards.${rewardIdx}.items`);
+    setValue(`rewards.${rewardIdx}.items`, [...(items ?? []), { name: "", quantity: 1 }]);
   };
   const handleRemoveItem = (rewardIdx: number, itemIdx: number) => {
-    const newItems = [...(project.rewards[rewardIdx]?.items ?? [])];
+    const items = getValues(`rewards.${rewardIdx}.items`);
+    const newItems = [...(items ?? [])];
     newItems.splice(itemIdx, 1);
     setValue(`rewards.${rewardIdx}.items`, newItems);
   };

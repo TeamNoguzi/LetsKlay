@@ -40,7 +40,7 @@ const ProjectRewards = ({ rewards, projectId }: ProjectRewardsProps) => {
     <S.RewardsContainer>
       <S.Slider>
         {rewards.map((reward) => (
-          <RewardCard reward={reward} onClick={() => handleClickReward(reward)} />
+          <RewardCard key={reward.id} reward={reward} onClick={() => handleClickReward(reward)} />
         ))}
       </S.Slider>
     </S.RewardsContainer>
