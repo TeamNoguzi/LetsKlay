@@ -119,7 +119,8 @@ export class FundsService implements OnModuleInit {
   }
 
   async findAllWithUserCount(userId: number) {
-    return this.fundsRepository.countBy({ userId });
+    const count = await this.fundsRepository.countBy({ userId });
+    return Math.floor(count / 10) + (count % 10 ? 1 : 0);
   }
 
   async findAllWithUserPaged(userId: number, page: number) {
