@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import caver from "caver-js";
-import { CreateUserDto } from "routes/users/dto/users.dto";
+import { CreateUserDto } from "routes/users/dto/create-user.dto";
 
 const MESSAGE = "test";
 

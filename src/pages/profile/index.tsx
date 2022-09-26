@@ -8,7 +8,7 @@ import Header from "stories/Layout/Header";
 import Footer from "stories/Layout/Footer";
 import dynamic from "next/dynamic";
 import Tabs from "stories/Tabs";
-import { useUser } from "hooks/queries/useUsers";
+import { useUser } from "hooks";
 
 const DynamicFundList = dynamic(() => import("sections/Profile/FundList"), { suspense: true });
 
