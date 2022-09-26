@@ -24,7 +24,7 @@ const Profile = ({ initialUser }: ProfileProps) => {
       <Header />
       <Container as="main">
         <Row className="my-5">
-          <Col xs={12} lg={4}>
+          <Col xs={12} lg={4} xl={3}>
             <MyInfo user={user} />
           </Col>
           <Col>

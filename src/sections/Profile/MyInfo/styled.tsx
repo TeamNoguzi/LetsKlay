@@ -10,8 +10,8 @@ const MyInfoContainer = styled.div`
 
 const MyInfoImageWrapper = styled.div`
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
 
   margin-bottom: 20px;
