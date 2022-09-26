@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchFundsPaged } from "api";
+import { fetchFundsCount, fetchFundsPaged } from "api";
 
 const useFunds = (page: number) => {
   const { data, isError } = useQuery(["funds", page], () => fetchFundsPaged(page), {
@@ -9,4 +9,9 @@ const useFunds = (page: number) => {
   return { funds: data, isError };
 };
 
-export { useFunds };
+const useFundsPageCount = () => {
+  const { data, isError } = useQuery(["funds", "count"], fetchFundsCount);
+  return { count: data, isError };
+};
+
+export { useFunds, useFundsPageCount };

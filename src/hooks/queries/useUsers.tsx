@@ -6,7 +6,6 @@ import produce from "immer";
 import { merge } from "lodash";
 
 const useUser = (initialUser: FindUserDto) => {
-  console.log(initialUser);
   const { data, isError } = useQuery(["users", { id: initialUser.id }], fetchUser, {
     initialData: initialUser,
   });
