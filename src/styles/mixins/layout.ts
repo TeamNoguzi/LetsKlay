@@ -2,10 +2,10 @@ import { css } from "@emotion/react";
 
 interface FlexBoxProps {
   direction: "row" | "column";
-  middle: boolean;
+  middle?: boolean;
 }
 
-const flexBox = ({ direction, middle }: FlexBoxProps) => {
+const flexBox = ({ direction, middle = false }: FlexBoxProps) => {
   return css`
     display: flex;
     flex-direction: ${direction};
