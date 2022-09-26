@@ -28,7 +28,11 @@ export class Fund implements FundType {
   @Column()
   rewardId: number;
 
+  @Column()
+  userId: number;
+
   @ManyToOne(() => User, (user) => user.funds)
+  @JoinColumn()
   user: User;
 
   @ManyToOne(() => Reward, (reward) => reward.funds)
