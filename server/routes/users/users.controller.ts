@@ -5,7 +5,8 @@ import { JwtAuthGuard } from "routes/auth/guard/jwt-auth.guard";
 import { RolesGuard } from "routes/auth/guard/roles.guard";
 import { Roles } from "routes/auth/roles/roles.decorator";
 import { Role } from "routes/auth/roles/roles.enum";
-import { FindUserDto, UpdateUserDto } from "./dto/users.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { FindUserResponseDto } from "./dto/find-user.dto";
 import { UsersService } from "./users.service";
 
 @ApiTags("users")
@@ -14,11 +15,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @ApiOperation({ summary: "자기 정보 조회" })
-  @ApiResponse({ type: FindUserDto })
+  @ApiResponse({ type: FindUserResponseDto })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Get()
-  async findMe(@Req() req: Request): Promise<FindUserDto> {
+  async findMe(@Req() req: Request): Promise<FindUserResponseDto> {
     return await this.usersService.findOneWithId(+req.user.id);
   }
 

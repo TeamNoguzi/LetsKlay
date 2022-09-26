@@ -7,4 +7,6 @@ interface FindUserDto {
   profileImgUrl: string;
 }
 
-export { FindUserDto };
+interface FindUserResponseDto extends FindUserDto {}
+
+export { FindUserDto, FindUserResponseDto };
