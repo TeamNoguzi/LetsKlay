@@ -118,11 +118,16 @@ export class FundsService implements OnModuleInit {
     return `This action returns all transaction`;
   }
 
+  async findAllWithUserCount(userId: number) {
+    return this.fundsRepository.countBy({ userId });
+  }
+
   async findAllWithUserPaged(userId: number, page: number) {
     return this.fundsRepository
       .createQueryBuilder("fund")
       .select()
       .leftJoinAndSelect("fund.reward", "reward")
+      .leftJoinAndSelect("reward.project", "project")
       .where("fund.userId = :userId", { userId })
       .take(10)
       .skip(page * 10)

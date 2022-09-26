@@ -7,8 +7,8 @@ import { Roles } from "routes/auth/roles/roles.decorator";
 import { Role } from "routes/auth/roles/roles.enum";
 import { Request } from "express";
 
-@ApiTags("transaction")
-@Controller("transaction")
+@ApiTags("funds")
+@Controller("funds")
 export class FundsController {
   constructor(private readonly fundsService: FundsService) {}
 
@@ -23,14 +23,28 @@ export class FundsController {
   }
 
   @ApiOperation({
+    summary: "후원 내역 수 조회",
+    description: "후원 내역의 수를 조회한다",
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.User, Role.Admin)
+  @Get("/all/user/count")
+  async findAllWithUserCount(@Req() req: Request) {
+    return this.fundsService.findAllWithUserCount(+req.user.id);
+  }
+
+  @ApiOperation({
     summary: "후원 내역 조회 (페이징)",
-    description: "한번에 10개씩 후원 내역을 가져온다",
+    description: "한번에 10개씩 후원 내역을 가져온다. 페이지는 1부터 시작한다",
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Get("/all/user/:page")
-  async updateOne(@Req() req: Request, @Param("page") page: number) {
-    return this.fundsService.findAllWithUserPaged(+req.user.id, +page);
+  async findAllWithUserPaged(@Req() req: Request, @Param("page") page: number) {
+    if (Number.isInteger(+page) && +page > 0)
+      return this.fundsService.findAllWithUserPaged(+req.user.id, +page - 1);
+    return Promise.reject("Page should be integer and larger than 0.");
   }
 }
