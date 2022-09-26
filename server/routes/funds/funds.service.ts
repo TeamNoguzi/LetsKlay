@@ -118,6 +118,17 @@ export class FundsService implements OnModuleInit {
     return `This action returns all transaction`;
   }
 
+  async findAllWithUserPaged(userId: number, page: number) {
+    return this.fundsRepository
+      .createQueryBuilder("fund")
+      .select()
+      .leftJoinAndSelect("fund.reward", "reward")
+      .where("fund.userId = :userId", { userId })
+      .take(10)
+      .skip(page * 10)
+      .getMany();
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} transaction`;
   }
