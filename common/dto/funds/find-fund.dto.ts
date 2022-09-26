@@ -1,3 +1,4 @@
+import { FindProjectFullResponseDto } from "../projects";
 import { FindRewardResponseDto } from "../rewards";
 
 interface FindFundResponseDto {
@@ -6,7 +7,8 @@ interface FindFundResponseDto {
   amount: number;
   valid: boolean;
   userId: number;
-  reward?: Omit<FindRewardResponseDto, "items">;
+  reward: Omit<FindRewardResponseDto, "items"> & { project: FindProjectFullResponseDto };
+  createdAt: Date;
 }
 
 export { FindFundResponseDto };
