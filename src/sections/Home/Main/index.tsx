@@ -13,7 +13,7 @@ interface HomeMainProps {
 const HomeMain = ({ projects }: HomeMainProps) => {
   const isMobile = useBreakpoint(down("lg"));
   const router = useRouter();
-  const bannerProject = projects[Math.floor(Math.random() * projects.length)];
+  const bannerProject = projects[0];
 
   const handleClickItem = (id: number) => {
     router.push(`/projects/${id}`);
@@ -26,7 +26,7 @@ const HomeMain = ({ projects }: HomeMainProps) => {
           <ItemCard
             imgSrc={bannerProject.thumbnailUrl}
             imageHeight={isMobile ? 250 : 400}
-            bigSize
+            large
             title={bannerProject.title}
             body={bannerProject.subtitle}
             onClick={() => handleClickItem(bannerProject.id)}
