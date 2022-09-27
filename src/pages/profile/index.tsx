@@ -11,6 +11,7 @@ import Tabs from "stories/Tabs";
 import { useUser } from "hooks";
 
 const DynamicFundList = dynamic(() => import("sections/Profile/FundList"), { suspense: true });
+const DynamicLikedList = dynamic(() => import("sections/Profile/LikedList"), { suspense: true });
 
 interface ProfileProps {
   initialUser: FindUserDto;
@@ -33,7 +34,7 @@ const Profile = ({ initialUser }: ProfileProps) => {
                 <DynamicFundList />
               </Tab>
               <Tab title="Liked Projects" eventKey="LikedProjectList">
-                hi
+                <DynamicLikedList />
               </Tab>
             </Tabs>
           </Col>
