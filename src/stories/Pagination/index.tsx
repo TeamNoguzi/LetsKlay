@@ -17,7 +17,7 @@ const CustomPagination = ({ page, totalPages, onClick }: CustomPaginationProps) 
 
       return Array.from({ length: 7 }, (_, i) => page - 3 + i);
     })().map((itemPage) => (
-      <Pagination.Item onClick={() => onClick(itemPage)} active={itemPage === page}>
+      <Pagination.Item key={itemPage} onClick={() => onClick(itemPage)} active={itemPage === page}>
         {itemPage}
       </Pagination.Item>
     ));

@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./styled";
 
 interface ItemCardProps {
-  bigSize?: boolean;
+  large?: boolean;
   title: string;
   body: string;
   imageHeight?: number;
@@ -13,7 +13,7 @@ interface ItemCardProps {
 
 function ItemCard({
   imgSrc,
-  bigSize = false,
+  large = false,
   title,
   body,
   imageHeight = 300,
@@ -21,12 +21,12 @@ function ItemCard({
   onClick,
 }: ItemCardProps) {
   return (
-    <S.ItemCard className={className} bigSize={bigSize} onClick={onClick}>
-      <S.ItemCardImageWrapper bigSize={bigSize} height={imageHeight}>
+    <S.ItemCard className={className} large={large} onClick={onClick}>
+      <S.ItemCardImageWrapper large={large} height={imageHeight}>
         <img src={imgSrc} alt="item thumbnail" loading="lazy" />
       </S.ItemCardImageWrapper>
-      <S.ItemCardBody bigSize={bigSize}>
-        <S.ItemCardTitle bigSize={bigSize}>{title}</S.ItemCardTitle>
+      <S.ItemCardBody large={large}>
+        <S.ItemCardTitle large={large}>{title}</S.ItemCardTitle>
         <S.ItemCardText>{body}</S.ItemCardText>
       </S.ItemCardBody>
     </S.ItemCard>
