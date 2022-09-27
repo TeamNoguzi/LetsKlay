@@ -1,4 +1,12 @@
+import { FindLikedProjectResponseDto } from "@/dto";
 import axios from "../axios";
+
+const fetchLikedProjectsPaged = async (page: number) => {
+  const { data } = await axios.get<[FindLikedProjectResponseDto[], number]>(
+    `/likes/projects/list/${page}`
+  );
+  return data;
+};
 
 const fetchIsLiked = async (projectId: number) => {
   const { data } = await axios.get(`/likes/projects/${projectId}`);
@@ -20,4 +28,4 @@ const unlikeProject = async (projectId: number) => {
   return data;
 };
 
-export { likeProject, unlikeProject, fetchIsLiked, fetchLikesAll };
+export { likeProject, unlikeProject, fetchIsLiked, fetchLikesAll, fetchLikedProjectsPaged };
