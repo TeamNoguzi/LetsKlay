@@ -21,13 +21,15 @@ export class LikesService {
     });
   }
 
-  async findProjects(userId: number) {
+  async findProjectsPaged(userId: number, page: number) {
     return this.likesRepository
-      .find({
+      .findAndCount({
         relations: ["project"],
         where: { user: { id: userId } },
+        take: 10,
+        skip: 10 * page,
       })
-      .then((data) => data.map((val) => val.project));
+      .then((result) => [result[0], Math.floor(result[1] / 10) + (result[1] % 10 ? 1 : 0)]);
   }
 
   findLikesOne(userId: number, projectId: number) {
