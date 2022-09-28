@@ -6,19 +6,31 @@ const MyProjectsContainer = styled.div`
   ${flexBox({ direction: "row" })};
 
   flex-wrap: wrap;
-  gap: 50px 35px;
+  gap: 0px 35px;
 
   width: 100%;
-
-  margin-top: 30px;
 
   ${down("md")} {
     justify-content: center;
   }
 `;
 
+const DropdownWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+`;
+
 const CardWrapper = styled.div`
-  ${flexBox({ direction: "column" })}
+  ${flexBox({ direction: "column" })};
+  padding: 20px 0;
+
+  ${down("md")} {
+    ${flexBox({ direction: "row" })};
+    width: 100%;
+    border-bottom: 1px solid #3c3c3c20;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -27,4 +39,4 @@ const ButtonGroup = styled.div`
   margin-top: 15px;
 `;
 
-export { MyProjectsContainer, CardWrapper, ButtonGroup };
+export { MyProjectsContainer, DropdownWrapper, CardWrapper, ButtonGroup };

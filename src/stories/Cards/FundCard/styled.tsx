@@ -21,6 +21,9 @@ interface FundCardProps {
 }
 
 const FundCard = styled(Card)<FundCardProps>`
+  border: none;
+  cursor: pointer;
+
   ${(props) =>
     props.large
       ? css`
@@ -29,14 +32,20 @@ const FundCard = styled(Card)<FundCardProps>`
       : css`
           ${flexBox({ direction: "row" })};
           gap: 0 10px;
+          max-width: 100%;
           width: 100%;
         `}
-  border: none;
-  cursor: pointer;
 `;
 
 const FundImageWrapper = styled.div<FundImageWrapperProps>`
   position: relative;
+
+  & > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
   ${(props) =>
     props.large
       ? css`
@@ -45,22 +54,24 @@ const FundImageWrapper = styled.div<FundImageWrapperProps>`
       : css`
           height: 130px;
           width: 150px;
+          min-width: 150px;
         `}
-
-  & > img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-  }
 `;
 
 const FundCardBody = styled(Card.Body)<FundCardBodyProps>`
   padding: 10px 0 0 0;
+
+  ${(props) =>
+    props.large ||
+    css`
+      word-break: break-all;
+    `};
 `;
 
 const FundCardTitle = styled(Card.Title)``;
 
 const FundCardSubtitle = styled(Card.Subtitle)`
+  ${ellipsis({ line: 2, lineHeight: 14 })};
   margin-bottom: 15px;
 
   font-size: 11pt;
@@ -69,6 +80,7 @@ const FundCardSubtitle = styled(Card.Subtitle)`
 
 const FundCardText = styled(Card.Text)<FundCardTextProps>`
   ${ellipsis({ line: 5, lineHeight: 16 })};
+
   ${(props) =>
     props.large ||
     css`

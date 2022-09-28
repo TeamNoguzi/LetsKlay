@@ -21,7 +21,7 @@ const HomeMain = ({ projects }: HomeMainProps) => {
 
   return (
     <Row>
-      <Col className="mb-3" xs={12} lg={8}>
+      <Col className="mb-5" xs={12} lg={8}>
         {bannerProject && (
           <ItemCard
             imgSrc={bannerProject.thumbnailUrl}

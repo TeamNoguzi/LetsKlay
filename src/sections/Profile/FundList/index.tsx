@@ -35,7 +35,7 @@ const FundList = () => {
               `}
             />
           </Col>
-          <Col xs={6} xl={7}>
+          <Col xs={7} md={6} xl={7}>
             <S.FundItemDescription>
               <h5>{fund.valid ? "Valid" : "Canceled"}</h5>
               <p>{fund.reward.project.title}</p>
@@ -45,7 +45,7 @@ const FundList = () => {
               <span>{moment(fund.createdAt).format("YYYY-MM-DD")}</span>
             </S.FundItemDescription>
           </Col>
-          <Col xs={3} xl={2} className="d-none d-md-block">
+          <Col xs={3} xl={2} className="d-none d-md-block ">
             <Button variant="outline" className="mb-2 w-100">
               Refund
             </Button>
@@ -53,7 +53,7 @@ const FundList = () => {
               Delievery
             </Button>
           </Col>
-          <Col xs={2} className="d-block d-md-none">
+          <Col xs={1} className="d-block d-md-none p-0">
             <IconButton icon={faEllipsisVertical} />
           </Col>
         </S.FundItem>
