@@ -6,6 +6,7 @@ import {
   CreateProjectResponseDto,
   UpdateProjectResponseDto,
 } from "@/dto";
+import { ProjectStatus } from "@/enums";
 import axios from "../axios";
 
 interface UpdateProjectParam {
@@ -33,6 +34,11 @@ const fetchProjectWithId = async (id: number) => {
   return data;
 };
 
+const fetchProjectsUser = async (status: ProjectStatus) => {
+  const { data } = await axios.get<FindProjectResponseDto[]>(`/projects/mylist/${status}`);
+  return data;
+};
+
 const createProject = async (project?: CreateProjectDto) => {
   const { data } = await axios.post<CreateProjectResponseDto>("/projects", project);
   return data;
@@ -52,6 +58,7 @@ export {
   fetchProjects,
   fetchProjectsRecent,
   fetchProjectsPopular,
+  fetchProjectsUser,
   fetchProjectWithId,
   createProject,
   updateProject,

@@ -4,11 +4,13 @@ import {
   UpdateProjectDto,
   UpdateProjectResponseDto,
 } from "@/dto";
+import { ProjectStatus } from "@/enums";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   fetchLikedProjectsPaged,
   fetchProjectsPopular,
   fetchProjectsRecent,
+  fetchProjectsUser,
   fetchProjectWithId,
   updateProject,
 } from "api";
@@ -48,6 +50,14 @@ const useProjectsPopular = (initialData?: FindProjectResponseDto[]) => {
   return { projects: data, isError };
 };
 
+const useMyProjectsWithStates = (projectStatus: ProjectStatus) => {
+  const { data, isError } = useQuery(["projects", "users", projectStatus], () =>
+    fetchProjectsUser(projectStatus)
+  );
+
+  return { projects: data, isError };
+};
+
 const useProjectsLikedAndCount = (page: number) => {
   const { data, isError } = useQuery(["projects", "liked"], () => fetchLikedProjectsPaged(page), {
     keepPreviousData: true,
@@ -79,6 +89,7 @@ export {
   useProject,
   useProjectsRecent,
   useProjectsPopular,
+  useMyProjectsWithStates,
   useProjectsLikedAndCount,
   useProjectUpdateMutation,
 };
