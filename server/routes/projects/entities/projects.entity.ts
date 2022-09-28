@@ -24,7 +24,7 @@ export class Project implements ProjectType {
   @Column({ nullable: true })
   subtitle: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "longtext" })
   summary: string;
 
   @Column({ nullable: true })
@@ -33,7 +33,7 @@ export class Project implements ProjectType {
   @Column({ nullable: true })
   mainPictureUrl: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "longtext" })
   description: string;
 
   @Column({ nullable: true })
