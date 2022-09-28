@@ -28,6 +28,7 @@ const FundCard = styled(Card)<FundCardProps>`
         `
       : css`
           ${flexBox({ direction: "row" })};
+          gap: 0 10px;
           width: 100%;
         `}
   border: none;

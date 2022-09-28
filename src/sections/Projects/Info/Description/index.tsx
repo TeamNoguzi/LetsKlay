@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Row, Col, Tab } from "react-bootstrap";
 import { FindProjectFullResponseDto } from "@/dto";
 import { useBreakpoint } from "styled-breakpoints/react-emotion";
@@ -12,11 +13,12 @@ interface ProjectDescriptionProps {
 }
 
 const ProjectDescription = ({ project }: ProjectDescriptionProps) => {
+  const [tabKey, setTabKey] = useState<string>("Description");
   const isMobile = useBreakpoint(down("lg"));
   return (
     <Row>
       <Col xs={12} lg={8} xl={9}>
-        <Tabs defaultActiveKey="Description">
+        <Tabs id="descriptionTab" activeKey={tabKey} onSelect={(key) => setTabKey(key)}>
           <Tab eventKey="Description" title="Description" className="py-3">
             <ReactMarkdown css={S.markdownStyle}>{project.description}</ReactMarkdown>
           </Tab>

@@ -46,12 +46,12 @@ const HomeRecent = ({ projects }: HomeRecentProps) => {
 
   return (
     <Row>
-      <S.RecentTitle>Recently begined projects</S.RecentTitle>
+      <S.RecentTitle>Recently began projects</S.RecentTitle>
       <Carousel
         gap={45}
         itemWidth={270}
         count={projects.length}
-        division={isSm || isXs ? projects.length : 3}
+        division={isSm || isXs ? projects.length : projects.length - 1}
         width={CarouselWidth}
       >
         {FundCards}

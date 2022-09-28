@@ -3,14 +3,18 @@ import { Tabs } from "react-bootstrap";
 import * as S from "./styled";
 
 interface CustomTabsProps {
-  defaultActiveKey: string;
+  id: string;
+  activeKey: any;
+  onSelect: (key: any) => void;
   children: ReactNode;
 }
 
-const CustomTabs = ({ defaultActiveKey, children }: CustomTabsProps) => {
+const CustomTabs = ({ id, activeKey, onSelect, children }: CustomTabsProps) => {
   return (
     <S.TabsWrapper>
-      <Tabs defaultActiveKey={defaultActiveKey}>{children}</Tabs>
+      <Tabs id={id} activeKey={activeKey} onSelect={onSelect} mountOnEnter>
+        {children}
+      </Tabs>
     </S.TabsWrapper>
   );
 };
