@@ -55,6 +55,7 @@ export class ProjectsService implements OnModuleInit {
         console.log(subscriptionId);
       })
       .on("data", async ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        // 한 트랙잭션 안에서 처리하면 더 좋을 듯.
         await this.updateStatusOneEvent(projectId, ProjectStatus.cancelled);
         await this.fundsService.invalidateAll(projectId);
       })
