@@ -12,7 +12,7 @@ interface CustomTabsProps {
 const CustomTabs = ({ id, activeKey, onSelect, children }: CustomTabsProps) => {
   return (
     <S.TabsWrapper>
-      <Tabs id={id} activeKey={activeKey} onSelect={onSelect} mountOnEnter>
+      <Tabs id={id} activeKey={activeKey} onSelect={onSelect} mountOnEnter unmountOnExit>
         {children}
       </Tabs>
     </S.TabsWrapper>

@@ -10,7 +10,7 @@ interface CustomDropdownProps {
 
 const CustomDropdown = ({ text, children, onSelect }: CustomDropdownProps) => {
   return (
-    <S.CustomDropdown onSelect={onSelect}>
+    <S.CustomDropdown align="end" onSelect={onSelect}>
       <Dropdown.Toggle>{text}</Dropdown.Toggle>
       <Dropdown.Menu>{children}</Dropdown.Menu>
     </S.CustomDropdown>

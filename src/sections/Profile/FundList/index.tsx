@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFunds, useFundsPageCount } from "hooks";
+import { useAuthGuard, useFunds, useFundsPageCount } from "hooks";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,12 @@ import numeral from "numeral";
 import { Col } from "react-bootstrap";
 import Button from "stories/Buttons/Button";
 import Pagination from "stories/Pagination";
+import { verifySession } from "api";
+import { AbiItem } from "caver-js";
+import queryClient from "hooks/queries/client";
+import { callTransaction, sendTransaction } from "utils/transactions";
+import FactoryAbi from "@/klaytn/build/contracts/Factory.json";
+import ProjectAbi from "@/klaytn/build/contracts/Project.json";
 import * as S from "./styled";
 
 const FundList = () => {
@@ -16,9 +22,27 @@ const FundList = () => {
   const [page, setPage] = useState<number>(1);
   const { count } = useFundsPageCount();
   const { funds } = useFunds(page);
+  const verifySessionGuarded = useAuthGuard(verifySession);
 
   const handleRoute = (projectId: number) => {
     router.push(`/projects/${projectId}`);
+  };
+  const handleClickRefund = async (projectId: number, fundHashId: string) => {
+    await verifySessionGuarded(undefined);
+    const address = await callTransaction(
+      {
+        abi: FactoryAbi.abi as AbiItem[],
+        address: process.env.FACTORY_ADDR ?? "",
+        method: "getProjectAddress",
+      },
+      projectId
+    );
+
+    await sendTransaction(
+      { abi: ProjectAbi.abi as AbiItem[], address, method: "cancelFund" },
+      fundHashId
+    );
+    queryClient.invalidateQueries(["projects", "users"]);
   };
 
   return (
@@ -46,12 +70,20 @@ const FundList = () => {
             </S.FundItemDescription>
           </Col>
           <Col xs={3} xl={2} className="d-none d-md-block ">
-            <Button variant="outline" className="mb-2 w-100">
-              Refund
-            </Button>
-            <Button variant="primary" className="w-100">
-              Delievery
-            </Button>
+            {fund.valid && (
+              <>
+                <Button
+                  variant="outline"
+                  className="mb-2 w-100"
+                  onClick={() => handleClickRefund(fund.reward.project.id, fund.hashId)}
+                >
+                  Refund
+                </Button>
+                <Button variant="primary" className="w-100">
+                  Delievery
+                </Button>
+              </>
+            )}
           </Col>
           <Col xs={1} className="d-block d-md-none p-0">
             <IconButton icon={faEllipsisVertical} />

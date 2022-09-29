@@ -1,5 +1,5 @@
 import { ProjectStatus } from "@/enums";
-import { useMyProjectsWithStates } from "hooks";
+import { useAuthGuard, useMyProjectsWithStates } from "hooks";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import FundCard from "stories/Cards/FundCard";
@@ -10,6 +10,12 @@ import { useBreakpoint } from "styled-breakpoints/react-emotion";
 import { down } from "styled-breakpoints";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "stories/Buttons/IconButton";
+import { AbiItem } from "caver-js";
+import { callTransaction, sendTransaction } from "utils/transactions";
+import { verifySession } from "api";
+import { useQueryClient } from "@tanstack/react-query";
+import FactoryAbi from "@/klaytn/build/contracts/Factory.json";
+import ProjectAbi from "@/klaytn/build/contracts/Project.json";
 import * as S from "./styled";
 
 const DropdownText = {
@@ -21,15 +27,31 @@ const DropdownText = {
 
 const MyProjects = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [currentProjectStatus, setCurrentProjectStatus] = useState<ProjectStatus>(
     ProjectStatus.preparing
   );
   const { projects } = useMyProjectsWithStates(currentProjectStatus);
   const isMobile = useBreakpoint(down("md"));
+  const verifySessionGuarded = useAuthGuard(verifySession);
 
   const handleClickCard = (id: number) => router.push(`/projects/${id}`);
   const handleClickDropdown = (key: ProjectStatus) => setCurrentProjectStatus(key);
-  const handleClickModify = (id: number) => router.push(`/projects/${id}/modify`);
+  const handleClickModify = (projectId: number) => router.push(`/projects/${projectId}/modify`);
+  const handleClickCancel = async (projectId: number) => {
+    await verifySessionGuarded(undefined);
+    const address = await callTransaction(
+      {
+        abi: FactoryAbi.abi as AbiItem[],
+        address: process.env.FACTORY_ADDR ?? "",
+        method: "getProjectAddress",
+      },
+      projectId
+    );
+
+    await sendTransaction({ abi: ProjectAbi.abi as AbiItem[], address, method: "cancelProject" });
+    queryClient.invalidateQueries(["projects", "users"]);
+  };
 
   return (
     <>
@@ -60,7 +82,9 @@ const MyProjects = () => {
                 )}
                 {(+currentProjectStatus === ProjectStatus.preparing ||
                   +currentProjectStatus === ProjectStatus.funding) && (
-                  <Button variant="outline">Cancel</Button>
+                  <Button variant="outline" onClick={() => handleClickCancel(project.id)}>
+                    Cancel
+                  </Button>
                 )}
               </S.ButtonGroup>
             )}
