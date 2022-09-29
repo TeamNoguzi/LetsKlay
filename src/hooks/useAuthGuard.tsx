@@ -1,7 +1,7 @@
 import { modalOpenAtom } from "atoms";
 import { AxiosError } from "axios";
 import { useAtom } from "jotai";
-import LoginForm from "sections/Form/LoginForm";
+import LoginForm from "stories/Forms/LoginForm";
 
 const useAuthGuard = <T, P>(api: (params: P) => Promise<T>) => {
   const openModal = useAtom(modalOpenAtom)[1];
@@ -11,10 +11,9 @@ const useAuthGuard = <T, P>(api: (params: P) => Promise<T>) => {
     } catch (error) {
       const err = error as AxiosError;
 
-      if (err.response?.status === 401) {
+      if (err.response?.status === 401)
         openModal({ title: "", body: <LoginForm isPage={false} /> });
-        return null;
-      }
+
       throw err;
     }
   };
