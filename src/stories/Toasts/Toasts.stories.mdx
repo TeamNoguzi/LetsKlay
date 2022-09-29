@@ -1,0 +1,25 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import Toast from "./index";
+import { useAtom } from "jotai";
+import Button from "stories/Buttons/Button";
+import { ToastToggleAtom } from "atoms";
+
+<Meta title="Components/Toast" component={Toast} />
+
+export const ToastStory = (args) => {
+  const [_, toggle] = useAtom(ToastToggleAtom);
+  return (
+    <>
+      <Button variant="primary" onClick={toggle}>
+        Launch demo Toast
+      </Button>
+      <Toast {...args} />
+    </>
+  );
+};
+
+# Toast
+
+<Canvas>
+  <Story name="default">{ToastStory.bind({})}</Story>
+</Canvas>

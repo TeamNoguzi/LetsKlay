@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 import { atom } from "jotai";
 
 interface ModalAtom {
   visible: boolean;
   title?: string;
-  body: string | ReactElement;
+  body: ReactNode;
 }
 
 const modalAtom = atom<ModalAtom>({ visible: false, title: "", body: "" });

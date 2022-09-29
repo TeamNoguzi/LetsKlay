@@ -7,6 +7,8 @@ import Button from "stories/Buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useLikes, useIsLiked, useToggleLikesMutation } from "hooks";
+import { useAtom } from "jotai";
+import { toastsAddAtom } from "atoms/toast";
 import * as S from "./styled";
 
 interface ProjectIntroProps {
@@ -17,6 +19,7 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
   const { likes } = useLikes(project.id);
   const { isLiked } = useIsLiked(project.id);
   const toggleLikesMutation = useToggleLikesMutation();
+  const [, addToast] = useAtom(toastsAddAtom);
 
   const progress = project.fundNow / project.fundGoal;
 
@@ -43,7 +46,10 @@ const ProjectIntro = ({ project }: ProjectIntroProps) => {
           <S.ButtonGroups>
             <Button
               variant="outline"
-              onClick={() => toggleLikesMutation.mutate({ isLiked, projectId: project.id })}
+              onClick={() => {
+                toggleLikesMutation.mutate({ isLiked, projectId: project.id });
+                addToast({ title: "hi", body: "hi", icon: null });
+              }}
             >
               <FontAwesomeIcon icon={faHeart} />
               {` ${likes?.length ?? 0}`}

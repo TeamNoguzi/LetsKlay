@@ -6,17 +6,17 @@ import LoginForm from "sections/Form/LoginForm";
 const useAuthGuard = <T, P>(api: (params: P) => Promise<T>) => {
   const openModal = useAtom(modalOpenAtom)[1];
   return async (params: P) => {
-    let result = null;
     try {
-      result = await api(params);
+      return await api(params);
     } catch (error) {
       const err = error as AxiosError;
 
-      if (err.response?.status === 401)
+      if (err.response?.status === 401) {
         openModal({ title: "", body: <LoginForm isPage={false} /> });
+        return null;
+      }
       throw err;
     }
-    return result;
   };
 };
 

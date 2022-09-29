@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { SSRProvider } from "react-bootstrap";
 import queryClient from "hooks/queries/client";
 import Modal from "stories/Modal";
+import GlobalToast from "stories/Toasts";
 import GlobalStyle from "styles/global";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <GlobalStyle />
           <Component {...pageProps} />
           <Modal />
+          <GlobalToast />
         </QueryClientProvider>
       </SSRProvider>
     </ThemeProvider>

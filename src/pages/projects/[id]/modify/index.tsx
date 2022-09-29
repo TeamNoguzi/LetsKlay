@@ -11,12 +11,11 @@ import dynamic from "next/dynamic";
 import Button from "stories/Buttons/Button";
 import { ProjectStatus } from "@/enums";
 import { useRouter } from "next/router";
-import { useAuthGuard } from "hooks";
-import FactoryABI from "@/klaytn/build/contracts/Factory.json";
-import { AbiItem } from "caver-js";
-import { sendTransaction } from "utils/transactions";
+import { useAuthGuard, useTransaction } from "hooks";
 import { css } from "@emotion/react";
 import blockUnauthorized from "utils/blockUnauthorized";
+import { createProject } from "transactions";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
@@ -45,21 +44,18 @@ const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
   const handleSelect = useCallback((idx: number) => setSelected(idx), []);
   const { project } = useProject(initialProject);
   const verifySessionGuarded = useAuthGuard(verifySession);
+  const createProjectTransaction = useTransaction(createProject);
 
   const handleUpdatePublic = async () => {
     await verifySessionGuarded(undefined);
-    await sendTransaction(
+    await createProjectTransaction(
       {
-        abi: FactoryABI.abi as AbiItem[],
-        address: process.env.FACTORY_ADDR ?? "",
-        method: "createProject",
+        rewards: project.rewards,
+        projectId: project.id,
+        fundGoal: project.fundGoal,
       },
-      project.rewards.map((reward) => reward.id),
-      project.rewards.map((reward) => reward.price),
-      project.fundGoal,
-      +project.id
+      { title: "Project published!", body: "The project is successfully published!", icon: faCheck }
     );
-
     await updateProjectPublic(project.id)
       .then(() => router.push(`/projects/${project.id}`))
       .catch(() => {});
