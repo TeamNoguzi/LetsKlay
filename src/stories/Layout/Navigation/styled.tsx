@@ -3,17 +3,22 @@ import { flexBox } from "styles/mixins";
 import { Nav } from "react-bootstrap";
 import { down } from "styled-breakpoints";
 
+const NavigationWrapper = styled.nav`
+  width: 100%;
+  height: 60px;
+
+  border-top: 1px solid ${(props) => props.theme.colors.black}20;
+  border-bottom: 1px solid ${(props) => props.theme.colors.blackLight}20;
+`;
+
 const Navigation = styled(Nav)`
   ${flexBox({ direction: "row", middle: true })};
   justify-content: flex-start;
   gap: 0 10px;
 
   width: 100%;
-  height: 60px;
+  height: 100%;
   padding: 0 20px;
-
-  border-top: 1px solid ${(props) => props.theme.colors.black}20;
-  border-bottom: 1px solid ${(props) => props.theme.colors.blackLight}20;
 
   ${down("md")} {
     padding: 0;
@@ -48,4 +53,4 @@ const SearchBarWrapper = styled.div`
   margin-right: 20px;
 `;
 
-export { Navigation, NavItem, NavLink, Placeholder, SearchBarWrapper };
+export { NavigationWrapper, Navigation, NavItem, NavLink, Placeholder, SearchBarWrapper };

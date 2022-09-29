@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import SearchBar from "stories/SearchBar";
 import { createProject } from "api";
 import { useAuthGuard } from "hooks";
+import { Container } from "react-bootstrap";
 import SideBar from "../SideBar";
 import * as S from "./styled";
 
@@ -33,35 +34,39 @@ function Navigation({ footer }: NavigationProps) {
   return (
     <>
       <SideBar show={showMobile} onHide={handleCloseMobile} />
-      <S.Navigation>
-        {mobile && <IconButton icon={faBars} width={48} onClick={handleOpenMobile} />}
-        {!mobile && (
-          <>
-            <S.NavItem>
-              <S.NavLink>
-                <Link href="/">Home</Link>
-              </S.NavLink>
-            </S.NavItem>
-            <S.NavItem>
-              <S.NavLink>
-                <Link href="/">Items</Link>
-              </S.NavLink>
-            </S.NavItem>
-          </>
-        )}
-        <S.Placeholder />
-        {!mobile && (
-          <S.SearchBarWrapper>
-            <SearchBar height={50} />
-          </S.SearchBarWrapper>
-        )}
-        {!footer && (
-          <>
-            <IconButton icon={faPlus} onClick={handleClickPlus} />
-            <IconButton icon={faUser} onClick={handleClickProfile} />
-          </>
-        )}
-      </S.Navigation>
+      <S.NavigationWrapper>
+        <Container className="p-0 h-100">
+          <S.Navigation>
+            {mobile && <IconButton icon={faBars} width={48} onClick={handleOpenMobile} />}
+            {!mobile && (
+              <>
+                <S.NavItem>
+                  <S.NavLink>
+                    <Link href="/">Home</Link>
+                  </S.NavLink>
+                </S.NavItem>
+                <S.NavItem>
+                  <S.NavLink>
+                    <Link href="/">Items</Link>
+                  </S.NavLink>
+                </S.NavItem>
+              </>
+            )}
+            <S.Placeholder />
+            {!mobile && (
+              <S.SearchBarWrapper>
+                <SearchBar height={50} />
+              </S.SearchBarWrapper>
+            )}
+            {!footer && (
+              <>
+                <IconButton icon={faPlus} onClick={handleClickPlus} />
+                <IconButton icon={faUser} onClick={handleClickProfile} />
+              </>
+            )}
+          </S.Navigation>
+        </Container>
+      </S.NavigationWrapper>
     </>
   );
 }

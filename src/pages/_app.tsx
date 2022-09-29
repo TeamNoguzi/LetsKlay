@@ -15,15 +15,15 @@ config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SSRProvider>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <SSRProvider>
         <QueryClientProvider client={queryClient}>
           <GlobalStyle />
           <Component {...pageProps} />
           <Modal />
         </QueryClientProvider>
-      </ThemeProvider>
-    </SSRProvider>
+      </SSRProvider>
+    </ThemeProvider>
   );
 }
 

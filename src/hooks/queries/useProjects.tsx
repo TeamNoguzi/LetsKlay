@@ -4,9 +4,19 @@ import {
   UpdateProjectDto,
   UpdateProjectResponseDto,
 } from "@/dto";
+import { ProjectStatus } from "@/enums";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchProjectsPopular, fetchProjectsRecent, fetchProjectWithId, updateProject } from "api";
+import {
+  fetchLikedProjectsPaged,
+  fetchProjectsPopular,
+  fetchProjectsRecent,
+  fetchProjectsUser,
+  fetchProjectWithId,
+  updateProject,
+} from "api";
 import { useAuthGuard } from "hooks/useAuthGuard";
+import produce from "immer";
+import { merge } from "lodash";
 
 interface UpdateProjectMutationParam {
   project: UpdateProjectDto & { id: number };
@@ -40,6 +50,22 @@ const useProjectsPopular = (initialData?: FindProjectResponseDto[]) => {
   return { projects: data, isError };
 };
 
+const useMyProjectsWithStates = (projectStatus: ProjectStatus) => {
+  const { data, isError } = useQuery(["projects", "users", projectStatus], () =>
+    fetchProjectsUser(projectStatus)
+  );
+
+  return { projects: data, isError };
+};
+
+const useProjectsLikedAndCount = (page: number) => {
+  const { data, isError } = useQuery(["projects", "liked"], () => fetchLikedProjectsPaged(page), {
+    keepPreviousData: true,
+  });
+
+  return { likes: data?.[0], count: data?.[1], isError };
+};
+
 const useProjectUpdateMutation = () => {
   const queryClient = useQueryClient();
   const updateProjectGuarded = useAuthGuard(updateProject);
@@ -48,10 +74,22 @@ const useProjectUpdateMutation = () => {
     ({ project }) => updateProjectGuarded({ id: +project.id, project }),
     {
       onSuccess: (data, { project }) => {
-        queryClient.setQueryData(["projects", { id: +project.id }], data);
+        queryClient.setQueryData(
+          ["projects", { id: +project.id }],
+          produce(project, (draft) => {
+            merge(draft, data);
+          })
+        );
       },
     }
   );
 };
 
-export { useProject, useProjectsRecent, useProjectsPopular, useProjectUpdateMutation };
+export {
+  useProject,
+  useProjectsRecent,
+  useProjectsPopular,
+  useMyProjectsWithStates,
+  useProjectsLikedAndCount,
+  useProjectUpdateMutation,
+};

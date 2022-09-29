@@ -12,15 +12,12 @@ interface CarouselProps {
   division: number;
 }
 
-const SLIDER_PADDING = 40;
-
 const Carousel = ({ children, gap = 15, width, itemWidth, count, division }: CarouselProps) => {
   const [page, setPage] = useState<number>(0);
-  const totalWidth = (itemWidth + gap) * (count - 1) + itemWidth;
+  const totalWidth = (itemWidth + gap) * (count - 1) + itemWidth + gap;
 
   const handleMoveNext = () => {
-    if (page * (totalWidth / division) < totalWidth - width + SLIDER_PADDING)
-      setPage((prev) => prev + 1);
+    if (page * (totalWidth / division) < totalWidth - width) setPage((prev) => prev + 1);
   };
 
   const handleMovePrev = () => {

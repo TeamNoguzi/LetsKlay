@@ -14,7 +14,7 @@ const ellipsis = ({ line, lineHeight }: EllipsisProps) => css`
   word-wrap: break-word;
 
   line-height: ${lineHeight}pt;
-  height: ${lineHeight * line}pt;
+  height: fit-content;
 `;
 
 export { ellipsis };

@@ -13,13 +13,10 @@ interface CarouselSliderProps {
   division: number;
 }
 
-const SLIDER_PADDING = 40;
-
 const CarouselWrapper = styled.div`
   ${flexBox({ direction: "row", middle: true })};
   position: relative;
   width: 100%;
-  padding: 0 ${SLIDER_PADDING / 2}px;
 `;
 
 const Carousel = styled.div<CarouselProps>`
@@ -76,7 +73,7 @@ const CarouselSlider = styled.div<CarouselSliderProps>`
   transform: translateX(
     max(
       -${(props) => (props.width / props.division) * props.page}px,
-      -${(props) => props.width - props.visibleWidth + SLIDER_PADDING}px
+      -${(props) => props.width - props.visibleWidth - props.gap}px
     )
   );
   transition: 0.15s ease-in-out;

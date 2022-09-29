@@ -2,8 +2,7 @@ import { FindProjectFullResponseDto } from "@/dto";
 import { fetchProjectWithId } from "api";
 import { GetServerSidePropsContext } from "next";
 import { Row } from "react-bootstrap";
-import Logo from "stories/Logo";
-import Navigation from "stories/Layout/Navigation";
+import Header from "stories/Layout/Header";
 import ProjectIntro from "sections/Projects/Intro";
 import ProjectDescription from "sections/Projects/Info/Description";
 import Footer from "stories/Layout/Footer";
@@ -17,16 +16,17 @@ interface ProjectDetailPageProps {
 const ProjectDetail = ({ initialProject }: ProjectDetailPageProps) => {
   const { project } = useProject(initialProject);
   return (
-    <S.Container>
-      <Logo center />
-      <Navigation />
-      <ProjectIntro project={project} />
-      <Row>
-        <S.Divider />
-      </Row>
-      <ProjectDescription project={project} />
+    <>
+      <Header />
+      <S.Container as="main">
+        <ProjectIntro project={project} />
+        <Row>
+          <S.Divider />
+        </Row>
+        <ProjectDescription project={project} />
+      </S.Container>
       <Footer />
-    </S.Container>
+    </>
   );
 };
 

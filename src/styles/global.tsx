@@ -21,7 +21,8 @@ const GlobalStyle = () => (
       }
 
       .btn,
-      .btn-close {
+      .btn-close,
+      .page-link {
         &&&:focus {
           box-shadow: none;
         }

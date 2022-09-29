@@ -1,0 +1,18 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { useState } from "react";
+import Pagination from "./index";
+
+<Meta title="Components/Pagination" component={Pagination} />
+
+export const PaginationStory = (args) => {
+  const [page, setPage] = useState(1);
+  return <Pagination page={page} onClick={setPage} totalPages={args.totalPages} />;
+};
+
+# Pagination
+
+<Canvas>
+  <Story name="default" args={{ totalPages: 30 }}>
+    {PaginationStory.bind({})}
+  </Story>
+</Canvas>

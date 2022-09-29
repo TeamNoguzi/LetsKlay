@@ -1,7 +1,7 @@
 import { FindProjectFullResponseDto } from "@/dto";
 import { Editor } from "@toast-ui/react-editor";
 import { useRef, useEffect } from "react";
-import { useProjectUpdateMutation } from "hooks";
+import { useAuthGuard, useProjectUpdateMutation } from "hooks";
 import { uploadImage } from "api";
 import { debounce } from "lodash";
 import Button from "stories/Buttons/Button";
@@ -16,6 +16,7 @@ interface FormDescriptionsProps {
 const FormDescriptions = ({ project }: FormDescriptionsProps) => {
   const mutation = useProjectUpdateMutation();
   const ref = useRef<Editor>(null);
+  const uploadImageGuarded = useAuthGuard(uploadImage);
 
   useEffect(() => {
     ref.current?.getInstance().setMarkdown(project.description ?? "");
@@ -45,7 +46,7 @@ const FormDescriptions = ({ project }: FormDescriptionsProps) => {
             const split = blob.type.split("/");
             const ext = split[split.length - 1];
             const file = new File([blob], `image.${ext}`);
-            const url = await uploadImage(file);
+            const url = await uploadImageGuarded(file);
             callback(`/${url.replace(/\\/, "/")}`);
           },
         }}

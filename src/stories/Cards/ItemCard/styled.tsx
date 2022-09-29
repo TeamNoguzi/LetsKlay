@@ -4,24 +4,24 @@ import { flexBox, ellipsis } from "styles/mixins";
 import { css } from "@emotion/react";
 
 interface ItemCardProps {
-  bigSize: boolean;
+  large: boolean;
 }
 
 interface ItemCardBodyProps {
-  bigSize: boolean;
+  large: boolean;
 }
 
 interface ItemCardImageWrapperProps {
-  bigSize: boolean;
+  large: boolean;
   height: number;
 }
 
 interface ItemCardTitleProps {
-  bigSize: boolean;
+  large: boolean;
 }
 
 const ItemCard = styled(Card)<ItemCardProps>`
-  ${(props) => flexBox({ direction: props.bigSize ? "column" : "row", middle: false })};
+  ${(props) => flexBox({ direction: props.large ? "column" : "row", middle: false })};
 
   width: 100%;
   cursor: pointer;
@@ -35,7 +35,7 @@ const ItemCardBody = styled(Card.Body)<ItemCardBodyProps>`
   width: 100%;
 
   ${(props) =>
-    props.bigSize
+    props.large
       ? css`
           padding: 10px 0;
         `
@@ -55,7 +55,7 @@ const ItemCardImageWrapper = styled.div<ItemCardImageWrapperProps>`
   }
 
   ${(props) =>
-    props.bigSize
+    props.large
       ? `
       max-height:70%;
       width:100%;
@@ -68,7 +68,7 @@ const ItemCardImageWrapper = styled.div<ItemCardImageWrapperProps>`
 
 const ItemCardTitle = styled(Card.Title)<ItemCardTitleProps>`
   font-variation-settings: "wght" 500;
-  font-size: ${(props) => (props.bigSize ? "18pt" : "16pt")};
+  font-size: ${(props) => (props.large ? "18pt" : "16pt")};
 `;
 
 const ItemCardText = styled(Card.Text)`

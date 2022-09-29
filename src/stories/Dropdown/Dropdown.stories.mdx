@@ -1,0 +1,21 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { Dropdown } from "react-bootstrap";
+import CustomDropdown from "./index";
+
+<Meta title="Components/Dropdown" component={CustomDropdown} />
+
+export const DropdownStory = (args) => (
+  <CustomDropdown {...args}>
+    <Dropdown.Item>test1</Dropdown.Item>
+    <Dropdown.Item>test2</Dropdown.Item>
+    <Dropdown.Item>test3</Dropdown.Item>
+  </CustomDropdown>
+);
+
+# Dropdown
+
+<Canvas>
+  <Story name="default" args={{ text: "dropdown" }}>
+    {DropdownStory.bind({})}
+  </Story>
+</Canvas>

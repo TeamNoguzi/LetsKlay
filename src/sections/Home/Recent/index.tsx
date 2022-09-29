@@ -3,7 +3,7 @@ import { FindProjectResponseDto } from "@/dto";
 import { Row } from "react-bootstrap";
 import Carousel from "stories/Carousel";
 import FundCard from "stories/Cards/FundCard";
-import { between } from "styled-breakpoints";
+import { between, down } from "styled-breakpoints";
 import { useBreakpoint } from "styled-breakpoints/react-emotion";
 import { useRouter } from "next/router";
 import * as S from "./styled";
@@ -14,12 +14,16 @@ interface HomeRecentProps {
 
 const HomeRecent = ({ projects }: HomeRecentProps) => {
   const router = useRouter();
+  const isXs = useBreakpoint(down("sm"));
+  const isSm = useBreakpoint(between("sm", "md"));
   const isMd = useBreakpoint(between("md", "lg"));
   const isLg = useBreakpoint(between("lg", "xl"));
   const isXl = useBreakpoint(between("xl", "xxl"));
 
   const CarouselWidth = (() => {
-    if (isMd) return 700;
+    if (isXs) return 280;
+    if (isSm) return 400;
+    if (isMd) return 670;
     if (isLg) return 900;
     if (isXl) return 1000;
     return 1200;
@@ -31,10 +35,10 @@ const HomeRecent = ({ projects }: HomeRecentProps) => {
     };
     return projects.map((project) => (
       <FundCard
+        large
         key={project.id}
         imgSrc={project.thumbnailUrl}
         project={project}
-        width={270}
         onClick={() => handleClickCard(project.id)}
       />
     ));
@@ -42,8 +46,14 @@ const HomeRecent = ({ projects }: HomeRecentProps) => {
 
   return (
     <Row>
-      <S.RecentTitle>Recently begined projects</S.RecentTitle>
-      <Carousel gap={45} itemWidth={270} count={projects.length} division={3} width={CarouselWidth}>
+      <S.RecentTitle>Recently began projects</S.RecentTitle>
+      <Carousel
+        gap={45}
+        itemWidth={270}
+        count={projects.length}
+        division={isSm || isXs ? projects.length : projects.length - 1}
+        width={CarouselWidth}
+      >
         {FundCards}
       </Carousel>
     </Row>

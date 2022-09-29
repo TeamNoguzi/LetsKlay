@@ -55,6 +55,7 @@ export class ProjectsService implements OnModuleInit {
         console.log(subscriptionId);
       })
       .on("data", async ({ returnValues: { projectId } }: ContractEvent<{ projectId: number }>) => {
+        // 한 트랙잭션 안에서 처리하면 더 좋을 듯.
         await this.updateStatusOneEvent(projectId, ProjectStatus.cancelled);
         await this.fundsService.invalidateAll(projectId);
       })
@@ -132,12 +133,13 @@ export class ProjectsService implements OnModuleInit {
     return await this.projectsRepository
       .createQueryBuilder("project")
       .select()
-      .addSelect("COUNT(*) AS count")
+      .addSelect("COUNT(likes.userId)", "count")
       .leftJoin("project.likes", "likes")
       .where("project.status = :status", { status: ProjectStatus.funding })
       .groupBy("project.id")
+
       .orderBy("count", "DESC")
-      .limit(10)
+      .take(10)
       .getMany();
   }
 

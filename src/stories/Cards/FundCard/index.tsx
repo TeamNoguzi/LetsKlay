@@ -4,23 +4,24 @@ import numeral from "numeral";
 import * as S from "./styled";
 
 interface FundCardProps {
+  large?: boolean;
   imgSrc: string;
   project: FindProjectResponseDto;
-  width?: number;
   onClick?: () => void;
 }
 
-const FundCard = ({ imgSrc, project, width, onClick }: FundCardProps) => {
+const FundCard = ({ large = false, imgSrc, project, onClick }: FundCardProps) => {
   const progress = project.fundNow / project.fundGoal;
+
   return (
-    <S.FundCard width={width} onClick={onClick}>
-      <S.FundImageWrapper>
+    <S.FundCard large={large} onClick={onClick}>
+      <S.FundImageWrapper large={large}>
         <img src={imgSrc} alt="fund item thumbnail" loading="lazy" />
       </S.FundImageWrapper>
-      <S.FundCardBody>
+      <S.FundCardBody large={large}>
         <Card.Title>{project.title}</Card.Title>
         <S.FundCardSubtitle>{project.subtitle}</S.FundCardSubtitle>
-        <S.FundCardText>{project.summary}</S.FundCardText>
+        <S.FundCardText large={large}>{project.summary}</S.FundCardText>
 
         <span>{numeral(project.fundNow).format("$0,0")}</span>
         <span style={{ float: "right" }}>{`${numeral(progress).format("0%")} of ${numeral(

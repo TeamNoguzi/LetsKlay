@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import { Container } from "react-bootstrap";
 import { flexBox } from "styles/mixins";
 
-const FooterContainer = styled.div`
+const FooterContainer = styled(Container)`
   ${flexBox({ direction: "row", middle: true })};
   gap: 10px 0;
   flex-wrap: wrap;

@@ -10,8 +10,15 @@ const RankingTitle = styled.h6`
 `;
 
 const RankingWrapper = styled.div`
-  ${flexBox({ direction: "column", middle: true })};
+  ${flexBox({ direction: "column" })};
+
   height: 100%;
+  margin-top: 10px;
+
+  &&& > *:not(:last-child) {
+    padding: 5px 0;
+    border-bottom: 1px solid #3c3c3c20;
+  }
 `;
 
 export { RankingTitle, RankingWrapper };

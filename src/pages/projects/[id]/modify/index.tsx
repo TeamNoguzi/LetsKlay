@@ -1,8 +1,7 @@
 import { useState, useMemo, useCallback, Suspense } from "react";
 import Stepper from "sections/Projects/Modify/Stepper";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
-import Logo from "stories/Logo";
-import Navigation from "stories/Layout/Navigation";
+import Header from "stories/Layout/Header";
 import Footer from "stories/Layout/Footer";
 import { GetServerSidePropsContext } from "next";
 import { fetchProjectWithId, updateProjectPublic, verifySession } from "api";
@@ -17,6 +16,7 @@ import FactoryABI from "@/klaytn/build/contracts/Factory.json";
 import { AbiItem } from "caver-js";
 import { sendTransaction } from "utils/transactions";
 import { css } from "@emotion/react";
+import blockUnauthorized from "utils/blockUnauthorized";
 import * as S from "./styled";
 
 interface ProjectModifyProps {
@@ -98,58 +98,63 @@ const ProjectModify = ({ initialProject }: ProjectModifyProps) => {
   );
 
   return (
-    <Container>
-      <header>
-        <Logo center />
-        <Navigation />
-      </header>
+    <>
+      <Header />
+      <Container as="main">
+        <Row className="mt-4">
+          <Col xs={12} md={4} lg={3} xl={2} as="nav">
+            <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
+          </Col>
+          <Col xs={12} md={8} lg={9} xl={10}>
+            <Suspense
+              fallback={
+                <>
+                  <Placeholder as="p" animation="wave">
+                    <Placeholder xs={4} />
+                  </Placeholder>
+                  <Placeholder as="p" animation="wave">
+                    <Placeholder xs={12} />
+                  </Placeholder>
+                  <Placeholder as="p" animation="wave">
+                    <Placeholder xs={12} />
+                  </Placeholder>
+                </>
+              }
+            >
+              {sections[selected]}
+            </Suspense>
 
-      <Row className="mt-4">
-        <Col xs={12} md={4} lg={3} xl={2} as="nav">
-          <Stepper steps={steps} selected={selected} onClickItem={handleSelect} />
-        </Col>
-        <Col xs={12} md={8} lg={9} xl={10}>
-          <Suspense
-            fallback={
-              <>
-                <Placeholder as="p" animation="wave">
-                  <Placeholder xs={4} />
-                </Placeholder>
-                <Placeholder as="p" animation="wave">
-                  <Placeholder xs={12} />
-                </Placeholder>
-                <Placeholder as="p" animation="wave">
-                  <Placeholder xs={12} />
-                </Placeholder>
-              </>
-            }
-          >
-            {sections[selected]}
-          </Suspense>
-
-          <hr />
-          <Button
-            type="button"
-            variant="outline"
-            css={css`
-              margin-right: 10px;
-            `}
-            onClick={() => router.push(`/projects/${project.id}`)}
-          >
-            Preview
-          </Button>
-          <Button type="button" variant="primary" onClick={handleUpdatePublic}>
-            Open to Public
-          </Button>
-        </Col>
-      </Row>
-
+            <hr />
+            <Button
+              type="button"
+              variant="outline"
+              css={css`
+                margin-right: 10px;
+              `}
+              onClick={() => router.push(`/projects/${project.id}`)}
+            >
+              Preview
+            </Button>
+            <Button type="button" variant="primary" onClick={handleUpdatePublic}>
+              Open to Public
+            </Button>
+          </Col>
+        </Row>
+      </Container>
       <Footer />
-    </Container>
+    </>
   );
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isAuthorized = await blockUnauthorized(context);
+
+  if (!isAuthorized) {
+    return {
+      redirect: { destination: `/login?prevPage=${context.resolvedUrl}`, permanent: false },
+    };
+  }
+
   const projectId = context.query.id;
   if (!projectId) {
     context.res.statusCode = 404;

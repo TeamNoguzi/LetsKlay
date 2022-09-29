@@ -118,6 +118,23 @@ export class FundsService implements OnModuleInit {
     return `This action returns all transaction`;
   }
 
+  async findAllWithUserCount(userId: number) {
+    const count = await this.fundsRepository.countBy({ userId });
+    return Math.floor(count / 10) + (count % 10 ? 1 : 0);
+  }
+
+  async findAllWithUserPaged(userId: number, page: number) {
+    return this.fundsRepository
+      .createQueryBuilder("fund")
+      .select()
+      .leftJoinAndSelect("fund.reward", "reward")
+      .leftJoinAndSelect("reward.project", "project")
+      .where("fund.userId = :userId", { userId })
+      .take(10)
+      .skip(page * 10)
+      .getMany();
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} transaction`;
   }
@@ -167,34 +184,20 @@ export class FundsService implements OnModuleInit {
   }
 
   async invalidateAll(projectId: number) {
-    const queryRunner = this.datasource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      const subQuery = queryRunner.manager
-        .withRepository(this.projectsRepository)
-        .createQueryBuilder("project")
-        .subQuery()
-        .select("reward.id")
-        .leftJoinAndSelect("project.rewards", "reward")
-        .where("project.id := id", { id: projectId })
-        .getQuery();
+    const subQuery = this.datasource
+      .createQueryBuilder()
+      .select("reward.id", "rewardId")
+      .from(Reward, "reward")
+      .where(`reward.projectId = ${projectId}`)
+      .getQuery();
 
-      const result = await queryRunner.manager
-        .withRepository(this.fundsRepository)
-        .createQueryBuilder("fund")
-        .leftJoin(subQuery, "reward", "reward.id := fund.rewardId")
-        .update()
-        .set({ valid: false })
-        .execute();
+    const result = await this.datasource
+      .createQueryBuilder()
+      .update(Fund)
+      .set({ valid: false })
+      .where(`fund.rewardId IN (${subQuery})`)
+      .execute();
 
-      await queryRunner.commitTransaction();
-      return result;
-    } catch (err) {
-      console.error(err);
-      await queryRunner.rollbackTransaction();
-    } finally {
-      await queryRunner.release();
-    }
+    return result;
   }
 }

@@ -9,7 +9,26 @@ export const FundCardStory = (args) => <FundCard {...args} />;
 
 <Canvas>
   <Story
-    name="default"
+    name="large"
+    args={{
+      large: true
+      project: {
+        title: "test",
+        subtitle: "testtest",
+        summary: "hihihi",
+        fundNow: 1000,
+        fundGoal: 10000,
+        thumbnailUrl: "public/Landscape-Color.jpg",
+      },
+    }}
+  >
+    {FundCardStory.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="small"
     args={{
       project: {
         title: "test",

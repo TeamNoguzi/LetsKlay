@@ -1,3 +1,4 @@
+import { UpdateUserDto } from "@/dto";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -10,6 +11,7 @@ export class UsersService {
     private usersRepository: Repository<User>
   ) {}
 
+  // 인증에 사용됨
   async findOne(address: string): Promise<User> {
     return await this.usersRepository.findOne({
       where: {
@@ -18,7 +20,19 @@ export class UsersService {
     });
   }
 
+  async findOneWithId(id: number): Promise<User> {
+    return await this.usersRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
   async createOne(address: string, email: string): Promise<User> {
     return await this.usersRepository.save({ address, email });
+  }
+
+  async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    return await this.usersRepository.save({ id, ...updateUserDto });
   }
 }
