@@ -1,4 +1,4 @@
-import LoginForm from "sections/Form/LoginForm";
+import LoginForm from "stories/Forms/LoginForm";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
