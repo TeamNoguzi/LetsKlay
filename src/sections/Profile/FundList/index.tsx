@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuthGuard, useFunds, useFundsPageCount } from "hooks";
+import { useAuthGuard, useFunds, useFundsPageCount, useTransaction } from "hooks";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "stories/Buttons/IconButton";
 import moment from "moment";
 import numeral from "numeral";
@@ -10,11 +10,8 @@ import { Col } from "react-bootstrap";
 import Button from "stories/Buttons/Button";
 import Pagination from "stories/Pagination";
 import { verifySession } from "api";
-import { AbiItem } from "caver-js";
 import queryClient from "hooks/queries/client";
-import { callTransaction, sendTransaction } from "utils/transactions";
-import FactoryAbi from "@/klaytn/build/contracts/Factory.json";
-import ProjectAbi from "@/klaytn/build/contracts/Project.json";
+import { cancelFund } from "transactions";
 import * as S from "./styled";
 
 const FundList = () => {
@@ -23,24 +20,16 @@ const FundList = () => {
   const { count } = useFundsPageCount();
   const { funds } = useFunds(page);
   const verifySessionGuarded = useAuthGuard(verifySession);
+  const cancelFundTransaction = useTransaction(cancelFund);
 
   const handleRoute = (projectId: number) => {
     router.push(`/projects/${projectId}`);
   };
   const handleClickRefund = async (projectId: number, fundHashId: string) => {
     await verifySessionGuarded(undefined);
-    const address = await callTransaction(
-      {
-        abi: FactoryAbi.abi as AbiItem[],
-        address: process.env.FACTORY_ADDR ?? "",
-        method: "getProjectAddress",
-      },
-      projectId
-    );
-
-    await sendTransaction(
-      { abi: ProjectAbi.abi as AbiItem[], address, method: "cancelFund" },
-      fundHashId
+    await cancelFundTransaction(
+      { projectId, fundHashId },
+      { title: "Fund Cancelled", body: "The fund has successfully cancelled.", icon: faCheck }
     );
     queryClient.invalidateQueries(["projects", "users"]);
   };
