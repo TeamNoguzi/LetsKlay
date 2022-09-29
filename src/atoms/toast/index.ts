@@ -13,6 +13,8 @@ interface Toast {
   icon: IconProp | null;
 }
 
+type ToastAddParams = Omit<Toast, "date" | "visible" | "id">;
+
 type ToastsAtom = Toast[];
 
 const toastsAtom = atom<ToastsAtom>([]);
@@ -48,4 +50,5 @@ const toastsPopAtom = atom(null, (get, set) => {
   );
 });
 
+export type { Toast, ToastAddParams };
 export { toastsAtom, toastsAddAtom, toastsCloseAtom, toastsPopAtom };

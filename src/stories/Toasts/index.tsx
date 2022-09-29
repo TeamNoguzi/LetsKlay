@@ -36,7 +36,7 @@ const GlobalToast = () => {
           onClose={() => closeToast(toast.id)}
         >
           <Toast.Header>
-            {toast.icon && <FontAwesomeIcon icon={toast.icon} />}
+            {toast.icon && <FontAwesomeIcon icon={toast.icon} width={28} fontSize={18} />}
             <strong className="me-auto">{toast.title}</strong>
             <small>{toast.date}</small>
           </Toast.Header>
