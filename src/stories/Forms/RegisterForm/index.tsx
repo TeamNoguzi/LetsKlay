@@ -42,12 +42,20 @@ const RegisterForm = ({ isPage, prevPage }: RegisterFormProps) => {
       <Logo />
       <Form.Group className="w-100 mb-3">
         <Form.Label>Username</Form.Label>
-        <S.FormControl type="text" placeholder="Enter username" {...register("name")} />
+        <S.FormControl
+          type="text"
+          placeholder="Enter username"
+          {...register("name", { required: true, maxLength: 15 })}
+        />
       </Form.Group>
 
       <Form.Group className="w-100 mb-3">
         <Form.Label>Email address</Form.Label>
-        <S.FormControl type="email" placeholder="Enter email" {...register("email")} />
+        <S.FormControl
+          type="email"
+          placeholder="Enter email"
+          {...register("email", { required: true })}
+        />
       </Form.Group>
 
       <S.FormButton variant="primary" type="submit">
