@@ -10,7 +10,7 @@ import { Col } from "react-bootstrap";
 import Button from "stories/Buttons/Button";
 import Pagination from "stories/Pagination";
 import { verifySession } from "api";
-import queryClient from "hooks/queries/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { cancelFund } from "transactions";
 import * as S from "./styled";
 
@@ -19,6 +19,7 @@ const FundList = () => {
   const [page, setPage] = useState<number>(1);
   const { count } = useFundsPageCount();
   const { funds } = useFunds(page);
+  const queryClient = useQueryClient();
   const verifySessionGuarded = useAuthGuard(verifySession);
   const cancelFundTransaction = useTransaction(cancelFund);
 

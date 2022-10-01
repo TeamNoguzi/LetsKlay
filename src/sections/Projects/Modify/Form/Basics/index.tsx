@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "stories/Buttons/Button";
 import { FindProjectFullResponseDto } from "@/dto";
-import { useProjectUpdateMutation } from "hooks/queries";
+import { useProjectUpdateMutation } from "hooks";
 import * as S from "./styled";
 
 interface FormInput {

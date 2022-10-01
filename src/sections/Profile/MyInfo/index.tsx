@@ -2,8 +2,7 @@ import { FindUserDto } from "@/dto";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { uploadImage } from "api";
-import { useAuthGuard } from "hooks";
-import { useUserUpdateMeMutation } from "hooks/queries/useUsers";
+import { useAuthGuard, useUserUpdateMeMutation } from "hooks";
 import { useRef } from "react";
 import * as S from "./styled";
 
@@ -39,7 +38,7 @@ const MyInfo = ({ user }: MyInfoProps) => {
         <input ref={inputRef} hidden type="file" onChange={handleUpload} />
       </S.MyInfoImageWrapper>
       <S.MyInfoDescription>
-        <h3>{user.id}</h3>
+        <h3>{user.name}</h3>
         <span>ADDRESS</span>
         <p>{user.address}</p>
         <span>EMAIL</span>

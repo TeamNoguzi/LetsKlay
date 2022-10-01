@@ -5,8 +5,8 @@ import Logo from "stories/Logo";
 import { useRouter } from "next/router";
 import { modalCloseAtom, modalOpenAtom } from "atoms";
 import { useAtom } from "jotai";
-import * as S from "./styled";
 import RegisterForm from "../RegisterForm";
+import * as S from "./styled";
 
 interface LoginFormProps {
   isPage: boolean;
