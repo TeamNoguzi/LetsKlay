@@ -9,6 +9,9 @@ class FindUserResponseDto implements FindUserResponseDtoType {
   address: string;
 
   @ApiProperty()
+  name: string;
+
+  @ApiProperty()
   email: string;
 
   @ApiProperty()

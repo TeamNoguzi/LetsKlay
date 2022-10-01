@@ -1,6 +1,14 @@
 interface CreateUserDto {
   address: string;
+  name: string;
   email: string;
 }
 
-export { CreateUserDto };
+interface CreateUserResponseDto {
+  id: number;
+  address: string;
+  name: string;
+  email: string;
+}
+
+export { CreateUserDto, CreateUserResponseDto };

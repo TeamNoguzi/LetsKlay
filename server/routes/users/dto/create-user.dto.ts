@@ -1,7 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { CreateUserDto as CreateUserDtoType } from "@/dto";
+import {
+  CreateUserDto as CreateUserDtoType,
+  CreateUserResponseDto as CreateUserResponseDtoType,
+} from "@/dto";
 
-export class CreateUserDto implements CreateUserDtoType {
+class CreateUserDto implements CreateUserDtoType {
   @ApiProperty()
   address: string;
 
@@ -9,5 +12,24 @@ export class CreateUserDto implements CreateUserDtoType {
   sign: string;
 
   @ApiProperty()
+  name: string;
+
+  @ApiProperty()
   email: string;
 }
+
+class CreateUserResponseDto implements CreateUserResponseDtoType {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  address: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  email: string;
+}
+
+export { CreateUserDto, CreateUserResponseDto };

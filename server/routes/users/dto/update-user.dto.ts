@@ -3,6 +3,9 @@ import { UpdateUserDto as UpdateUserDtoType } from "@/dto";
 
 export class UpdateUserDto implements UpdateUserDtoType {
   @ApiProperty()
+  name: string;
+
+  @ApiProperty()
   email?: string;
 
   @ApiProperty()

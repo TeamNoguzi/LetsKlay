@@ -41,9 +41,8 @@ export class AuthService {
     });
   }
 
-  // 이메일 확인 로직 필요
-  async register({ address, sign, email }: CreateUserDto) {
+  async register({ address, sign, name, email }: CreateUserDto) {
     const recoveredAddress = await this.validateAddress(address, sign);
-    return await this.usersService.createOne(recoveredAddress, email);
+    return await this.usersService.createOne({ address: recoveredAddress, name, email });
   }
 }

@@ -2,7 +2,7 @@ import { Collapse, Container, Form, Row, Col } from "react-bootstrap";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import Button from "stories/Buttons/Button";
 import { FindProjectFullResponseDto, CreateRewardDto, FindRewardResponseDto } from "@/dto";
-import { useProjectUpdateMutation } from "hooks/queries";
+import { useProjectUpdateMutation } from "hooks";
 import React, { useState } from "react";
 import RewardCard from "stories/Cards/RewardCard";
 import { IconButton } from "stories/Buttons/IconButton";

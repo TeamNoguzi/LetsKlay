@@ -5,6 +5,7 @@ import { Fund } from "./funds";
 interface User {
   id: number;
   address: string;
+  name: string;
   email: string;
   role: "user" | "admin";
   isActive: boolean;
