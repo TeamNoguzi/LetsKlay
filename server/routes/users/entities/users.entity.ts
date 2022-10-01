@@ -20,6 +20,9 @@ export class User implements UserType {
   address: string;
 
   @Column({ nullable: false })
+  name: string;
+
+  @Column({ nullable: false })
   email: string;
 
   @Column({ nullable: false, default: "user" })

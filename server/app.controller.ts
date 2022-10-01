@@ -8,7 +8,7 @@ import { LocalAuthGuard } from "./routes/auth/guard/local-auth.guard";
 import { RolesGuard } from "./routes/auth/guard/roles.guard";
 import { Roles } from "./routes/auth/roles/roles.decorator";
 import { Role } from "./routes/auth/roles/roles.enum";
-import { CreateUserDto } from "./routes/users/dto/create-user.dto";
+import { CreateUserDto, CreateUserResponseDto } from "./routes/users/dto/create-user.dto";
 import { FindUserResponseDto } from "routes/users/dto/find-user.dto";
 
 @Controller()
@@ -30,13 +30,18 @@ export class AppController {
   }
 
   @Post("register")
-  async register(@Body() createUserDto: CreateUserDto): Promise<boolean> {
+  async register(
+    @Body() createUserDto: CreateUserDto,
+    @Res() response: Response
+  ): Promise<CreateUserResponseDto> {
     try {
-      await this.authService.register(createUserDto);
-      return true;
+      return await this.authService.register(createUserDto);
     } catch (err) {
-      console.error(err);
-      throw err;
+      if (err.driverError.code === "ER_DUP_ENTRY") {
+        response.status(409).send("Wallet address is duplicated.");
+      } else throw err;
+    } finally {
+      response.end();
     }
   }
 

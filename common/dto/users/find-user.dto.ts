@@ -1,5 +1,6 @@
 interface FindUserDto {
   id: number;
+  name: string;
   address: string;
   email: string;
   role: "user" | "admin";

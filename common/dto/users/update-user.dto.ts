@@ -1,6 +1,7 @@
 import { FindUserDto } from "./find-user.dto";
 
 interface UpdateUserDto {
+  name?: string;
   email?: string;
   role?: "user" | "admin";
   isActive?: boolean;
