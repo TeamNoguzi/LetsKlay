@@ -4,7 +4,7 @@ import Button from "stories/Buttons/Button";
 
 const FormControl = styled(Form.Control)`
   width: 100%;
-  height: 60px;
+  height: 50px;
 `;
 
 const FormButton = styled(Button)`
