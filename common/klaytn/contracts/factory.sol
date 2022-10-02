@@ -11,11 +11,12 @@ contract Factory is IFactory{
 
   function createProject (
     uint[] memory rewardIds, 
-    uint[] memory prices, 
+    uint[] memory prices,
+    uint[] memory stocks,
     uint _fundGoal, 
     uint _projectId
   ) public {
-    Project newProject = new Project(rewardIds, prices, _fundGoal, msg.sender, this);
+    Project newProject = new Project(rewardIds, prices, stocks, _fundGoal, msg.sender, this);
     projects[_projectId] = newProject;
     projectIds[address(newProject)] = _projectId;
   }

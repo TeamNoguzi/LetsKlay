@@ -10,8 +10,12 @@ interface RewardCardProps {
 
 const RewardCard = ({ reward, onClick }: RewardCardProps) => {
   return (
-    <S.RewardCard onClick={onClick}>
-      <S.RewardCardMask>select this reward</S.RewardCardMask>
+    <S.RewardCard onClick={reward.stock > 0 ? onClick : undefined}>
+      {reward.stock > 0 ? (
+        <S.RewardCardMask>select this reward</S.RewardCardMask>
+      ) : (
+        <S.RewardCardZeroMask>Out of stock...</S.RewardCardZeroMask>
+      )}
       <h1>{numeral(reward.price).format("0,0")} KLAY</h1>
       <h2>{reward.title}</h2>
       <p>{reward.description}</p>

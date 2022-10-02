@@ -1,7 +1,7 @@
 import { forwardRef, Ref } from "react";
 import { toastsPopAtom, toastsAtom, toastsCloseAtom } from "atoms";
 import { useAtom } from "jotai";
-import { Toast, ToastContainer, Fade, FadeProps } from "react-bootstrap";
+import { Toast, Fade, FadeProps } from "react-bootstrap";
 import { Transition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as S from "./styled";
@@ -26,7 +26,7 @@ const GlobalToast = () => {
   const [, closeToast] = useAtom(toastsCloseAtom);
 
   return (
-    <ToastContainer css={S.ToastContainerStyle}>
+    <S.CustomToastContainer>
       {toasts.map((toast) => (
         <Toast
           key={toast.id}
@@ -43,7 +43,7 @@ const GlobalToast = () => {
           <Toast.Body>{toast.body}</Toast.Body>
         </Toast>
       ))}
-    </ToastContainer>
+    </S.CustomToastContainer>
   );
 };
 

@@ -22,6 +22,7 @@ contract Project {
 
   struct Reward {
     uint price;
+    uint stock;
   }
 
   mapping(address => User) users;
@@ -34,9 +35,9 @@ contract Project {
   IFactory factory;
   ProjectState state;
 
-  constructor(uint[] memory rewardIds, uint[] memory prices, uint _fundGoal, address _owner, IFactory _factory) {
+  constructor(uint[] memory rewardIds, uint[] memory prices, uint[] memory stocks, uint _fundGoal, address _owner, IFactory _factory) {
     for(uint i = 0; i < rewardIds.length ; i++) {
-      rewardMap[rewardIds[i]] = Reward({price: prices[i]});
+      rewardMap[rewardIds[i]] = Reward({price: prices[i], stock: stocks[i]});
     }
     fundGoal = _fundGoal;
     owner = _owner;
@@ -49,6 +50,7 @@ contract Project {
 
   function addFund(uint rewardId, uint32 amount) external payable {
     require(state == ProjectState.Funding);
+    require(rewardMap[rewardId].stock > 0);
 
     uint cost = amount * rewardMap[rewardId].price * (1 ether);
     require(msg.value >= cost);
@@ -63,6 +65,7 @@ contract Project {
     users[msg.sender].funds[fundHashId] = fund;
     funds.push(fund);
     nextFundId += 1;
+    rewardMap[rewardId].stock -= 1;
 
     uint excess = msg.value - cost;
     if(excess > 0)
@@ -89,11 +92,15 @@ contract Project {
     uint refund = fund.amount * rewardMap[fund.rewardId].price * (1 ether);
     payable(msg.sender).transfer(refund);
     fund.valid = false;
+    rewardMap[fund.rewardId].stock += 1;
 
     factory.emitEvent(IFactory.EventType.FundCancel, address(this), fund.rewardId, fund.amount, fundHashId);
   }
 
+  // should be called by the project owner
   function cancelProject() external {
+    require(msg.sender == owner);
+
     for(uint i = 0; i < funds.length; i++) {
       if(funds[i].valid) {
         uint refund = funds[i].amount * rewardMap[funds[i].rewardId].price * (1 ether);

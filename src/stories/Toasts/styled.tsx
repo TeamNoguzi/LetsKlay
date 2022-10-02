@@ -1,7 +1,8 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { ToastContainer } from "react-bootstrap";
 import { down } from "styled-breakpoints";
 
-const ToastContainerStyle = css`
+const CustomToastContainer = styled(ToastContainer)`
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -21,4 +22,4 @@ const ToastContainerStyle = css`
   }
 `;
 
-export { ToastContainerStyle };
+export { CustomToastContainer };

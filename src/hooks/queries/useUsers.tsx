@@ -17,12 +17,11 @@ const useUserUpdateMeMutation = () => {
   const queryClient = useQueryClient();
   const updateUserGuarded = useAuthGuard(updateMe);
 
-  return useMutation<UpdateUserResponseDto, unknown, UpdateUserDto>(
+  return useMutation<UpdateUserResponseDto, FindUserDto, UpdateUserDto>(
     (user) => updateUserGuarded({ ...user }),
     {
-      onSuccess: (data, user) => {
-        queryClient.setQueryData(
-          ["users", { id: +data.id }],
+      onSuccess: (data) => {
+        queryClient.setQueryData(["users", { id: +data.id }], (user) =>
           produce(user, (draft) => {
             merge(draft, data);
           })

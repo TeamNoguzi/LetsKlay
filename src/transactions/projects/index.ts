@@ -32,6 +32,7 @@ const createProject = async ({ rewards, projectId, fundGoal }: CreateProjectPara
     },
     rewards.map((reward) => reward.id),
     rewards.map((reward) => reward.price),
+    rewards.map((reward) => reward.maxStock),
     fundGoal,
     +projectId
   );

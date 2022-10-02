@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Col, Collapse } from "react-bootstrap";
 import { flexBox } from "styles/mixins";
 
 const FormTitle = styled.h2`
@@ -34,7 +34,7 @@ const RewardToggle = styled.div`
   }
 `;
 
-const collapseStyle = css`
+const RewardCollapse = styled(Collapse)`
   &.collapse:not(.show) {
     display: block;
     opacity: 0;
@@ -43,4 +43,8 @@ const collapseStyle = css`
   }
 `;
 
-export { FormTitle, FormSubtitle, FormDescription, RewardToggle, collapseStyle };
+const RewardCardCol = styled(Col)`
+  ${flexBox({ direction: "column", middle: true })};
+`;
+
+export { FormTitle, FormSubtitle, FormDescription, RewardToggle, RewardCardCol, RewardCollapse };

@@ -18,12 +18,14 @@ const useTransaction = <T, P>(transaction: (params: P) => Promise<T>) => {
           body: "Transaction is canceled by user",
           icon: faXmark,
         });
-      else
+      else {
         addToast({
           title: "Unexpected error occurred",
           body: "Unexpected error has occurred. Please contact administrator.",
           icon: faCancel,
         });
+        throw err;
+      }
       return null;
     }
   };
