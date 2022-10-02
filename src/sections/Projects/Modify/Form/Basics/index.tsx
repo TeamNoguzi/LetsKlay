@@ -20,12 +20,15 @@ const FormBasics = ({ project }: FormBasicsProps) => {
   const mutation = useProjectUpdateMutation();
   const { register, handleSubmit } = useForm<FormInput>({
     defaultValues: {
-      ...project,
+      title: project.title,
+      subtitle: project.subtitle,
+      summary: project.summary,
+      fundGoal: project.fundGoal,
     },
   });
 
   const handleValidSubmit: SubmitHandler<FormInput> = (data) =>
-    mutation.mutate({ project: { ...project, ...data } });
+    mutation.mutate({ project: { id: project.id, ...data } });
 
   return (
     <>

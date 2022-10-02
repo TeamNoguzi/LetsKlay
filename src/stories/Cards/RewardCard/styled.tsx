@@ -54,9 +54,14 @@ const RewardCardMask = styled.div`
   }
 `;
 
+const RewardCardZeroMask = styled(RewardCardMask)`
+  background-color: ${(props) => props.theme.colors.blackLight}a0;
+  color: ${(props) => props.theme.colors.primaryLight};
+`;
+
 const Label = styled.div`
   font-size: 11pt;
   color: #2c2c2cb0;
 `;
 
-export { RewardCard, RewardCardMask, Label };
+export { RewardCard, RewardCardMask, RewardCardZeroMask, Label };

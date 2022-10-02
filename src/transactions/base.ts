@@ -23,7 +23,7 @@ const sendTransaction = async (
         from: accounts[0],
         // @ts-ignore
         // value 프로퍼티가 존재하는데 타입 선언을 안해줘서 강제로 무시.
-        value: value ? window.caver.utils.toPeb(`${value}`) : undefined,
+        value: window.caver.utils.toPeb(`${value ?? 0}`),
       },
       method,
       ...args
