@@ -1,17 +1,17 @@
-import { Collapse, Container, Form, Row, Col } from "react-bootstrap";
+import { Container, Form, Row, Col } from "react-bootstrap";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import Button from "stories/Buttons/Button";
 import { FindProjectFullResponseDto, CreateRewardDto, FindRewardResponseDto } from "@/dto";
 import { useProjectUpdateMutation } from "hooks";
 import React, { useState } from "react";
 import RewardCard from "stories/Cards/RewardCard";
-import { IconButton } from "stories/Buttons/IconButton";
-import { faCaretDown, faCaretUp, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { flexBox } from "styles/mixins";
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "@emotion/react";
 import moment from "moment";
+import produce from "immer";
 import * as S from "./styled";
+import FormRewardItems from "./RewardItems";
 
 interface FormInput {
   rewards: CreateRewardDto[];
@@ -24,7 +24,7 @@ interface FormRewardsProps {
 const FormRewards = ({ project }: FormRewardsProps) => {
   const [selected, setSelected] = useState<number | false>(0);
   const mutation = useProjectUpdateMutation();
-  const { register, handleSubmit, watch, setValue, getValues, control } = useForm<FormInput>({
+  const { register, handleSubmit, watch, setValue, control } = useForm<FormInput>({
     defaultValues: {
       rewards:
         project.rewards?.map((reward) => ({
@@ -39,8 +39,17 @@ const FormRewards = ({ project }: FormRewardsProps) => {
     name: "rewards",
   });
 
-  const handleValidSubmit: SubmitHandler<FormInput> = (data) =>
-    mutation.mutate({ project: { ...project, rewards: data.rewards } });
+  const handleValidSubmit: SubmitHandler<FormInput> = (data) => {
+    const newData = produce(data, (draft) => {
+      draft.rewards.forEach((reward) =>
+        reward.items.forEach((item) => {
+          // eslint-disable-next-line no-param-reassign
+          if (typeof item.id === "string") delete item.id;
+        })
+      );
+    });
+    mutation.mutate({ project: { id: project.id, rewards: newData.rewards } });
+  };
 
   const handleSelectReward = (rewardIdx: number) =>
     setSelected(rewardIdx !== selected ? rewardIdx : false);
@@ -60,16 +69,6 @@ const FormRewards = ({ project }: FormRewardsProps) => {
   const handleRemoveReward = (rewardIdx: number) => {
     remove(rewardIdx);
   };
-  const handleAddItem = (rewardIdx: number) => {
-    const items = getValues(`rewards.${rewardIdx}.items`);
-    setValue(`rewards.${rewardIdx}.items`, [...(items ?? []), { name: "", quantity: 1 }]);
-  };
-  const handleRemoveItem = (rewardIdx: number, itemIdx: number) => {
-    const items = getValues(`rewards.${rewardIdx}.items`);
-    const newItems = [...(items ?? [])];
-    newItems.splice(itemIdx, 1);
-    setValue(`rewards.${rewardIdx}.items`, newItems);
-  };
 
   return (
     <>
@@ -87,7 +86,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
               <FontAwesomeIcon icon={selected === rewardIdx ? faCaretUp : faCaretDown} width={32} />
             </S.RewardToggle>
 
-            <Collapse in={selected === rewardIdx} css={S.collapseStyle}>
+            <S.RewardCollapse in={selected === rewardIdx}>
               <Container className="my-1">
                 <Row>
                   <Col md={12} lg={7} xl={8}>
@@ -163,53 +162,10 @@ const FormRewards = ({ project }: FormRewardsProps) => {
                     >
                       Items
                     </Form.Label>
-                    {watch(`rewards.${rewardIdx}.items`).map((item, itemIdx) => (
-                      <React.Fragment key={item.id}>
-                        <Container className="px-0">
-                          <Row className="align-items-center mb-3">
-                            <Col xs={2} sm={1}>
-                              <IconButton
-                                icon={faMinus}
-                                onClick={() => handleRemoveItem(rewardIdx, itemIdx)}
-                              />
-                            </Col>
-
-                            <Col xs={10} sm={3}>
-                              <Form.Group>
-                                <Form.Control
-                                  {...register(`rewards.${rewardIdx}.items.${itemIdx}.quantity`, {
-                                    required: true,
-                                  })}
-                                  type="number"
-                                  min="1"
-                                />
-                              </Form.Group>
-                            </Col>
-
-                            <Col>
-                              <Form.Group>
-                                <Form.Control
-                                  {...register(`rewards.${rewardIdx}.items.${itemIdx}.name`, {
-                                    required: true,
-                                  })}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                        </Container>
-                      </React.Fragment>
-                    ))}
-
-                    <Button
-                      variant="outline"
-                      className="mb-3"
-                      onClick={() => handleAddItem(rewardIdx)}
-                    >
-                      Add Reward Item
-                    </Button>
+                    <FormRewardItems formProps={{ register, control }} rewardIdx={rewardIdx} />
                   </Col>
 
-                  <Col lg={5} xl={4} css={flexBox({ direction: "column", middle: true })}>
+                  <S.RewardCardCol lg={5} xl={4}>
                     <RewardCard reward={watch(`rewards.${rewardIdx}`) as FindRewardResponseDto} />
                     <Button
                       variant="primary"
@@ -218,10 +174,10 @@ const FormRewards = ({ project }: FormRewardsProps) => {
                     >
                       Remove Reward
                     </Button>
-                  </Col>
+                  </S.RewardCardCol>
                 </Row>
               </Container>
-            </Collapse>
+            </S.RewardCollapse>
           </React.Fragment>
         ))}
 
