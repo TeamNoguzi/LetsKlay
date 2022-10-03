@@ -1,5 +1,5 @@
 import { ProjectStatus } from "@/enums";
-import { useAuthGuard, useMyProjectsWithStates, useTransaction } from "hooks";
+import { useAuthGuard, useMyProjectsWithStatesPaged, useTransaction } from "hooks";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import FundCard from "stories/Cards/FundCard";
@@ -13,6 +13,7 @@ import { IconButton } from "stories/Buttons/IconButton";
 import { verifySession } from "api";
 import { useQueryClient } from "@tanstack/react-query";
 import { cancelProject } from "transactions";
+import Pagination from "stories/Pagination";
 import * as S from "./styled";
 
 const DropdownText = {
@@ -28,7 +29,8 @@ const MyProjects = () => {
   const [currentProjectStatus, setCurrentProjectStatus] = useState<ProjectStatus>(
     ProjectStatus.preparing
   );
-  const { projects } = useMyProjectsWithStates(currentProjectStatus);
+  const [page, setPage] = useState<number>(1);
+  const { projects, count } = useMyProjectsWithStatesPaged(currentProjectStatus, page);
   const isMobile = useBreakpoint(down("md"));
   const verifySessionGuarded = useAuthGuard(verifySession);
   const cancelProjectTransaction = useTransaction(cancelProject);
@@ -84,6 +86,9 @@ const MyProjects = () => {
           </S.CardWrapper>
         ))}
       </S.MyProjectsContainer>
+      <S.PaginationWrapper>
+        <Pagination page={page} totalPages={count ?? 0} onClick={(nextPage) => setPage(nextPage)} />
+      </S.PaginationWrapper>
     </>
   );
 };

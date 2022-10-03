@@ -10,7 +10,7 @@ import {
   fetchLikedProjectsPaged,
   fetchProjectsPopular,
   fetchProjectsRecent,
-  fetchProjectsUser,
+  fetchProjectsUserPaged,
   fetchProjectWithId,
   updateProject,
 } from "api";
@@ -50,12 +50,12 @@ const useProjectsPopular = (initialData?: FindProjectResponseDto[]) => {
   return { projects: data, isError };
 };
 
-const useMyProjectsWithStates = (projectStatus: ProjectStatus) => {
-  const { data, isError } = useQuery(["projects", "users", projectStatus], () =>
-    fetchProjectsUser(projectStatus)
+const useMyProjectsWithStatesPaged = (projectStatus: ProjectStatus, page: number) => {
+  const { data, isError } = useQuery(["projects", "users", projectStatus, page], () =>
+    fetchProjectsUserPaged(projectStatus, page)
   );
 
-  return { projects: data, isError };
+  return { projects: data?.[0], count: data?.[1], isError };
 };
 
 const useProjectsLikedAndCount = (page: number) => {
@@ -89,7 +89,7 @@ export {
   useProject,
   useProjectsRecent,
   useProjectsPopular,
-  useMyProjectsWithStates,
+  useMyProjectsWithStatesPaged,
   useProjectsLikedAndCount,
   useProjectUpdateMutation,
 };

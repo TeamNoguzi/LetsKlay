@@ -34,8 +34,10 @@ const fetchProjectWithId = async (id: number) => {
   return data;
 };
 
-const fetchProjectsUser = async (status: ProjectStatus) => {
-  const { data } = await axios.get<FindProjectResponseDto[]>(`/projects/mylist/${status}`);
+const fetchProjectsUserPaged = async (status: ProjectStatus, page: number) => {
+  const { data } = await axios.get<[FindProjectResponseDto[], number]>(
+    `/projects/mylist/${status}/${page}`
+  );
   return data;
 };
 
@@ -58,7 +60,7 @@ export {
   fetchProjects,
   fetchProjectsRecent,
   fetchProjectsPopular,
-  fetchProjectsUser,
+  fetchProjectsUserPaged,
   fetchProjectWithId,
   createProject,
   updateProject,
