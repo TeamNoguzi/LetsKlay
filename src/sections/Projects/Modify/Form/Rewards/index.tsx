@@ -63,6 +63,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
       deliveryEnd: new Date(),
       description: "",
       items: [],
+      projectId: project.id,
       stock: 1,
     });
   };

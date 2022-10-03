@@ -29,7 +29,7 @@ const MyInfo = ({ user }: MyInfoProps) => {
     <S.MyInfoContainer>
       <S.MyInfoImageWrapper onClick={handleClick}>
         {user.profileImgUrl ? (
-          <img src={user.profileImgUrl} alt="hi" />
+          <img src={user.profileImgUrl} alt="profile" />
         ) : (
           <div>
             <FontAwesomeIcon icon={faImage} fontSize={72} />

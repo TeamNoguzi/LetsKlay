@@ -65,7 +65,9 @@ const FormPictures = ({ project }: FormPicturesProps) => {
         </Form.Group>
         <Form.Label>Preview</Form.Label>
         <S.FormImage src={`/${watch("mainPictureUrl")}`} alt="main" />
-        <S.FormDescription> The title is displayed on the item list. </S.FormDescription>
+        <S.FormDescription>
+          The main picture is displayed on the item discription.
+        </S.FormDescription>
 
         <hr className="my-5" />
 
@@ -81,7 +83,7 @@ const FormPictures = ({ project }: FormPicturesProps) => {
         </Form.Group>
         <Form.Label>Preview</Form.Label>
         <S.FormImage src={`/${watch("thumbnailUrl")}`} alt="thumbnail" />
-        <S.FormDescription> The title is displayed on the item list. </S.FormDescription>
+        <S.FormDescription> The thumbnail is displayed on the item list. </S.FormDescription>
 
         <Button type="submit" variant="outline">
           Save Changes
