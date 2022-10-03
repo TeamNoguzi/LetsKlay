@@ -132,6 +132,7 @@ export class FundsService implements OnModuleInit {
       .where("fund.userId = :userId", { userId })
       .take(10)
       .skip(page * 10)
+      .orderBy("fund.createdAt", "DESC")
       .getMany();
   }
 

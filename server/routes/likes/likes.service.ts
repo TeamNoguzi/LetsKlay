@@ -28,6 +28,7 @@ export class LikesService {
         where: { user: { id: userId } },
         take: 10,
         skip: 10 * page,
+        order: { createdAt: "DESC" },
       })
       .then((result) => [result[0], Math.floor(result[1] / 10) + (result[1] % 10 ? 1 : 0)]);
   }

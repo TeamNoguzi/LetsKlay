@@ -39,4 +39,9 @@ const ButtonGroup = styled.div`
   margin-top: 15px;
 `;
 
-export { MyProjectsContainer, DropdownWrapper, CardWrapper, ButtonGroup };
+const PaginationWrapper = styled.div`
+  ${flexBox({ direction: "row", middle: true })};
+  width: 100%;
+`;
+
+export { MyProjectsContainer, DropdownWrapper, CardWrapper, ButtonGroup, PaginationWrapper };

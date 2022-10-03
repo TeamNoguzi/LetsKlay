@@ -61,18 +61,13 @@ const FundList = () => {
           </Col>
           <Col xs={3} xl={2} className="d-none d-md-block ">
             {fund.valid && (
-              <>
-                <Button
-                  variant="outline"
-                  className="mb-2 w-100"
-                  onClick={() => handleClickRefund(fund.reward.project.id, fund.hashId)}
-                >
-                  Refund
-                </Button>
-                <Button variant="primary" className="w-100">
-                  Delievery
-                </Button>
-              </>
+              <Button
+                variant="outline"
+                className="mb-2 w-100"
+                onClick={() => handleClickRefund(fund.reward.project.id, fund.hashId)}
+              >
+                Refund
+              </Button>
             )}
           </Col>
           <Col xs={1} className="d-block d-md-none p-0">
