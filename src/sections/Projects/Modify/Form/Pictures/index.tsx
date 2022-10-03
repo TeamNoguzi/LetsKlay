@@ -28,11 +28,9 @@ const FormPictures = ({ project }: FormPicturesProps) => {
 
   const handleValidSubmit: SubmitHandler<FormInput> = (data) => {
     mutation.mutate({
-      project: {
-        id: project.id,
-        mainPictureUrl: data.mainPictureUrl,
-        thumbnailUrl: data.thumbnailUrl,
-      },
+      id: project.id,
+      mainPictureUrl: data.mainPictureUrl,
+      thumbnailUrl: data.thumbnailUrl,
     });
   };
 

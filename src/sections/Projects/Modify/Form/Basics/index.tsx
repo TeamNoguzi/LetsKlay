@@ -28,7 +28,7 @@ const FormBasics = ({ project }: FormBasicsProps) => {
   });
 
   const handleValidSubmit: SubmitHandler<FormInput> = (data) =>
-    mutation.mutate({ project: { id: project.id, ...data } });
+    mutation.mutate({ id: project.id, ...data });
 
   return (
     <>

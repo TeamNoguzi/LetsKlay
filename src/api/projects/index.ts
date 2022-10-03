@@ -9,10 +9,7 @@ import {
 import { ProjectStatus } from "@/enums";
 import axios from "../axios";
 
-interface UpdateProjectParam {
-  id: number;
-  project: UpdateProjectDto;
-}
+type UpdateProjectParam = UpdateProjectDto & { id: number };
 
 const fetchProjects = async () => {
   const { data } = await axios.get<FindProjectResponseDto[]>("/projects");
@@ -46,8 +43,8 @@ const createProject = async (project?: CreateProjectDto) => {
   return data;
 };
 
-const updateProject = async ({ id, project }: UpdateProjectParam) => {
-  const { data } = await axios.patch<UpdateProjectResponseDto>(`/projects/${id}`, project);
+const updateProject = async (project: UpdateProjectParam) => {
+  const { data } = await axios.patch<UpdateProjectResponseDto>(`/projects/${project.id}`, project);
   return data;
 };
 

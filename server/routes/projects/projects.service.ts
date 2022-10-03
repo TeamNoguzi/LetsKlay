@@ -188,7 +188,8 @@ export class ProjectsService implements OnModuleInit {
   async updateOne(userId: number, id: number, updateDto: UpdateProjectDto) {
     await this.verifyUserProject(userId, id);
     await this.confirmPreparing(id);
-    return await this.projectsRepository.save({ id: id, user: { id: userId }, ...updateDto });
+    await this.projectsRepository.save({ id: id, user: { id: userId }, ...updateDto });
+    return await this.projectsRepository.findOne({ where: { id } });
   }
 
   async updateStatusOne(userId: number, id: number, status: ProjectStatus) {
