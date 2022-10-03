@@ -14,6 +14,7 @@ import { verifySession } from "api";
 import { useQueryClient } from "@tanstack/react-query";
 import { cancelProject } from "transactions";
 import Pagination from "stories/Pagination";
+import { css } from "@emotion/react";
 import * as S from "./styled";
 
 const DropdownText = {
@@ -34,6 +35,7 @@ const MyProjects = () => {
   const isMobile = useBreakpoint(down("md"));
   const verifySessionGuarded = useAuthGuard(verifySession);
   const cancelProjectTransaction = useTransaction(cancelProject);
+  const [showDropdown, setShowDropdown] = useState<number | boolean>(false);
 
   const handleClickCard = (id: number) => router.push(`/projects/${id}`);
   const handleClickDropdown = (key: ProjectStatus) => setCurrentProjectStatus(key);
@@ -47,6 +49,7 @@ const MyProjects = () => {
     });
     queryClient.invalidateQueries(["projects", "users"]);
   };
+  const toggleDropdown = (id: number) => setShowDropdown((prev) => (id === prev ? false : id));
 
   return (
     <>
@@ -67,7 +70,37 @@ const MyProjects = () => {
               project={project}
               onClick={() => handleClickCard(project.id)}
             />
-            {isMobile && <IconButton icon={faEllipsisVertical} />}
+
+            {isMobile && (
+              <>
+                <IconButton icon={faEllipsisVertical} onClick={() => toggleDropdown(project.id)} />
+                <Dropdown
+                  align="end"
+                  show={showDropdown === project.id}
+                  onToggle={() => toggleDropdown(project.id)}
+                >
+                  <Dropdown.Menu
+                    css={css`
+                      right: 0;
+                      top: 32px;
+                    `}
+                  >
+                    {+currentProjectStatus === ProjectStatus.preparing && (
+                      <Dropdown.Item onClick={() => handleClickModify(project.id)}>
+                        Modify
+                      </Dropdown.Item>
+                    )}
+                    {(+currentProjectStatus === ProjectStatus.preparing ||
+                      +currentProjectStatus === ProjectStatus.funding) && (
+                      <Dropdown.Item onClick={() => handleClickCancel(project.id)}>
+                        Cancel
+                      </Dropdown.Item>
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
+            )}
+
             {!isMobile && (
               <S.ButtonGroup>
                 {+currentProjectStatus === ProjectStatus.preparing && (

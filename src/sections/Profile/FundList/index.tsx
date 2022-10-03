@@ -6,7 +6,7 @@ import { faCheck, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "stories/Buttons/IconButton";
 import moment from "moment";
 import numeral from "numeral";
-import { Col } from "react-bootstrap";
+import { Col, Dropdown } from "react-bootstrap";
 import Button from "stories/Buttons/Button";
 import Pagination from "stories/Pagination";
 import { verifySession } from "api";
@@ -22,6 +22,7 @@ const FundList = () => {
   const queryClient = useQueryClient();
   const verifySessionGuarded = useAuthGuard(verifySession);
   const cancelFundTransaction = useTransaction(cancelFund);
+  const [showDropdown, setShowDropdown] = useState<number | boolean>(false);
 
   const handleRoute = (projectId: number) => {
     router.push(`/projects/${projectId}`);
@@ -34,6 +35,8 @@ const FundList = () => {
     );
     queryClient.invalidateQueries(["projects", "users"]);
   };
+
+  const toggleDropdown = (id: number) => setShowDropdown((prev) => (id === prev ? false : id));
 
   return (
     <S.FundListContainer className="p-0">
@@ -71,7 +74,24 @@ const FundList = () => {
             )}
           </Col>
           <Col xs={1} className="d-block d-md-none p-0">
-            <IconButton icon={faEllipsisVertical} />
+            <IconButton icon={faEllipsisVertical} onClick={() => toggleDropdown(fund.id)} />
+            <Dropdown
+              align="end"
+              show={showDropdown === fund.id}
+              onToggle={() => toggleDropdown(fund.id)}
+            >
+              <Dropdown.Menu
+                css={css`
+                  right: 0;
+                `}
+              >
+                <Dropdown.Item
+                  onClick={() => handleClickRefund(fund.reward.project.id, fund.hashId)}
+                >
+                  Refund
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Col>
         </S.FundItem>
       ))}
