@@ -84,17 +84,21 @@ export class ProjectsController {
     return await this.projectsService.updateStatusOne(+req.user.id, +id, ProjectStatus.funding);
   }
 
-  @ApiOperation({ summary: "내 상태별 프로젝트 리스트 조회" })
+  @ApiOperation({
+    summary: "내 상태별 프로젝트 리스트 조회",
+    description: "10개씩 페이지네이션 한다. 페이지는 1부터 시작",
+  })
   @ApiResponse({ type: [FindProjectResponseDto] })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
-  @Get("mylist/:status")
+  @Get("mylist/:status/:page")
   async findAllListFromUser(
     @Req() req: Request,
-    @Param("status") status: number
-  ): Promise<FindProjectResponseDto[]> {
-    return await this.projectsService.findAllListFromUser(+req.user.id, status);
+    @Param("status") status: number,
+    @Param("page") page: number
+  ): Promise<[FindProjectResponseDto[], number]> {
+    return await this.projectsService.findAllListFromUserPaged(+req.user.id, +status, +page - 1);
   }
 
   @ApiOperation({ summary: "프로젝트 생성" })

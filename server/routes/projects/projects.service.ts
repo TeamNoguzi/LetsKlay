@@ -9,6 +9,7 @@ import Caver, { AbiItem } from "caver-js";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
 import { ContractEvent } from "@/entities";
 import { FundsService } from "routes/funds/funds.service";
+import { FindProjectResponseDto } from "./dto/find-project.dto";
 
 @Injectable()
 export class ProjectsService implements OnModuleInit {
@@ -143,7 +144,6 @@ export class ProjectsService implements OnModuleInit {
       .getMany();
   }
 
-  // 수정 필요 : 소유자 제외하면 공개된 프로젝트만 조회할 수 있도록 변경필요
   async findOne(id: number) {
     const project = this.projectsRepository
       .createQueryBuilder("project")
@@ -154,22 +154,31 @@ export class ProjectsService implements OnModuleInit {
     return await project;
   }
 
-  async findAllListFromUser(userId: number, status: number) {
-    return await this.projectsRepository.find({
-      select: {
-        id: true,
-        title: true,
-        subtitle: true,
-        thumbnailUrl: true,
-        fundGoal: true,
-        fundNow: true,
-        status: true,
-      },
-      where: {
-        user: { id: userId },
-        status,
-      },
-    });
+  async findAllListFromUserPaged(userId: number, status: number, page: number) {
+    return this.projectsRepository
+      .findAndCount({
+        select: {
+          id: true,
+          title: true,
+          subtitle: true,
+          thumbnailUrl: true,
+          fundGoal: true,
+          fundNow: true,
+          status: true,
+          createdAt: true,
+        },
+        where: {
+          user: { id: userId },
+          status,
+        },
+        take: 10,
+        skip: page * 10,
+        order: { createdAt: "DESC" },
+      })
+      .then<[FindProjectResponseDto[], number]>((result) => [
+        result[0],
+        Math.floor(result[1] / 10) + (result[1] % 10 ? 1 : 0),
+      ]);
   }
 
   async createOne(userId: number, createDto: CreateProjectDto) {
