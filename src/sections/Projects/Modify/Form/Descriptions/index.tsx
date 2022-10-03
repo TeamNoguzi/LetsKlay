@@ -24,10 +24,8 @@ const FormDescriptions = ({ project }: FormDescriptionsProps) => {
 
   const handleSave = () =>
     mutation.mutate({
-      project: {
-        id: project.id,
-        description: ref.current?.getInstance().getMarkdown() ?? "",
-      },
+      id: project.id,
+      description: ref.current?.getInstance().getMarkdown() ?? "",
     });
   const debouncedSave = debounce(handleSave, 250);
 

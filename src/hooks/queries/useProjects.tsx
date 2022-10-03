@@ -18,9 +18,7 @@ import { useAuthGuard } from "hooks/useAuthGuard";
 import produce from "immer";
 import { merge } from "lodash";
 
-interface UpdateProjectMutationParam {
-  project: UpdateProjectDto & { id: number };
-}
+type UpdateProjectMutationParam = UpdateProjectDto & { id: number };
 
 const useProject = (initialProject: FindProjectFullResponseDto) => {
   const { data, isError } = useQuery(
@@ -71,14 +69,15 @@ const useProjectUpdateMutation = () => {
   const updateProjectGuarded = useAuthGuard(updateProject);
 
   return useMutation<UpdateProjectResponseDto, unknown, UpdateProjectMutationParam>(
-    ({ project }) => updateProjectGuarded({ id: +project.id, project }),
+    (project) => updateProjectGuarded({ ...project }),
     {
-      onSuccess: (data, { project }) => {
-        queryClient.setQueryData(
-          ["projects", { id: +project.id }],
-          produce(project, (draft) => {
-            merge(draft, data);
-          })
+      onSuccess: (data) => {
+        return queryClient.setQueryData<FindProjectFullResponseDto>(
+          ["projects", { id: +data.id }],
+          (oldCache) =>
+            produce(oldCache, (draft) => {
+              merge(draft, data);
+            })
         );
       },
     }

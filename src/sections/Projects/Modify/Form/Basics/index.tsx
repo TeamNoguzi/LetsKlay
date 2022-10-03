@@ -28,7 +28,7 @@ const FormBasics = ({ project }: FormBasicsProps) => {
   });
 
   const handleValidSubmit: SubmitHandler<FormInput> = (data) =>
-    mutation.mutate({ project: { id: project.id, ...data } });
+    mutation.mutate({ id: project.id, ...data });
 
   return (
     <>
@@ -71,7 +71,9 @@ const FormBasics = ({ project }: FormBasicsProps) => {
             as="textarea"
             style={{ minHeight: "300px" }}
           />
-          <S.FormDescription>hi</S.FormDescription>
+          <S.FormDescription>
+            The summary is displayed on the item list and description.
+          </S.FormDescription>
         </Form.Group>
 
         <Button type="submit" variant="outline">

@@ -48,7 +48,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
         })
       );
     });
-    mutation.mutate({ project: { id: project.id, rewards: newData.rewards } });
+    mutation.mutate({ id: project.id, rewards: newData.rewards });
   };
 
   const handleSelectReward = (rewardIdx: number) =>
@@ -63,6 +63,7 @@ const FormRewards = ({ project }: FormRewardsProps) => {
       deliveryEnd: new Date(),
       description: "",
       items: [],
+      projectId: project.id,
       stock: 1,
     });
   };
