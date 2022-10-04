@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Request } from "express";
 import { JwtAuthGuard } from "routes/auth/guard/jwt-auth.guard";
@@ -16,6 +27,19 @@ import { ProjectsService } from "./projects.service";
 @Controller("projects")
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
+
+  @ApiOperation({
+    summary: "전체 프로젝트 확인",
+    description: "페이지는 1부터 시작. 한 페이지에 12개",
+  })
+  @ApiResponse({ type: [FindProjectResponseDto] })
+  @Get("search/:page")
+  async findPaged(
+    @Param("page") page: number,
+    @Query("search") search: string
+  ): Promise<[FindProjectResponseDto[], number]> {
+    return await this.projectsService.searchPaged(+page - 1, search);
+  }
 
   @ApiOperation({
     summary: "최근 10개 프로젝트 조회",

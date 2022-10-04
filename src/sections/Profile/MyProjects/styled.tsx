@@ -4,15 +4,12 @@ import { flexBox } from "styles/mixins";
 
 const MyProjectsContainer = styled.div`
   ${flexBox({ direction: "row" })};
+  justify-content: center;
 
   flex-wrap: wrap;
   gap: 0px 35px;
 
   width: 100%;
-
-  ${down("md")} {
-    justify-content: center;
-  }
 `;
 
 const DropdownWrapper = styled.div`

@@ -47,7 +47,7 @@ function Navigation({ footer }: NavigationProps) {
                 </S.NavItem>
                 <S.NavItem>
                   <S.NavLink>
-                    <Link href="/">Items</Link>
+                    <Link href="/projects/search">Projects</Link>
                   </S.NavLink>
                 </S.NavItem>
               </>
