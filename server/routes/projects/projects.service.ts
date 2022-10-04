@@ -105,19 +105,22 @@ export class ProjectsService implements OnModuleInit {
     return project;
   }
 
-  async findAll() {
-    return await this.projectsRepository.find({
-      select: {
-        id: true,
-        title: true,
-        subtitle: true,
-        summary: true,
-        thumbnailUrl: true,
-        fundGoal: true,
-        fundNow: true,
-        status: true,
-      },
-    });
+  async searchPaged(page: number, search: string) {
+    return await this.projectsRepository
+      .createQueryBuilder("project")
+      .select()
+      .where("project.title like :title", { title: `%${search}%` })
+      .orWhere("project.subtitle like :subtitle", { subtitle: `%${search}%` })
+      .orWhere("project.summary like :summary", { summary: `%${search}%` })
+      .andWhere("project.status = :status", { status: ProjectStatus.funding })
+      .take(12)
+      .skip(12 * page)
+      .orderBy("project.createdAt", "DESC")
+      .getManyAndCount()
+      .then<[FindProjectResponseDto[], number]>((result) => [
+        result[0],
+        Math.floor(result[1] / 12) + (result[1] % 12 ? 1 : 0),
+      ]);
   }
 
   async findRecents() {

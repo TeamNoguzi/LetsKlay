@@ -18,19 +18,6 @@ export class AdminController {
   ) {}
 
   @ApiOperation({
-    summary: "프로젝트 전체 조회",
-    description: "프로젝트 전체 조회",
-  })
-  @ApiResponse({ type: [FindProjectResponseDto] })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.Admin)
-  @Get("projects")
-  async findProjectsAll(): Promise<FindProjectResponseDto[]> {
-    return await this.projectsService.findAll();
-  }
-
-  @ApiOperation({
     summary: "프로젝트 강제 삭제",
     description: "프로젝트 강제 삭제",
   })
