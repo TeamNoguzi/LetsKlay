@@ -11,12 +11,16 @@ import * as S from "./styled";
 
 interface ProjectsSearchSectionProps {
   projects: FindProjectResponseDto[];
+  searchKey: string;
 }
 
-const ProjectsSearchSection = ({ projects }: ProjectsSearchSectionProps) => {
+const ProjectsSearchSection = ({
+  projects,
+  searchKey: initialSearchKey,
+}: ProjectsSearchSectionProps) => {
   const router = useRouter();
   const isMobile = useBreakpoint(down("md"));
-  const [searchKey, setSearchKey] = useState<string>("");
+  const [searchKey, setSearchKey] = useState<string>(initialSearchKey ?? "");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchKey(e.target.value);

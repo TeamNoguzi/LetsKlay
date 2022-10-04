@@ -23,7 +23,7 @@ const ProjectsSearch = ({ initialData, search }: ProjectsSearchProps) => {
     <>
       <Header />
       <Container as="main" className="mt-4">
-        <ProjectsSearchSection projects={projects ?? []} />
+        <ProjectsSearchSection projects={projects ?? []} searchKey={search} />
         <S.PaginationWrapper>
           <CustomPagination
             page={page}
@@ -40,7 +40,6 @@ const ProjectsSearch = ({ initialData, search }: ProjectsSearchProps) => {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const initialData = await searchProjects(1, "test");
   const search = (context.query.search as unknown as string) ?? "";
-  console.log(search);
 
   return { props: { initialData, search } };
 }
