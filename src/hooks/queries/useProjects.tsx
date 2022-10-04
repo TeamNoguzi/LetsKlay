@@ -12,6 +12,7 @@ import {
   fetchProjectsRecent,
   fetchProjectsUserPaged,
   fetchProjectWithId,
+  searchProjects,
   updateProject,
 } from "api";
 import { useAuthGuard } from "hooks/useAuthGuard";
@@ -19,6 +20,12 @@ import produce from "immer";
 import { merge } from "lodash";
 
 type UpdateProjectMutationParam = UpdateProjectDto & { id: number };
+
+interface UseProjectsSearchParams {
+  initialData?: [FindProjectResponseDto[], number];
+  page: number;
+  search: string;
+}
 
 const useProject = (initialProject: FindProjectFullResponseDto) => {
   const { data, isError } = useQuery(
@@ -30,6 +37,15 @@ const useProject = (initialProject: FindProjectFullResponseDto) => {
   );
 
   return { project: data, isError };
+};
+
+const useProjectsSearch = ({ initialData, page, search }: UseProjectsSearchParams) => {
+  const { data, isError } = useQuery(
+    ["projects", search, page],
+    () => searchProjects(page, search),
+    { initialData, cacheTime: 100 }
+  );
+  return { projects: data?.[0], count: data?.[1], isError };
 };
 
 const useProjectsRecent = (initialData?: FindProjectResponseDto[]) => {
@@ -86,6 +102,7 @@ const useProjectUpdateMutation = () => {
 
 export {
   useProject,
+  useProjectsSearch,
   useProjectsRecent,
   useProjectsPopular,
   useMyProjectsWithStatesPaged,

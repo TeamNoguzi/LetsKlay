@@ -16,6 +16,13 @@ const fetchProjects = async () => {
   return data;
 };
 
+const searchProjects = async (page: number, search: string) => {
+  const { data } = await axios.get<[FindProjectResponseDto[], number]>(
+    `/projects/search/${page}?search=${search}`
+  );
+  return data;
+};
+
 const fetchProjectsRecent = async () => {
   const { data } = await axios.get<FindProjectResponseDto[]>("/projects/recents");
   return data;
@@ -55,6 +62,7 @@ const updateProjectPublic = async (id: number) => {
 
 export {
   fetchProjects,
+  searchProjects,
   fetchProjectsRecent,
   fetchProjectsPopular,
   fetchProjectsUserPaged,
