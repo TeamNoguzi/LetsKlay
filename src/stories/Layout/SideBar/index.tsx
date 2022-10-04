@@ -24,7 +24,7 @@ function SideBar({ show, onHide }: SideBarProps) {
             <Link href="/">Home</Link>
           </S.NavItem>
           <S.NavItem>
-            <Link href="/">Items</Link>
+            <Link href="/projects/search">Projects</Link>
           </S.NavItem>
           <S.NavItem>
             <Link href="/profile">Profile</Link>

@@ -66,7 +66,7 @@ const MyProjects = () => {
           <S.CardWrapper key={project.id}>
             <FundCard
               large={!isMobile}
-              imgSrc={project.thumbnailUrl}
+              imgSrc={`/${project.thumbnailUrl}`}
               project={project}
               onClick={() => handleClickCard(project.id)}
             />
