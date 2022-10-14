@@ -11,4 +11,4 @@ interface CreateUserResponseDto {
   email: string;
 }
 
-export { CreateUserDto, CreateUserResponseDto };
+export type { CreateUserDto, CreateUserResponseDto };

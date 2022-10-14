@@ -11,4 +11,4 @@ interface FindFundResponseDto {
   createdAt: Date;
 }
 
-export { FindFundResponseDto };
+export type { FindFundResponseDto };

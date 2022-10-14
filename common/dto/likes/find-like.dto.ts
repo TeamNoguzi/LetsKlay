@@ -7,4 +7,4 @@ interface FindLikedProjectResponseDto {
   project: FindProjectResponseDto;
 }
 
-export { FindLikedProjectResponseDto };
+export type { FindLikedProjectResponseDto };

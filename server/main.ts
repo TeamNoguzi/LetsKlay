@@ -10,6 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(cookieParser());
   app.use(helmet());
+  app.useStaticAssets(join(__dirname, "..", "..", "uploads"), {
+    prefix: "/uploads",
+  });
 
   process.env.NODE_ENV === "production"
     ? ""
@@ -17,9 +20,6 @@ async function bootstrap() {
         const swaggerBlock = await import("./config/swagger.dev");
         app.enableCors();
         app.use("/api-docs", swaggerBlock.default);
-        app.useStaticAssets(join(__dirname, "..", "..", "uploads"), {
-          prefix: "/uploads",
-        });
 
         const options = new DocumentBuilder()
           .setTitle("Letsklay API Docs")

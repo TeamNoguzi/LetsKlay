@@ -15,4 +15,4 @@ interface ContractEvent<T> {
   };
 }
 
-export { ContractEvent };
+export type { ContractEvent };

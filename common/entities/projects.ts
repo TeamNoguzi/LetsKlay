@@ -21,4 +21,4 @@ interface Project {
   updatedAt: Date;
 }
 
-export { Project };
+export type { Project };

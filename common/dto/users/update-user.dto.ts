@@ -10,4 +10,4 @@ interface UpdateUserDto {
 
 interface UpdateUserResponseDto extends FindUserDto {}
 
-export { UpdateUserDto, UpdateUserResponseDto };
+export type { UpdateUserDto, UpdateUserResponseDto };
