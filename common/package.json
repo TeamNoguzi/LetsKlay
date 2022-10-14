@@ -2,6 +2,7 @@
   "name": "common",
   "packageManager": "yarn@3.2.3",
   "scripts": {
+    "build": "cd klaytn && truffle compile",
     "migrate": "cd klaytn && truffle migrate --reset --network baobab"
   },
   "dependencies": {
