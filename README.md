@@ -28,9 +28,11 @@
 ---
 
 ## Introduction
+
 LetsKlay는 Klaytn 네트워크를 활용하여, 스마트 컨트랙트를 통해 펀딩할 수 있는 크라우드 펀딩 서비스입니다.
 
 ## Prerequisites
+
 - Node 16
 - Yarn berry
 - MySQL
@@ -38,39 +40,56 @@ LetsKlay는 Klaytn 네트워크를 활용하여, 스마트 컨트랙트를 통�
 실행 환경에 Node 16버전 이상, Yarn berry, 그리고 MySQL 서버가 설치되어 있어야 합니다.
 
 ## 실행 방법
+
 ### 0. 실행 준비
+
 #### (1) 라이브러리 설치
+
 - 우선 아래 명령어로 서버 실행에 필요한 라이브러리를 설치합니다.
+
 ```bash
 $ yarn
 ```
+
 <br>
 
-#### (2) MySQL 서버 연결 설정  
+#### (2) MySQL 서버 연결 설정
+
 1. `/server/config/example-server.config.ts`를 복사하여, `server.config.ts`로 이름을 변경하고 형식에 맞춰 DB 정보를 입력합니다.  
-<br>
+   <br>
 
 #### (3) 스마트 컨트랙트 배포
+
 1. `truffle` 설치
+
 ```bash
 $ npm install -g truffle
 ```
-<br>
 
-2. 컨트랙트가 있는 경로 (`/common/klaytn`)에서 배포 명령어 실행
+2. 컨트랙트 배포를 위해 Klaytn 계정의 비밀 키를 .env 파일에 등록
+
 ```bash
-$ truffle migrate --network baobab # 테스트넷
-$ truffle migrate --network cypress # 실제 klaytn 
+# /common/.env
+PRIVATE_KEY=0x...
 ```
-<br>
 
-3. 배포된 컨트랙트 주소를 설정파일에 입력
+3. 배포 명령어 실행
+
+```bash
+$ yarn migrate
+```
+
+4. 배포된 컨트랙트 주소를 설정파일에 입력
+
 - NestJS 서버
+
 ```bash
 # /server/.env
 FACTORY_ADDR=0x3E135716D7F4896036eC78f57DB8E3eC4002dd13
 ```
+
 - Next.js 서버
+
 ```javascript
 // /src/next.config.js
 const nextConfig = withTM({
@@ -80,10 +99,13 @@ const nextConfig = withTM({
 
 module.exports = nextConfig;
 ```
+
 <br>
 
 ### 1. 서버 실행
+
 - 최상위 디렉토리에서 아래 명령어 실행
+
 ```bash
 $ yarn dev #개발 서버
 
