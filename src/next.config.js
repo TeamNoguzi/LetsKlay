@@ -4,6 +4,7 @@
 const withTM = require("next-transpile-modules")(["../common"]);
 
 const nextConfig = withTM({
+  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
   reactStrictMode: true,
   swcMinify: true,
   async rewrites() {
@@ -18,7 +19,7 @@ const nextConfig = withTM({
       },
     ];
   },
-  env: { FACTORY_ADDR: "0xe6930d4C48A6667da344B1EEd4935Dc944DD5c02" },
+  env: { FACTORY_ADDR: "0xe53B4Ee339a75EAc8b02d7FcBeE7300d0954A291" },
 });
 
 module.exports = nextConfig;
