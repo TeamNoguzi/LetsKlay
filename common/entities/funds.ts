@@ -12,4 +12,4 @@ interface Fund {
   updatedAt: Date;
 }
 
-export { Fund };
+export type { Fund };

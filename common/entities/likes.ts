@@ -9,4 +9,4 @@ interface Like {
   createdAt: Date;
 }
 
-export { Like };
+export type { Like };

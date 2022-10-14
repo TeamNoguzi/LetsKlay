@@ -5,6 +5,7 @@ interface CreateRewardItemDto {
 }
 
 interface CreateRewardDto {
+  projectId?: number;
   title: string;
   price: number;
   description: string;

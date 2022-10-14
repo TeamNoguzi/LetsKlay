@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production node build/server.js",
+    "start": "cross-env NODE_ENV=production nest start",
     "build": "rimraf ./build && nest build",
     "dev": "rimraf ./build && nest start -w",
     "lint": "eslint ."
@@ -52,6 +52,7 @@
     "@types/passport-local": "^1.0.34",
     "@types/swagger-ui-express": "^4.1.3",
     "@types/warning": "^3.0.0",
+    "cross-env": "^7.0.3",
     "rimraf": "^3.0.2",
     "swagger-ui-express": "^4.3.0",
     "ts-node": "^10.5.0",

@@ -19,7 +19,7 @@
     "paths": {
       "@/*": ["../common/*"]
     },
-    "types": ["@emotion/core"]
+    "types": ["@emotion/react/types/css-prop"]
   },
   "references": [
     {

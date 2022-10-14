@@ -35,8 +35,8 @@ import { DataSource } from "typeorm";
         ...configs["production"],
         type: "mysql",
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
-        // synchronize: true,
-        //autoLoadEntities:true,
+        synchronize: true, // 원래는 적용하면 안되지만...
+        logger: "simple-console",
       }),
     ];
 
@@ -48,7 +48,6 @@ import { DataSource } from "typeorm";
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
         synchronize: true,
         logger: "simple-console",
-        //autoLoadEntities:true,
       }),
     ];
 

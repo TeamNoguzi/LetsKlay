@@ -8,9 +8,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "yarn workspaces foreach --parallel run build",
-    "start": "yarn workspaces foreach --parallel run start",
-    "lint": "yarn workspaces foreach --parallel run lint"
+    "dev": "yarn workspaces foreach -vip run dev",
+    "compile": "yarn workspaces foreach -vip run compile",
+    "migrate": "yarn worksapces foreach -vip run migrate",
+    "build": "yarn workspaces foreach -vip run build",
+    "start": "yarn workspaces foreach -vip run start",
+    "lint": "yarn workspaces foreach -vip run lint"
   },
   "browserslist": {
     "production": [
