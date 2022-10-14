@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production node build/server.js",
+    "start": "cross-env NODE_ENV=production nest start",
     "build": "rimraf ./build && nest build",
     "dev": "rimraf ./build && nest start -w",
     "lint": "eslint ."
