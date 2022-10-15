@@ -12,7 +12,14 @@ import Pagination from "stories/Pagination";
 import { verifySession } from "api";
 import { useQueryClient } from "@tanstack/react-query";
 import { cancelFund } from "transactions";
+import { FundStatus } from "@/enums";
 import * as S from "./styled";
+
+const FUND_STATUS = {
+  [FundStatus.valid]: "Valid",
+  [FundStatus.cancelled]: "Cancelled",
+  [FundStatus.refunded]: "Refunded",
+};
 
 const FundList = () => {
   const router = useRouter();
@@ -54,7 +61,7 @@ const FundList = () => {
           </Col>
           <Col xs={7} md={6} xl={7}>
             <S.FundItemDescription>
-              <h5>{fund.valid ? "Valid" : "Canceled"}</h5>
+              <h5>{FUND_STATUS[fund.status]}</h5>
               <p>{fund.reward.project.title}</p>
               <span>
                 {fund.reward.title} | {numeral(fund.amount).format("0,0")} item(s)
@@ -63,7 +70,7 @@ const FundList = () => {
             </S.FundItemDescription>
           </Col>
           <Col xs={3} xl={2} className="d-none d-md-block ">
-            {fund.valid && (
+            {fund.status === FundStatus.valid && (
               <Button
                 variant="outline"
                 className="mb-2 w-100"

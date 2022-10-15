@@ -24,5 +24,6 @@ import config from "./server.config";
     seeds: ["config/default.seed.ts"],
     factories: [],
   });
-  console.log("here");
+
+  console.log("Seeding Complete.");
 })();
