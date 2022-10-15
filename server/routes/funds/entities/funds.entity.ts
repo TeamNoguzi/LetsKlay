@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Fund as FundType } from "@/entities";
+import { FundStatus } from "@/enums";
 
 @Entity()
 export class Fund implements FundType {
@@ -22,8 +23,8 @@ export class Fund implements FundType {
   @Column({ nullable: false })
   amount: number;
 
-  @Column({ nullable: false, default: true })
-  valid: boolean;
+  @Column({ nullable: false, default: FundStatus.valid })
+  status: FundStatus;
 
   @Column()
   rewardId: number;

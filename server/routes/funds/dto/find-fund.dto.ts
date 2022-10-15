@@ -1,4 +1,5 @@
 import { FindFundResponseDto as FindFundResponseDtoType } from "@/dto";
+import { FundStatus } from "@/enums";
 import { ApiProperty } from "@nestjs/swagger";
 import { FindProjectFullResponseDto } from "routes/projects/dto/find-project.dto";
 import { FindRewardResponseDto } from "routes/rewards/dto/find-reward.dto";
@@ -11,7 +12,7 @@ class FindFundResponseDto implements FindFundResponseDtoType {
   @ApiProperty()
   amount: number;
   @ApiProperty()
-  valid: boolean;
+  status: FundStatus;
   @ApiProperty()
   userId: number;
   @ApiProperty()

@@ -1,11 +1,12 @@
 import { Reward } from "./rewards";
 import { User } from "./users";
+import { FundStatus } from "../enums";
 
 interface Fund {
   id: number;
   hashId: string;
   amount: number;
-  valid: boolean;
+  status: FundStatus;
   user?: User;
   reward?: Reward;
   createdAt: Date;

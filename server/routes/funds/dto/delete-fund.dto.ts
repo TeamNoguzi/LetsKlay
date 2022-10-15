@@ -1,8 +1,8 @@
-class DeleteTransactionDto {
+class DeleteFundDto {
   userAddress: string;
   rewardId: number;
   amount: number;
   fundHashId: string;
 }
 
-export { DeleteTransactionDto };
+export { DeleteFundDto };

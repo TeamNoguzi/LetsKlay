@@ -5,4 +5,10 @@ const enum ProjectStatus {
   "cancelled",
 }
 
-export { ProjectStatus };
+const enum FundStatus {
+  "valid",
+  "cancelled",
+  "refunded",
+}
+
+export { ProjectStatus, FundStatus };

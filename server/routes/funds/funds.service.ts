@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import { CreateTransactionDto } from "./dto/create-transaction.dto";
+import { CreateFundDto } from "./dto/create-fund.dto";
 import Caver, { AbiItem } from "caver-js";
 import FactoryABI from "@/klaytn/build/contracts/Factory.json";
 import { Fund } from "./entities/funds.entity";
@@ -9,7 +9,8 @@ import { User } from "routes/users/entities/users.entity";
 import { ContractEvent } from "@/entities";
 import { Reward } from "routes/rewards/entities/reward.entity";
 import { Project } from "routes/projects/entities/projects.entity";
-import { DeleteTransactionDto } from "./dto/delete-transaction.dto";
+import { DeleteFundDto } from "./dto/delete-fund.dto";
+import { FundStatus } from "@/enums";
 
 @Injectable()
 export class FundsService implements OnModuleInit {
@@ -50,7 +51,7 @@ export class FundsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", async (data: ContractEvent<CreateTransactionDto>) => {
+      .on("data", async (data: ContractEvent<CreateFundDto>) => {
         this.createOne(data.returnValues);
       })
       .on("error", console.error);
@@ -60,13 +61,13 @@ export class FundsService implements OnModuleInit {
       .on("connected", function (subscriptionId) {
         console.log(subscriptionId);
       })
-      .on("data", async (data: ContractEvent<DeleteTransactionDto>) => {
+      .on("data", async (data: ContractEvent<DeleteFundDto>) => {
         this.invalidateOne(data.returnValues);
       })
       .on("error", console.error);
   }
 
-  async createOne({ amount, rewardId, userAddress, fundHashId }: CreateTransactionDto) {
+  async createOne({ amount, rewardId, userAddress, fundHashId }: CreateFundDto) {
     const queryRunner = this.datasource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -115,7 +116,7 @@ export class FundsService implements OnModuleInit {
   }
 
   findAll() {
-    return `This action returns all transaction`;
+    return `This action returns all Fund`;
   }
 
   async findAllWithUserCount(userId: number) {
@@ -137,14 +138,14 @@ export class FundsService implements OnModuleInit {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} transaction`;
+    return `This action returns a #${id} Fund`;
   }
 
   update(id: number) {
-    return `This action updates a #${id} transaction`;
+    return `This action updates a #${id} Fund`;
   }
 
-  async invalidateOne({ amount, rewardId, fundHashId }: DeleteTransactionDto) {
+  async invalidateOne({ amount, rewardId, fundHashId }: DeleteFundDto) {
     const queryRunner = this.datasource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -172,7 +173,7 @@ export class FundsService implements OnModuleInit {
 
       const result = await queryRunner.manager
         .withRepository(this.fundsRepository)
-        .update({ hashId: fundHashId }, { valid: false });
+        .update({ hashId: fundHashId }, { status: FundStatus.refunded });
 
       await queryRunner.commitTransaction();
       return result;
@@ -195,7 +196,7 @@ export class FundsService implements OnModuleInit {
     const result = await this.datasource
       .createQueryBuilder()
       .update(Fund)
-      .set({ valid: false })
+      .set({ status: FundStatus.cancelled })
       .where(`fund.rewardId IN (${subQuery})`)
       .execute();
 
