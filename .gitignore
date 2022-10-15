@@ -115,4 +115,4 @@ server/config/server.config.*
 !.yarn/versions
 
 # upload files
-uploads
+server/uploads/*
