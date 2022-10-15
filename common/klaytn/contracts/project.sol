@@ -8,6 +8,12 @@ contract Project {
     Ended
   }
 
+  enum FundState {
+    Valid,
+    Cancelled,
+    Refunded
+  }
+
   struct User {
     uint totalFund;
     mapping (bytes32 => Fund) funds;
@@ -17,7 +23,7 @@ contract Project {
     uint rewardId;
     address userAddr;
     uint32 amount;
-    bool valid;
+    FundState state;
   }
 
   struct Reward {
@@ -60,7 +66,7 @@ contract Project {
       rewardId: rewardId,
       amount: users[msg.sender].funds[fundHashId].amount + amount,
       userAddr: msg.sender,
-      valid: true
+      state: FundState.Valid
     });
     users[msg.sender].funds[fundHashId] = fund;
     funds.push(fund);
@@ -91,7 +97,7 @@ contract Project {
     Fund memory fund = users[msg.sender].funds[fundHashId];
     uint refund = fund.amount * rewardMap[fund.rewardId].price * (1 ether);
     payable(msg.sender).transfer(refund);
-    fund.valid = false;
+    fund.state = FundState.Refunded;
     rewardMap[fund.rewardId].stock += 1;
 
     factory.emitEvent(IFactory.EventType.FundCancel, address(this), fund.rewardId, fund.amount, fundHashId);
@@ -102,10 +108,10 @@ contract Project {
     require(msg.sender == owner);
 
     for(uint i = 0; i < funds.length; i++) {
-      if(funds[i].valid) {
+      if(funds[i].state == FundState.Valid) {
         uint refund = funds[i].amount * rewardMap[funds[i].rewardId].price * (1 ether);
         payable(funds[i].userAddr).transfer(refund);
-        funds[i].valid = false;
+        funds[i].state = FundState.Cancelled;
       }
     }
     state = ProjectState.Ended;

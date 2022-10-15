@@ -19,7 +19,7 @@ const nextConfig = withTM({
       },
     ];
   },
-  env: { FACTORY_ADDR: "0xe53B4Ee339a75EAc8b02d7FcBeE7300d0954A291" },
+  env: { FACTORY_ADDR: "0x01ab8dF2a20e426DB4ce352E0b00242CdC72B822" },
 });
 
 module.exports = nextConfig;
