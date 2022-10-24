@@ -6,7 +6,7 @@ import { down } from "styled-breakpoints";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SearchBar from "stories/SearchBar";
-import { createProject } from "api";
+import { createProject, verifySession } from "api";
 import { useAuthGuard } from "hooks";
 import { Container } from "react-bootstrap";
 import SideBar from "../SideBar";
@@ -21,6 +21,7 @@ function Navigation({ footer }: NavigationProps) {
   const mobile = useBreakpoint(down("md"));
   const [showMobile, setShowMobile] = useState<boolean>(false);
   const createProjectGuarded = useAuthGuard(createProject);
+  const profileGuard = useAuthGuard(verifySession);
 
   const handleOpenMobile = () => setShowMobile(true);
   const handleCloseMobile = () => setShowMobile(false);
@@ -29,7 +30,10 @@ function Navigation({ footer }: NavigationProps) {
     const result = await createProjectGuarded(undefined);
     if (result) router.push(`/projects/${result.id}/modify`);
   };
-  const handleClickProfile = () => router.push("/profile");
+  const handleClickProfile = async () => {
+    const result = await profileGuard(undefined);
+    if (result) router.push("/profile");
+  };
 
   return (
     <>
